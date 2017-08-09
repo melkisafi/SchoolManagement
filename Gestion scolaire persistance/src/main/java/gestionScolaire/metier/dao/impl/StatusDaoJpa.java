@@ -9,45 +9,45 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import gestionScolaire.metier.dao.PersonneDao;
-import gestionScolaire.metier.model.Personne;
+import gestionScolaire.metier.dao.StatusDao;
+import gestionScolaire.metier.model.Status;
 
 @Transactional
 @Repository
-public class PersonneDaoJpa implements PersonneDao {
+public class StatusDaoJpa implements StatusDao {
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Override
-	public Personne find(Long id) {
-		return em.find(Personne.class, id);
+	public Status find(Long id) {
+		return em.find(Status.class, id);
 	}
 
 	@Override
-	public List<Personne> findAll() {
-		Query query = em.createQuery("from Personne p left outer join fetch p.login");
+	public List<Status> findAll() {
+		Query query = em.createQuery("from Status s");
 		return query.getResultList();
 	}
 
 	@Override
-	public void create(Personne obj) {
+	public void create(Status obj) {
 		em.persist(obj);
 	}
 
 	@Override
-	public Personne update(Personne obj) {
+	public Status update(Status obj) {
 		return em.merge(obj);
 	}
 
 	@Override
-	public void delete(Personne obj) {
+	public void delete(Status obj) {
 		em.remove(obj);
 	}
 
 	@Override
 	public void delete(Long id) {
-		Personne p = find(id);
-		em.remove(p);
+		Status s = find(id);
+		em.remove(s);
 	}
 
 }

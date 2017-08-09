@@ -11,7 +11,7 @@
 
 	<context:annotation-config />
 	
-	<context:component-scan base-package="vol" />
+	<context:component-scan base-package="gestionScolaire" />
 	
 	<context:property-placeholder location="classpath:sgbd.properties" />
 	
