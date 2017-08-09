@@ -1,5 +1,7 @@
 package gestionScolaire.metier.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,7 @@ import javax.persistence.Version;
 public class Status  {
 	private Long id;
 	private String nom;
-	private Personne personne;
+	private List<Personne> personne;
 	private int version;
 	
 	public Status(){
@@ -38,11 +40,11 @@ public class Status  {
 	}
 	
 	@OneToMany(mappedBy="status")
-	public Personne getPersonne() {
+	public List<Personne> getPersonne() {
 		return personne;
 	}
 
-	public void setPersonne(Personne personne) {
+	public void setPersonne(List<Personne> personne) {
 		this.personne = personne;
 	}
 	
