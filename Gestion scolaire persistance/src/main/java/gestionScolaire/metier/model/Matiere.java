@@ -1,19 +1,23 @@
 package gestionScolaire.metier.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity
-@SequenceGenerator(name = "seq_sub", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "seq_sub",sequenceName="seq_sub", initialValue = 1, allocationSize = 1)
 public class Matiere {
 	private Long idMatiere;
 	private String nomMatiere;
 	private String couleurMatiere;
+	private List <Evenement> evenements;
 	private int version;
 
 	@Id
@@ -42,6 +46,15 @@ public class Matiere {
 
 	public void setCouleurMatiere(String couleurMatiere) {
 		this.couleurMatiere = couleurMatiere;
+	}
+
+	@OneToMany(mappedBy="matiere")
+	public List<Evenement> getEvenements() {
+		return evenements;
+	}
+
+	public void setEvenements(List<Evenement> evenements) {
+		this.evenements = evenements;
 	}
 
 	@Version

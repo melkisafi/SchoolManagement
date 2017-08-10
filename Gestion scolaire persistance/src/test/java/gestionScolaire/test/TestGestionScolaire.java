@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
+import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.dao.LoginDao;
 import gestionScolaire.metier.dao.MatiereDao;
 import gestionScolaire.metier.dao.MatiereSalleDao;
@@ -28,6 +29,7 @@ import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Civilite;
 import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
+import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.Login;
 import gestionScolaire.metier.model.Matiere;
 import gestionScolaire.metier.model.MatiereSalle;
@@ -69,6 +71,9 @@ public class TestGestionScolaire {
 	private PersonneMatiereDao personnematiereDao;
 	@Autowired
 	private PersonneClasseDao personneclasseDao;
+	
+	@Autowired
+	private EvenementDao evenementDao;
 	
 	
 	
@@ -194,7 +199,8 @@ public class TestGestionScolaire {
 		
 		personneclasseDao.create(personneclasse);
 		
-		
+		Evenement evenement = new Evenement(classe, matiere, salle, admin, etab);
+		evenementDao.create(evenement);
 		
 	}
 }
