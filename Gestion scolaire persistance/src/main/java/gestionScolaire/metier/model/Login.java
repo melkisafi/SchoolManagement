@@ -28,7 +28,7 @@ public class Login {
 		this.id = id;
 	}
 		
-	@Column
+	@Column(unique=true)
 	public String getUsername() {
 		return username;
 	}

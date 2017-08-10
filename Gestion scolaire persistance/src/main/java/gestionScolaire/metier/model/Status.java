@@ -30,7 +30,7 @@ public class Status  {
 		this.id = id;
 	}
 
-	@Column
+	@Column(unique=true)
 	public String getNom() {
 		return nom;
 	}
