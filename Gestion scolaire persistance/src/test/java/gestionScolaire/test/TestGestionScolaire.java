@@ -12,18 +12,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.LoginDao;
+import gestionScolaire.metier.dao.MatiereDao;
+import gestionScolaire.metier.dao.MatiereSalleDao;
+import gestionScolaire.metier.dao.PersonneClasseDao;
 import gestionScolaire.metier.dao.PersonneDao;
 import gestionScolaire.metier.dao.PersonneEtablissementDao;
+import gestionScolaire.metier.dao.PersonneMatiereDao;
+import gestionScolaire.metier.dao.SalleClasseDao;
+import gestionScolaire.metier.dao.SalleDao;
 import gestionScolaire.metier.dao.StatusDao;
 import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Civilite;
+import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Login;
+import gestionScolaire.metier.model.Matiere;
+import gestionScolaire.metier.model.MatiereSalle;
 import gestionScolaire.metier.model.Personne;
+import gestionScolaire.metier.model.PersonneClasse;
 import gestionScolaire.metier.model.PersonneEtablissement;
+import gestionScolaire.metier.model.PersonneMatiere;
 import gestionScolaire.metier.model.Role;
+import gestionScolaire.metier.model.Salle;
+import gestionScolaire.metier.model.SalleClasse;
 import gestionScolaire.metier.model.Status;
 import gestionScolaire.metier.model.TypeEtab;
 
@@ -41,6 +55,22 @@ public class TestGestionScolaire {
 	private EtablissementDao etabDao;
 	@Autowired
 	private PersonneEtablissementDao persEtabDao;
+	@Autowired
+	private SalleDao salleDao;
+	@Autowired
+	private ClasseDao classeDao;
+	@Autowired
+	private SalleClasseDao salleclasseDao;
+	@Autowired
+	private MatiereSalleDao matieresalleDao;
+	@Autowired
+	private MatiereDao matiereDao;
+	@Autowired
+	private PersonneMatiereDao personnematiereDao;
+	@Autowired
+	private PersonneClasseDao personneclasseDao;
+	
+	
 	
 	private Civilite civ;
 	private Role role;
@@ -108,6 +138,63 @@ public class TestGestionScolaire {
 		pe.setEtablissement(etab);
 		
 		persEtabDao.create(pe);
+		
+		/*///////// Classe //////////*/
+		Classe classe = new Classe();
+		classe.setNom("AJC");
+	
+		classeDao.create(classe);
+		
+		/*///////// salle //////////*/
+		Salle salle = new Salle();
+		salle.setNom("toto");
+		salle.setCapacite(15);
+		
+		salleDao.create(salle);
+		
+		/*///////// matiere //////////*/
+		Matiere matiere = new Matiere();
+		matiere.setNomMatiere("droit");
+		matiere.setCouleurMatiere("rouge");
+		
+
+		matiereDao.create(matiere);
+		
+		
+		
+		/*///////// salleclasse//////////*/
+		SalleClasse salleclasse = new SalleClasse();
+		salleclasse.setClasse(classe);
+		salleclasse.setSalle(salle);
+
+		salleclasseDao.create(salleclasse);
+		
+		
+		
+		
+		/*///////// matieresalle//////////*/
+		MatiereSalle matieresalle = new MatiereSalle();
+		matieresalle.setSalle(salle);
+		matieresalle.setMatiere(matiere);
+		
+		matieresalleDao.create(matieresalle);
+		
+		/*///////// personnematiere//////////*/
+		PersonneMatiere personnematiere = new PersonneMatiere();
+		personnematiere.setPersonne(admin);
+		personnematiere.setMatiere(matiere);
+		
+		personnematiereDao.create(personnematiere);
+		
+		/*///////// personneclasse//////////*/
+		PersonneClasse personneclasse = new PersonneClasse();
+		personneclasse.setPersonne(admin);
+		personneclasse.setClasse(classe);
+		personneclasse.setPrincipal(true);
+		
+		personneclasseDao.create(personneclasse);
+		
+		
 		
 	}
 }

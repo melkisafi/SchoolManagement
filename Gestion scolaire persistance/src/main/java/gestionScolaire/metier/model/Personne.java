@@ -32,6 +32,7 @@ public class Personne {
 	private Date datenaiss;
 	private Adresse adresse;
 	private List<PersonneEtablissement> personneEtablissement;
+	private List<PersonneMatiere> personneMatiere;
 	private int version;
 	
 	
@@ -133,6 +134,14 @@ public class Personne {
 		this.personneEtablissement = personneEtablissement;
 	}
 
+	@OneToMany(mappedBy="personne")
+	public List<PersonneMatiere> getPersonneMatiere() {
+		return personneMatiere;
+	}
+
+	public void setPersonneMatiere(List<PersonneMatiere> personneMatiere) {
+		this.personneMatiere = personneMatiere;
+	}
 	@Version
 	public int getVersion() {
 		return version;

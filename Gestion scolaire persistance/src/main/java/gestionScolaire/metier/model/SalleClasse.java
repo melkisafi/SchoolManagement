@@ -3,22 +3,21 @@ package gestionScolaire.metier.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class Salle {
+public class SalleClasse {
+
 	private Long id;
-	private String nom;
-	private int capacite;
+	private Salle salle;
+	private Classe classe;
 	private int version;
-	public Salle(){	
+	
+	public SalleClasse() {
 	}
 
-	public Salle(String nom, int capacite) {
-		super();
-		this.nom = nom;
-		this.capacite = capacite;
-	}
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -28,21 +27,23 @@ public class Salle {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getNom() {
-		return nom;
+	@ManyToOne
+	@JoinColumn(name="salle_id")
+	public Salle getSalle() {
+		return salle;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setSalle(Salle salle) {
+		this.salle = salle;
+	}
+	@ManyToOne
+	@JoinColumn(name="classe_id")
+	public Classe getClasse() {
+		return classe;
 	}
 
-	public int getCapacite() {
-		return capacite;
-	}
-
-	public void setCapacite(int capacite) {
-		this.capacite = capacite;
+	public void setClasse(Classe classe) {
+		this.classe = classe;
 	}
 	@Version
 	public int getVersion() {
@@ -52,6 +53,5 @@ public class Salle {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
 	
 }
