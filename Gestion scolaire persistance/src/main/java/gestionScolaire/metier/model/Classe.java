@@ -1,5 +1,6 @@
 package gestionScolaire.metier.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,21 +10,12 @@ public class Classe {
 	private Long id;
 	private String nom;
 	
-	
-	public Classe(){	
-	}
-	
-	public Classe(String nom) {
-		super();
-		this.nom = nom;
-	}
-
 	@Id
 	@GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNom() {
@@ -32,6 +24,11 @@ public class Classe {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	public Classe() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
-
+	
+	
 }
