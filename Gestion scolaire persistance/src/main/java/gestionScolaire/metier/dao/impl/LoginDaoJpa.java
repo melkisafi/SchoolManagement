@@ -23,7 +23,16 @@ public class LoginDaoJpa implements LoginDao{
 	public Login find(Long id) {
 		return em.find(Login.class, id);
 	}
-
+	
+	@Override
+	public Login findByName(String login){
+		Query query = em.createQuery("from Login l where l.username = :login");
+		query.setParameter("login", login);
+		List<Login> log = query.getResultList();
+		
+		return log.size() > 0 ? log.get(0) : null;
+ 	}
+	
 	@Override
 	public List<Login> findAll() {
 		Query query = em.createQuery("from Login l");
@@ -54,11 +63,10 @@ public class LoginDaoJpa implements LoginDao{
 	@Override
 	public Login checkLogin(String login, String password) {
 		TypedQuery<Login> query = em.createQuery(
-				"select l from Login as l where l.login = :login AND l.password=:password ", Login.class);
+				"select l from Login as l where l.username = :login AND l.password=:password ", Login.class);
 		query.setParameter("login", login);
 		query.setParameter("password", password);
-		// getSingleResult() throws an exception if no entity is found
-		// Login loginEntity = query.getSingleResult();
+		
 		List<Login> list = query.getResultList();
 		if (list.size() == 0) {
 			return null;

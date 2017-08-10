@@ -8,6 +8,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -125,7 +126,7 @@ public class Personne {
 		this.status = status;
 	}
 	
-	@OneToMany(mappedBy="personne")
+	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
 	public List<PersonneEtablissement> getPersonneEtablissement() {
 		return personneEtablissement;
 	}
