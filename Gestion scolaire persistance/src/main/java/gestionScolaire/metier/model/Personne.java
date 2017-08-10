@@ -1,6 +1,7 @@
 package gestionScolaire.metier.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.persistence.Temporal;
@@ -29,6 +31,7 @@ public class Personne {
 	private String prenom;
 	private Date datenaiss;
 	private Adresse adresse;
+	private List<PersonneEtablissement> personneEtablissement;
 	private int version;
 	
 	
@@ -120,6 +123,16 @@ public class Personne {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
+	@OneToMany(mappedBy="personne")
+	public List<PersonneEtablissement> getPersonneEtablissement() {
+		return personneEtablissement;
+	}
+
+	public void setPersonneEtablissement(List<PersonneEtablissement> personneEtablissement) {
+		this.personneEtablissement = personneEtablissement;
+	}
+
 	@Version
 	public int getVersion() {
 		return version;
