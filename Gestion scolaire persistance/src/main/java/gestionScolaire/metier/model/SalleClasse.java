@@ -19,7 +19,16 @@ public class SalleClasse {
 	private int version;
 	
 	public SalleClasse() {
+		super();
 	}
+	
+	public SalleClasse(Salle salle, Classe classe) {
+		super();
+		this.salle = salle;
+		this.classe = classe;
+	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_salleclasse")

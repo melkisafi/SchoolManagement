@@ -19,8 +19,15 @@ public class PersonneMatiere {
 	private int version;
 	
 	public PersonneMatiere() {
-		
+		super();
 	}
+	
+	public PersonneMatiere(Personne personne, Matiere matiere) {
+		super();
+		this.personne = personne;
+		this.matiere = matiere;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_personnematiere")
 	public Long getId() {

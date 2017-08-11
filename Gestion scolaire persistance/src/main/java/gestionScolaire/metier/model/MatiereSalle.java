@@ -22,6 +22,14 @@ public class MatiereSalle {
 	public MatiereSalle() {
 	}
 	
+	public MatiereSalle(Salle salle, Matiere matiere) {
+		super();
+		this.salle = salle;
+		this.matiere = matiere;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_matieresalle")
 	public Long getId() {

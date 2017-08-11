@@ -22,6 +22,16 @@ public class PersonneClasse {
 	public PersonneClasse() {
 		
 	}
+	
+	public PersonneClasse(Personne personne, Classe classe, boolean principal) {
+		super();
+		this.personne = personne;
+		this.classe = classe;
+		this.principal = principal;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_personneclasse")
 	public Long getId() {

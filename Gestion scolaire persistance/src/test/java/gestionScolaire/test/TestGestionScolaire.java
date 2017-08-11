@@ -143,70 +143,86 @@ public class TestGestionScolaire {
 		
 		persEtabDao.create(pe);
 		
-		/*///////// Classe //////////*/
-		Classe classe = new Classe();
-		classe.setNom("AJC");
-	
+		/*///////// CLASSE //////////*/
+		Classe classe = new Classe("AJC");
 		classeDao.create(classe);
+		Classe classeFind = classeDao.find(classe.getId());
+		Assert.assertEquals(classe.getNom(),classeFind.getNom());
+
 		
-		/*///////// salle //////////*/
+		/*///////// SALLE //////////*/
 		Salle salle = new Salle("toto",15);//création objet java
 		salleDao.create(salle);//enregistrement ds la DB
-		
 		Salle salleFind= salleDao.find(salle.getId());
 		Assert.assertEquals("toto", salleFind.getNom());
 		Assert.assertEquals(15, salleFind.getCapacite());
-	
 		
-		
-		
-		/*///////// salleclasse//////////*/
-		SalleClasse salleclasse = new SalleClasse();
-		salleclasse.setClasse(classe);
-		salleclasse.setSalle(salle);
-
+		/*///////// SALLE CLASSE //////////*/
+		SalleClasse salleclasse = new SalleClasse(salle, classe);
 		salleclasseDao.create(salleclasse);
-		
-		
-		
-		/*///////////////MATIERE//////////////////*/
-		
-					//Insertion
+		SalleClasse salleclasseFind = salleclasseDao.find(salleclasse.getId());
+		Assert.assertEquals(salleclasse.getSalle().getId(),salleclasseFind.getSalle().getId());
+		Assert.assertEquals(salleclasse.getClasse().getId(),salleclasseFind.getClasse().getId());
+
+		/*/////////////// MATIERE //////////////////*/
 		Matiere matiere = new Matiere("Java", "Rouge");//création objet java
 		matiereDao.create(matiere);//enregistrement ds la DB
+		Matiere matiereFind = matiereDao.find(matiere.getIdMatiere());//récupérer l'enregistrement de la DB
+		Assert.assertEquals("Java", matiereFind.getNomMatiere());
+		Assert.assertEquals("Rouge", matiereFind.getCouleurMatiere());
 		
-		Matiere javaFind = matiereDao.find(matiere.getIdMatiere());//récupérer l'enregistrement de la DB
-		Assert.assertEquals("Java", javaFind.getNomMatiere());
-		Assert.assertEquals("Rouge", javaFind.getCouleurMatiere());
-		
-		/*///////// matieresalle//////////*/
-		MatiereSalle matieresalle = new MatiereSalle();
-		matieresalle.setSalle(salle);
-		matieresalle.setMatiere(matiere);
-		
+		/*///////// MATIERE SALLE //////////*/
+		MatiereSalle matieresalle = new MatiereSalle(salle, matiere);
 		matieresalleDao.create(matieresalle);
+		MatiereSalle matieresalleFind = matieresalleDao.find(matieresalle.getId());
+		Assert.assertEquals(matieresalle.getMatiere().getIdMatiere(),matieresalleFind.getMatiere().getIdMatiere());
+		Assert.assertEquals(matieresalle.getSalle().getId(), matieresalleFind.getSalle().getId());
+
 		
-		/*///////// personnematiere//////////*/
-		PersonneMatiere personnematiere = new PersonneMatiere();
-		personnematiere.setPersonne(admin);
-		personnematiere.setMatiere(matiere);
-		
+		/*///////// PERSONNE MATIERE //////////*/
+		PersonneMatiere personnematiere = new PersonneMatiere(admin, matiere);
 		personnematiereDao.create(personnematiere);
+		PersonneMatiere personnematiereFind = personnematiereDao.find(personnematiere.getId());
+		Assert.assertEquals(personnematiere.getPersonne().getId(), personnematiereFind.getPersonne().getId());
+		Assert.assertEquals(personnematiere.getMatiere().getIdMatiere(), personnematiereFind.getMatiere().getIdMatiere());
+
 		
-		/*///////// personneclasse//////////*/
-		PersonneClasse personneclasse = new PersonneClasse();
-		personneclasse.setPersonne(admin);
-		personneclasse.setClasse(classe);
-		personneclasse.setPrincipal(true);
-		
+		/*///////// PERSONNE CLASSE //////////*/
+		PersonneClasse personneclasse = new PersonneClasse(admin, classe, true);
 		personneclasseDao.create(personneclasse);
+		PersonneClasse personneClasseFind = personneclasseDao.find(personneclasse.getId());
+		Assert.assertEquals(admin.getId(), personneClasseFind.getPersonne().getId());
+		Assert.assertEquals(classe.getId(), personneClasseFind.getClasse().getId());
+		Assert.assertEquals(personneclasse.isPrincipal(), personneClasseFind.isPrincipal());
 		
-		
-		/*///////// evenement//////////*/
+		/*///////// EVENEMENT //////////*/
 		Evenement evenement = new Evenement(classe, matiere, salle, admin, etab);
 		evenementDao.create(evenement);
+		Evenement evenementFind = evenementDao.find(evenement.getId());
+		Assert.assertEquals(evenement.getClasse().getId(), evenementFind.getClasse().getId());
+		Assert.assertEquals(evenement.getMatiere().getIdMatiere(), evenementFind.getMatiere().getIdMatiere());
+		Assert.assertEquals(evenement.getSalle().getId(), evenementFind.getSalle().getId());
+		Assert.assertEquals(evenement.getPersonne().getId(), evenementFind.getPersonne().getId());
+		Assert.assertEquals(evenement.getEtablissement().getId(), evenementFind.getEtablissement().getId());
 		
+		/*////////////////////////////////////////////////////////////////*/
+		/*////////////////////// MISE A JOUR /////////////////////////////*/
+		/*////////////////////////////////////////////////////////////////*/
+		
+		/*/////////////// MATIERE //////////////////*/
+		matiereFind.setNomMatiere("JAVA");
+		matiereFind.setCouleurMatiere("Bleu");
+		Matiere matiereUpdate = matiereDao.update(matiereFind);
+		matiereFind=matiereDao.find(matiereUpdate.getIdMatiere());
+		Assert.assertEquals("JAVA", matiereFind.getNomMatiere());
+		Assert.assertEquals("Bleu", matiereFind.getCouleurMatiere());
+		
+		/*///////// SALLE //////////*/
+		salleFind.setNom("Tata");
+		salleFind.setCapacite(20);
+		Salle salleUpdate = salleDao.update(salleFind);
+		salleFind = salleDao.find(salleUpdate.getId());
+		Assert.assertEquals("Tata", salleFind.getNom());
+		Assert.assertEquals(20, salleFind.getCapacite());
 	}
-	
-
-	}
+}
