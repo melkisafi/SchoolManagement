@@ -2,12 +2,15 @@ package gestionScolaire.metier.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity
+@SequenceGenerator(name = "seq_matieresalle",sequenceName="seq_matieresalle", initialValue = 1, allocationSize = 1)
 public class MatiereSalle {
 
 	
@@ -20,7 +23,7 @@ public class MatiereSalle {
 	}
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_matieresalle")
 	public Long getId() {
 		return id;
 	}

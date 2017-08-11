@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
+import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.dao.LoginDao;
 import gestionScolaire.metier.dao.MatiereDao;
 import gestionScolaire.metier.dao.MatiereSalleDao;
@@ -28,6 +29,7 @@ import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Civilite;
 import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
+import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.Login;
 import gestionScolaire.metier.model.Matiere;
 import gestionScolaire.metier.model.MatiereSalle;
@@ -40,6 +42,7 @@ import gestionScolaire.metier.model.Salle;
 import gestionScolaire.metier.model.SalleClasse;
 import gestionScolaire.metier.model.Status;
 import gestionScolaire.metier.model.TypeEtab;
+import junit.framework.Assert;
 
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -70,7 +73,8 @@ public class TestGestionScolaire {
 	@Autowired
 	private PersonneClasseDao personneclasseDao;
 	
-	
+	@Autowired
+	private EvenementDao evenementDao;
 	
 	private Civilite civ;
 	private Role role;
@@ -146,19 +150,13 @@ public class TestGestionScolaire {
 		classeDao.create(classe);
 		
 		/*///////// salle //////////*/
-		Salle salle = new Salle();
-		salle.setNom("toto");
-		salle.setCapacite(15);
+		Salle salle = new Salle("toto",15);//création objet java
+		salleDao.create(salle);//enregistrement ds la DB
 		
-		salleDao.create(salle);
-		
-		/*///////// matiere //////////*/
-		Matiere matiere = new Matiere();
-		matiere.setNomMatiere("droit");
-		matiere.setCouleurMatiere("rouge");
-		
-
-		matiereDao.create(matiere);
+		Salle salleFind= salleDao.find(salle.getId());
+		Assert.assertEquals("toto", salleFind.getNom());
+		Assert.assertEquals(15, salleFind.getCapacite());
+	
 		
 		
 		
@@ -171,6 +169,15 @@ public class TestGestionScolaire {
 		
 		
 		
+		/*///////////////MATIERE//////////////////*/
+		
+					//Insertion
+		Matiere matiere = new Matiere("Java", "Rouge");//création objet java
+		matiereDao.create(matiere);//enregistrement ds la DB
+		
+		Matiere javaFind = matiereDao.find(matiere.getIdMatiere());//récupérer l'enregistrement de la DB
+		Assert.assertEquals("Java", javaFind.getNomMatiere());
+		Assert.assertEquals("Rouge", javaFind.getCouleurMatiere());
 		
 		/*///////// matieresalle//////////*/
 		MatiereSalle matieresalle = new MatiereSalle();
@@ -195,6 +202,11 @@ public class TestGestionScolaire {
 		personneclasseDao.create(personneclasse);
 		
 		
+		/*///////// evenement//////////*/
+		Evenement evenement = new Evenement(classe, matiere, salle, admin, etab);
+		evenementDao.create(evenement);
 		
 	}
-}
+	
+
+	}
