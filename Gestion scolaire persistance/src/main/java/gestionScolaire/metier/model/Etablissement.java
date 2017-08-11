@@ -23,6 +23,7 @@ public class Etablissement {
 	private byte[] logo;
 	private List<PersonneEtablissement> personneEtablissement;
 	private List<Evenement> evenements;
+	private List <Salle> salles;
 	private int version;
 	
 	public Etablissement(){
@@ -100,6 +101,15 @@ public class Etablissement {
 
 	public void setEvenements(List<Evenement> evenements) {
 		this.evenements = evenements;
+	}
+
+	@OneToMany(mappedBy="etablissement")
+	public List<Salle> getSalles() {
+		return salles;
+	}
+
+	public void setSalles(List<Salle> salles) {
+		this.salles = salles;
 	}
 
 	@Version

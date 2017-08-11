@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
@@ -17,6 +19,9 @@ public class Salle {
 	private String nom;
 	private int capacite;
 	private List<Evenement> evenements;
+	private List<SalleClasse> salleClasses;
+	private List<MatiereSalle> matiereSalles;
+	private Etablissement etablissement;
 	private int version;
 	public Salle(){	
 	}
@@ -59,6 +64,34 @@ public class Salle {
 
 	public void setEvenements(List<Evenement> evenements) {
 		this.evenements = evenements;
+	}
+	
+	@OneToMany(mappedBy="salle")
+	public List<SalleClasse> getSalleClasses() {
+		return salleClasses;
+	}
+
+	public void setSalleClasses(List<SalleClasse> salleClasses) {
+		this.salleClasses = salleClasses;
+	}
+
+	@OneToMany(mappedBy="matiere")
+	public List<MatiereSalle> getMatiereSalles() {
+		return matiereSalles;
+	}
+
+	public void setMatiereSalles(List<MatiereSalle> matiereSalles) {
+		this.matiereSalles = matiereSalles;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="etablissement_id")
+	public Etablissement getEtablissement() {
+		return etablissement;
+	}
+
+	public void setEtablissement(Etablissement etablissement) {
+		this.etablissement = etablissement;
 	}
 
 	@Version

@@ -16,6 +16,8 @@ public class Classe {
 	private Long id;
 	private String nom;
 	private List<Evenement> evenements;
+	private List<PersonneClasse> personneClasses;
+	private List<SalleClasse> salleClasses;
 	private int version;
 	
 	@Id
@@ -40,6 +42,21 @@ public class Classe {
 		this.evenements = evenements;
 	}
 	
+	@OneToMany(mappedBy="classe")
+	public List<PersonneClasse> getPersonneClasses() {
+		return personneClasses;
+	}
+	public void setPersonneClasses(List<PersonneClasse> personneClasses) {
+		this.personneClasses = personneClasses;
+	}
+	
+	@OneToMany(mappedBy="classe")
+	public List<SalleClasse> getSalleClasses() {
+		return salleClasses;
+	}
+	public void setSalleClasses(List<SalleClasse> salleClasses) {
+		this.salleClasses = salleClasses;
+	}
 	@Version
 	public int getVersion() {
 		return version;

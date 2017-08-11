@@ -35,6 +35,7 @@ public class Personne {
 	private List<PersonneEtablissement> personneEtablissement;
 	private List<PersonneMatiere> personneMatiere;
 	private List<Evenement> evenements;
+	private List<PersonneClasse> personneClasses;
 	private int version;
 	
 	
@@ -152,6 +153,15 @@ public class Personne {
 
 	public void setEvenements(List<Evenement> evenements) {
 		this.evenements = evenements;
+	}
+
+	@OneToMany(mappedBy="personne")	
+	public List<PersonneClasse> getPersonneClasses() {
+		return personneClasses;
+	}
+
+	public void setPersonneClasses(List<PersonneClasse> personneClasses) {
+		this.personneClasses = personneClasses;
 	}
 
 	@Version

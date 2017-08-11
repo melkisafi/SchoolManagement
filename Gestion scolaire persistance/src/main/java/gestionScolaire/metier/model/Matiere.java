@@ -18,6 +18,8 @@ public class Matiere {
 	private String nomMatiere;
 	private String couleurMatiere;
 	private List <Evenement> evenements;
+	private List <MatiereSalle> matiereSalles;
+	private List <PersonneMatiere> personneMatieres;
 	private int version;
 
 	@Id
@@ -55,6 +57,24 @@ public class Matiere {
 
 	public void setEvenements(List<Evenement> evenements) {
 		this.evenements = evenements;
+	}
+
+	@OneToMany(mappedBy="matiere")
+	public List<MatiereSalle> getMatiereSalles() {
+		return matiereSalles;
+	}
+
+	public void setMatiereSalles(List<MatiereSalle> matiereSalles) {
+		this.matiereSalles = matiereSalles;
+	}
+
+	@OneToMany(mappedBy="matiere")
+	public List<PersonneMatiere> getPersonneMatieres() {
+		return personneMatieres;
+	}
+
+	public void setPersonneMatieres(List<PersonneMatiere> personneMatieres) {
+		this.personneMatieres = personneMatieres;
 	}
 
 	@Version
