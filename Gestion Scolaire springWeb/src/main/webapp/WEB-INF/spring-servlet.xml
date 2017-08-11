@@ -12,9 +12,9 @@
 
 	<!-- Active les annotations MVC (@Controller, @RequestMapping, ...) -->
 	<mvc:annotation-driven validator="validator"/>
-
 	
 	<context:component-scan base-package="gestionScolaireControlleur" />
+	<mvc:resources mapping="/ressources/**" location="/ressources/" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

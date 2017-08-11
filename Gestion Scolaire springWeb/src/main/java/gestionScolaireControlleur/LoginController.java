@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,10 +50,13 @@ public class LoginController {
 			session.setAttribute("userid", uid);
 			session.setAttribute("idEtab", idEtab);
 			session.setAttribute("role", role);
+			session.setAttribute("username", login.getUsername());
+			session.setAttribute("loginid", login.getId());
 			
 			session.setMaxInactiveInterval(300); //300 seconde de session
 			
-			return "redirect:login";
+			return login.getVersion() == 0 ?  "redirect:changePassword" : "redirect:/";
+			
 		} else {
 			return "redirect:login";
 		}
@@ -62,9 +67,39 @@ public class LoginController {
 	public String logout(HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		
-		session.removeAttribute("userid");
-		session.removeAttribute("idEtab");
-		session.removeAttribute("role");
+		if(session != null){
+			session.removeAttribute("userid");
+			session.removeAttribute("idEtab");
+			session.removeAttribute("role");
+		}
+		
+		return "redirect:login";
+	}
+	
+	@RequestMapping("/changePassword")
+	public String edit(HttpServletRequest req, Model model){
+		if(req.getSession(false).getAttribute("userid") != null){
+			
+			Login l = loginDao.find((Long) req.getSession(false).getAttribute("loginid"));
+			model.addAttribute("login", l);
+			model.addAttribute("mode", "edit");
+			
+			return "login/changePassword";
+		} else return "redirect:login";
+	}
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@RequestParam("mode") String mode, 
+			@RequestParam("disabled")int disabled, 
+			@ModelAttribute("login") Login login, 
+			HttpServletRequest req,
+			BindingResult result) {
+		
+		if (mode.equals("add")) loginDao.create(login);
+		else {
+			if(disabled == 1) login.setUsername((String) req.getSession(false).getAttribute("username"));
+			loginDao.update(login);
+		}
 		
 		return "redirect:login";
 	}
