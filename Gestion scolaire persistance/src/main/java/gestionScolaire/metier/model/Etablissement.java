@@ -23,12 +23,13 @@ public class Etablissement {
 	private byte[] logo;
 	private List<PersonneEtablissement> personneEtablissement;
 	private List<Evenement> evenements;
-	private List <Salle> salles;
+	private List<Salle> salles;
+	private List<EtablissementClasse> etablissementClasses;
 	private int version;
-	
-	public Etablissement(){
+
+	public Etablissement() {
 	}
-	
+
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -38,7 +39,7 @@ public class Etablissement {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@Column
 	public String getNom() {
 		return nom;
@@ -47,7 +48,7 @@ public class Etablissement {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	public TypeEtab getType() {
 		return type;
@@ -56,7 +57,7 @@ public class Etablissement {
 	public void setType(TypeEtab type) {
 		this.type = type;
 	}
-	
+
 	@Column
 	public String getTel() {
 		return tel;
@@ -65,7 +66,7 @@ public class Etablissement {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
+
 	@Embedded
 	public Adresse getAdr() {
 		return adr;
@@ -74,7 +75,7 @@ public class Etablissement {
 	public void setAdr(Adresse adr) {
 		this.adr = adr;
 	}
-	
+
 	@Column
 	@Lob
 	public byte[] getLogo() {
@@ -84,8 +85,8 @@ public class Etablissement {
 	public void setLogo(byte[] logo) {
 		this.logo = logo;
 	}
-	
-	@OneToMany(mappedBy="etablissement")
+
+	@OneToMany(mappedBy = "etablissement")
 	public List<PersonneEtablissement> getPersonneEtablissement() {
 		return personneEtablissement;
 	}
@@ -94,7 +95,7 @@ public class Etablissement {
 		this.personneEtablissement = personneEtablissement;
 	}
 
-	@OneToMany(mappedBy="etablissement")
+	@OneToMany(mappedBy = "etablissement")
 	public List<Evenement> getEvenements() {
 		return evenements;
 	}
@@ -103,13 +104,22 @@ public class Etablissement {
 		this.evenements = evenements;
 	}
 
-	@OneToMany(mappedBy="etablissement")
+	@OneToMany(mappedBy = "etablissement")
 	public List<Salle> getSalles() {
 		return salles;
 	}
 
 	public void setSalles(List<Salle> salles) {
 		this.salles = salles;
+	}
+
+	@OneToMany(mappedBy = "etablissement")
+	public List<EtablissementClasse> getEtablissementClasses() {
+		return etablissementClasses;
+	}
+
+	public void setEtablissementClasses(List<EtablissementClasse> etablissementClasses) {
+		this.etablissementClasses = etablissementClasses;
 	}
 
 	@Version
@@ -120,6 +130,5 @@ public class Etablissement {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
 
 }
