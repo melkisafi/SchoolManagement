@@ -41,13 +41,13 @@ public class StatusDaoJpa implements StatusDao {
 
 	@Override
 	public void delete(Status obj) {
-		em.remove(obj);
+		em.remove(em.merge(obj));
 	}
 
 	@Override
 	public void delete(Long id) {
 		Status s = find(id);
-		em.remove(s);
+		em.remove(em.merge(s));
 	}
 
 }

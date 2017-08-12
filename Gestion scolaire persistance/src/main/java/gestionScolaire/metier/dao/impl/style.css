@@ -316,12 +316,6 @@ span.separator{
 .block-nopadding-r {
 	padding-right:0 !important;
 }
-
-
-.form-group-column  .form-group{
-	margin-left : 0 !important;
-	margin-right : 0 !important;
-}
 /***********************
 ******** ALERT ********
 ************************/

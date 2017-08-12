@@ -55,7 +55,7 @@ public class LoginController {
 			session.setAttribute("username", login.getUsername());
 			session.setAttribute("loginid", login.getId());
 			
-			session.setMaxInactiveInterval(300); //300 seconde de session
+			session.setMaxInactiveInterval(3000); //300 seconde de session
 			
 			attr.addFlashAttribute("typeMess", "success");
 			attr.addFlashAttribute("message", "Bienvenue, vous êtes maintenant connecté");
