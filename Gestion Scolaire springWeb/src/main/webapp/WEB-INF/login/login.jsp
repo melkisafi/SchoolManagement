@@ -14,15 +14,24 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
+			
+			<c:if test="${typeMess != null }">
+				<div class="row">
+					<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-3">
 					<br><br>
+						<div class="alert alert-${typeMess}" role="alert">${message}</div>
+					</div>
+				</div>
+			</c:if>
+				 
+			<div class="row">
+				<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-3">
+	
 					 <div class="page-header">
-					 <c:choose>
-					 	<c:when test="${userid != null }"> <h1>Logout</h1> </c:when>
-					 	<c:otherwise><h1>Login</h1></c:otherwise>
-					 </c:choose>
+						 <c:choose>
+						 	<c:when test="${userid != null }"> <h1>Logout</h1> </c:when>
+						 	<c:otherwise><h1>Login</h1></c:otherwise>
+						 </c:choose>
 					</div>
 					
 					<div class="jumbotron">
@@ -56,7 +65,6 @@
 						</c:choose>
 					</div>
 				</div>
-				<div class="col-md-3"></div>
 			</div>
 		</div>
 		

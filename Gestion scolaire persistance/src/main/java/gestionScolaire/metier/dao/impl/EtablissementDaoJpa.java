@@ -41,13 +41,13 @@ public class EtablissementDaoJpa implements EtablissementDao {
 
 	@Override
 	public void delete(Etablissement obj) {
-		em.remove(obj);
+		em.remove(em.merge(obj));
 	}
 
 	@Override
 	public void delete(Long id) {
 		Etablissement e = find(id);
-		em.remove(e);
+		em.remove(em.merge(e));
 	}
 
 }

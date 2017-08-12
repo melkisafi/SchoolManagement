@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import gestionScolaire.metier.dao.LoginDao;
 import gestionScolaire.metier.model.Login;
@@ -34,7 +35,8 @@ public class LoginController {
 	public String signin(@RequestParam("username") String username,
 		@RequestParam("password") String password, 
 		HttpServletRequest req,
-		Model model){
+		Model model,
+		RedirectAttributes attr){
 
 		Login login = loginDao.checkLogin(username, password);
 		
@@ -55,9 +57,16 @@ public class LoginController {
 			
 			session.setMaxInactiveInterval(300); //300 seconde de session
 			
+			attr.addFlashAttribute("typeMess", "success");
+			attr.addFlashAttribute("message", "Bienvenue, vous êtes maintenant connecté");
+			
+			
 			return login.getVersion() == 0 ?  "redirect:changePassword" : "redirect:/";
 			
 		} else {
+			attr.addFlashAttribute("typeMess", "danger");
+			attr.addFlashAttribute("message", "Login ou mot de passe incorrect");
+			
 			return "redirect:login";
 		}
 		
@@ -77,7 +86,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/changePassword")
-	public String edit(HttpServletRequest req, Model model){
+	public String edit(HttpServletRequest req, Model model, RedirectAttributes attr){
 		if(req.getSession(false).getAttribute("userid") != null){
 			
 			Login l = loginDao.find((Long) req.getSession(false).getAttribute("loginid"));
@@ -93,13 +102,16 @@ public class LoginController {
 			@RequestParam("disabled")int disabled, 
 			@ModelAttribute("login") Login login, 
 			HttpServletRequest req,
-			BindingResult result) {
+			BindingResult result,
+			RedirectAttributes attr) {
 		
 		if (mode.equals("add")) loginDao.create(login);
 		else {
 			if(disabled == 1) login.setUsername((String) req.getSession(false).getAttribute("username"));
 			loginDao.update(login);
 		}
+		attr.addFlashAttribute("typeMess", "success");
+		attr.addFlashAttribute("message", "Vos identifiants ont bien été édité");
 		
 		return "redirect:login";
 	}
