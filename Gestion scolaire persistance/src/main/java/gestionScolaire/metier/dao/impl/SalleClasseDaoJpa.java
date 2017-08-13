@@ -41,7 +41,7 @@ public class SalleClasseDaoJpa implements SalleClasseDao {
 
 	@Override
 	public void delete(SalleClasse obj) {
-		em.remove(obj);
+		em.remove(em.merge(obj));
 	}
 
 	@Override

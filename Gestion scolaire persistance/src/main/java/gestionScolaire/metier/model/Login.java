@@ -18,6 +18,12 @@ public class Login {
 	public Login(){	
 	}
 	
+	public Login(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
 	@Id
 	@GeneratedValue
 	public Long getId() {

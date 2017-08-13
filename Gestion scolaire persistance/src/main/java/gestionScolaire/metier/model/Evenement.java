@@ -41,6 +41,9 @@ public class Evenement {
 		this.id = id;
 	}
 
+	@Column(name="date")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	public Date getDate() {
 		return date;
 	}
@@ -134,8 +137,12 @@ public class Evenement {
 		super();
 	}
 
-	public Evenement(Classe classe, Matiere matiere, Salle salle, Personne personne, Etablissement etablissement) {
+	public Evenement(Date date, Date heureDebut, Date heureFin, Classe classe, Matiere matiere, Salle salle,
+			Personne personne, Etablissement etablissement) {
 		super();
+		this.date = date;
+		this.heureDebut = heureDebut;
+		this.heureFin = heureFin;
 		this.classe = classe;
 		this.matiere = matiere;
 		this.salle = salle;

@@ -42,6 +42,19 @@ public class Personne {
 	public Personne(){
 	}
 	
+	public Personne(Civilite civilite, Role role, Login login, Status status, String nom, String prenom, Date datenaiss,
+			Adresse adresse) {
+		super();
+		this.civilite = civilite;
+		this.role = role;
+		this.login = login;
+		this.status = status;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.datenaiss = datenaiss;
+		this.adresse = adresse;
+	}
+
 	@Id
 	@GeneratedValue
 	public Long getId() {

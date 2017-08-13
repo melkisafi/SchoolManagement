@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity
@@ -21,6 +20,11 @@ public class Status  {
 	public Status(){
 	}
 	
+	public Status(String nom) {
+		super();
+		this.nom = nom;
+	}
+
 	@Id
 	@GeneratedValue
 	public Long getId() {
