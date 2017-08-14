@@ -24,6 +24,7 @@ import gestionScolaire.metier.model.PersonneClasse;
 import gestionScolaire.metier.model.PersonneEtablissement;
 import gestionScolaire.metier.model.PersonneMatiere;
 import gestionScolaire.metier.model.Status;
+import gestionScolaire.metier.model.StatusEnum;
 
 @Transactional
 @Repository
@@ -53,7 +54,25 @@ public class PersonneDaoJpa implements PersonneDao {
 	public Personne find(Long id) {
 		return em.find(Personne.class, id);
 	}
-
+	
+	@Override
+	public List<Personne> findByStatus(StatusEnum status) {
+		Query query = em.createQuery("from Personne p where p.statusEnum = :status");
+		query.setParameter("status", status);
+		List<Personne> stat = query.getResultList();
+		
+		return stat.size() > 0 ? stat : null;
+	}
+	
+	@Override
+	public List<Personne> findProfByEtab(StatusEnum status, Long idEtab) {
+		Query query = em.createQuery("from Personne as p left join fetch p.personneEtablissement  pe where p.statusEnum = :status ");
+		query.setParameter("status", status);
+		List<Personne> stat = query.getResultList();
+		
+		return stat.size() > 0 ? stat : null;
+	}
+	
 	@Override
 	public List<Personne> findAll() {
 		Query query = em.createQuery("from Personne p left outer join fetch p.login");

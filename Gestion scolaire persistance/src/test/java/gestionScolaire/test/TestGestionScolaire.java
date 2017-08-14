@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import gestionScolaire.metier.dao.ClasseDao;
-import gestionScolaire.metier.dao.EtablissementClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.dao.LoginDao;
@@ -31,7 +30,6 @@ import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Civilite;
 import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
-import gestionScolaire.metier.model.EtablissementClasse;
 import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.Login;
 import gestionScolaire.metier.model.Matiere;
@@ -76,8 +74,6 @@ public class TestGestionScolaire {
 	private PersonneClasseDao personneclasseDao;
 	@Autowired
 	private EvenementDao evenementDao;
-	@Autowired
-	private EtablissementClasseDao etablissementClasseDao;
 	
 	private Civilite civ;
 	private Role role;
@@ -334,21 +330,6 @@ public class TestGestionScolaire {
 		Assert.assertEquals(evenement2.getEtablissement().getAdr().getPays(), evenementFind.getEtablissement().getAdr().getPays());
 		Assert.assertEquals(evenement2.getEtablissement().getAdr().getVille(), evenementFind.getEtablissement().getAdr().getVille());
 		
-		/*///////// ETABLISSEMENT CLASSE //////////*/
-		EtablissementClasse etablissementClasse = new EtablissementClasse(etab, classe);
-		EtablissementClasse etablissementClasse2 = new EtablissementClasse(etab, classe);
-		etablissementClasseDao.create(new EtablissementClasse(etab, classe));
-		etablissementClasseDao.create(etablissementClasse2);
-		etablissementClasseDao.create(etablissementClasse);
-		EtablissementClasse etablissementClasseFind = etablissementClasseDao.find(etablissementClasse.getId());
-		Assert.assertEquals(etablissementClasse.getClasse().getNom(), etablissementClasseFind.getClasse().getNom());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getNom(), etablissementClasseFind.getEtablissement().getNom());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getType(), etablissementClasseFind.getEtablissement().getType());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getTel(), etablissementClasseFind.getEtablissement().getTel());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getAdr().getAdresse(), etablissementClasseFind.getEtablissement().getAdr().getAdresse());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getAdr().getCodepostal(), etablissementClasseFind.getEtablissement().getAdr().getCodepostal());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getAdr().getPays(), etablissementClasseFind.getEtablissement().getAdr().getPays());
-		Assert.assertEquals(etablissementClasse.getEtablissement().getAdr().getVille(), etablissementClasseFind.getEtablissement().getAdr().getVille());
 		
 		/*////////////////////////////////////////////////////////////////*/
 		/*////////////////////// MISE A JOUR /////////////////////////////*/
@@ -565,20 +546,6 @@ public class TestGestionScolaire {
 		Assert.assertEquals(evenementUpdate.getEtablissement().getAdr().getPays(), evenementFind.getEtablissement().getAdr().getPays());
 		Assert.assertEquals(evenementUpdate.getEtablissement().getAdr().getVille(), evenementFind.getEtablissement().getAdr().getVille());
 		
-		/*///////// ETABLISSEMENT CLASSE //////////*/
-		etablissementClasseFind.setClasse(classe2);
-		etablissementClasseFind.setEtablissement(etabMaJ);
-		EtablissementClasse etablissementClasseUpdate = etablissementClasseDao.update(etablissementClasseFind);
-		etablissementClasseFind= etablissementClasseDao.find(etablissementClasseUpdate.getId());
-		Assert.assertEquals(etablissementClasseUpdate.getClasse().getNom(), etablissementClasseFind.getClasse().getNom());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getNom(), etablissementClasseFind.getEtablissement().getNom());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getType(), etablissementClasseFind.getEtablissement().getType());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getTel(), etablissementClasseFind.getEtablissement().getTel());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getAdr().getAdresse(), etablissementClasseFind.getEtablissement().getAdr().getAdresse());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getAdr().getCodepostal(), etablissementClasseFind.getEtablissement().getAdr().getCodepostal());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getAdr().getPays(), etablissementClasseFind.getEtablissement().getAdr().getPays());
-		Assert.assertEquals(etablissementClasseUpdate.getEtablissement().getAdr().getVille(), etablissementClasseFind.getEtablissement().getAdr().getVille());
-		
 		
 		/*////////////////////////////////////////////////////////////////*/
 		/*///////////////////////// DELETE ///////////////////////////////*/
@@ -617,12 +584,7 @@ public class TestGestionScolaire {
 		Salle salleDelFromEtab = salleDao.find(salleUpdate.getId());
 		if (salleDelFromEtab!=null){sallesPrEtab.add(salleDelFromEtab);}
 		etablissementFind.setSalles(sallesPrEtab);
-		
-		List<EtablissementClasse> etabClassePrEtab = new ArrayList<EtablissementClasse>();
-		EtablissementClasse etabClasseDelFromEtab = etablissementClasseDao.find(personneClasseUpdate.getId());
-		if (etabClasseDelFromEtab!=null){etabClassePrEtab.add(etabClasseDelFromEtab);}
-		etablissementFind.setEtablissementClasses(etabClassePrEtab);
-		
+
 		List<PersonneEtablissement> persEtabPrEtab = new ArrayList<PersonneEtablissement>();
 		PersonneEtablissement persEtabDelFromEtab = persEtabDao.find(peUpdate.getId());
 		if (persEtabDelFromEtab!=null){persEtabPrEtab.add(persEtabDelFromEtab);}
@@ -651,10 +613,6 @@ public class TestGestionScolaire {
 		if (salleClasseDelFromClasse!=null){salleClassePrClasse.add(salleClasseDelFromClasse);}
 		classeFind.setSalleClasses(salleClassePrClasse);
 		
-		List<EtablissementClasse> etabClassePrClasse = new ArrayList<EtablissementClasse>();
-		EtablissementClasse etabClasseDelFromClasse = etablissementClasseDao.find(personneClasseUpdate.getId());
-		if (etabClasseDelFromClasse!=null){etabClassePrClasse.add(etabClasseDelFromClasse);}
-		classeFind.setEtablissementClasses(etabClassePrClasse);
 		
 		List<Classe> classes = classeDao.findAll();
 		classeDao.delete(classeFind);
@@ -761,12 +719,5 @@ public class TestGestionScolaire {
 		List<Evenement> eventsPostDelete= evenementDao.findAll();
 		Assert.assertEquals(1, eventss.size()-eventsPostDelete.size());
 		
-		/*///////// ETABLISSEMENT CLASSE //////////*/
-		List<EtablissementClasse> etabclass = etablissementClasseDao.findAll();
-		etablissementClasseDao.delete(etablissementClasse2);
-		etablissementClasseFind=etablissementClasseDao.find(etablissementClasse2.getId());
-		Assert.assertNull(peFind);
-		List<EtablissementClasse> etabclassPostDelete = etablissementClasseDao.findAll();
-		Assert.assertEquals(1, etabclass.size() - etabclassPostDelete.size());
 	}
 }

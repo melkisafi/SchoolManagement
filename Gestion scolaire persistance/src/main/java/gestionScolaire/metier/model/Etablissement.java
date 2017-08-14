@@ -7,6 +7,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -24,7 +25,8 @@ public class Etablissement {
 	private List<PersonneEtablissement> personneEtablissement;
 	private List<Evenement> evenements;
 	private List<Salle> salles;
-	private List<EtablissementClasse> etablissementClasses;
+	private List<Classe> classes;
+	//private List<EtablissementClasse> etablissementClasses;
 	private int version;
 
 	public Etablissement() {
@@ -121,18 +123,18 @@ public class Etablissement {
 		this.salles = salles;
 	}
 
-	@OneToMany(mappedBy = "etablissement")
-	public List<EtablissementClasse> getEtablissementClasses() {
-		return etablissementClasses;
-	}
-
-	public void setEtablissementClasses(List<EtablissementClasse> etablissementClasses) {
-		this.etablissementClasses = etablissementClasses;
-	}
-
 	@Version
 	public int getVersion() {
 		return version;
+	}
+	
+	@OneToMany(mappedBy = "etablissement")
+	public List<Classe> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(List<Classe> classes) {
+		this.classes = classes;
 	}
 
 	public void setVersion(int version) {

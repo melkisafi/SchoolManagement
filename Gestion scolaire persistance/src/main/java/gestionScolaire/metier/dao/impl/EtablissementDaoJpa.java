@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import gestionScolaire.metier.dao.EtablissementClasseDao;
+import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.dao.PersonneEtablissementDao;
 import gestionScolaire.metier.dao.SalleDao;
+import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
-import gestionScolaire.metier.model.EtablissementClasse;
 import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.PersonneEtablissement;
 import gestionScolaire.metier.model.Salle;
@@ -37,7 +37,7 @@ public class EtablissementDaoJpa implements EtablissementDao {
 	private SalleDao salleDao;
 	
 	@Autowired
-	private EtablissementClasseDao etabClasseDao;
+	private ClasseDao classeDao;
 	
 	@Override
 	public Etablissement find(Long id) {
@@ -70,8 +70,10 @@ public class EtablissementDaoJpa implements EtablissementDao {
 			salleDao.delete(em.merge(salle));
 		}
 		
-		for (EtablissementClasse ec : etab.getEtablissementClasses()){
-			etabClasseDao.delete(em.merge(ec));
+		for (Classe e : etab.getClasses()){
+			e.setEtablissement(null);
+			
+			classeDao.update(em.merge(e));
 		}
 		em.remove(em.merge(etab));
 	}
@@ -87,8 +89,10 @@ public class EtablissementDaoJpa implements EtablissementDao {
 			salleDao.delete(em.merge(salle));
 		}
 		
-		for (EtablissementClasse ec : etab.getEtablissementClasses()){
-			etabClasseDao.delete(em.merge(ec));
+		for (Classe e : etab.getClasses()){
+			e.setEtablissement(null);
+			
+			classeDao.update(em.merge(e));
 		}
 		em.remove(em.merge(etab));
 	}

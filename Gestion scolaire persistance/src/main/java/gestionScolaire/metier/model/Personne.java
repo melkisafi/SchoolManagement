@@ -26,6 +26,7 @@ public class Personne {
 	private Long id;
 	private Civilite civilite;
 	private Role role;
+	private StatusEnum statusEnum;
 	private Login login;
 	private Status status;
 	private String nom;
@@ -81,6 +82,15 @@ public class Personne {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	public StatusEnum getStatusEnum() {
+		return statusEnum;
+	}
+
+	public void setStatusEnum(StatusEnum statusEnum) {
+		this.statusEnum = statusEnum;
 	}
 	
 	@Column

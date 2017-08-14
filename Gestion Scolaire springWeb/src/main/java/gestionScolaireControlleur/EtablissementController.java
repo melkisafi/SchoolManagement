@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import gestionScolaire.metier.dao.EtablissementDao;
+import gestionScolaire.metier.dao.PersonneDao;
 import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Etablissement;
+import gestionScolaire.metier.model.Personne;
+import gestionScolaire.metier.model.StatusEnum;
 import gestionScolaire.metier.model.TypeEtab;
 
 @Controller
@@ -28,6 +31,9 @@ public class EtablissementController {
 	
 	@Autowired
 	private EtablissementDao etabDao;
+	@Autowired
+	private PersonneDao personneDao;
+	
 	
 	@RequestMapping("/list")
 	public String list(Model model, HttpServletRequest req){
@@ -50,7 +56,10 @@ public class EtablissementController {
 		if(isAdmin(session) || isAutorized(session, id)){
 			Etablissement e = etabDao.find(id);
 			Adresse adr = e.getAdr();
+			List <Personne> p = personneDao.findProfByEtab(StatusEnum.PROFESSEUR, id);
 			
+			model.addAttribute("nbProf", p.size());
+			model.addAttribute("profs", p);
 			model.addAttribute("etab", e);
 			model.addAttribute("adr", adr);
 			

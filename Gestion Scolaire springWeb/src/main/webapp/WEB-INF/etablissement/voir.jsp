@@ -16,7 +16,7 @@
                     <i class="fa fa-user-circle-o"></i>
                   </div>
                   <div class="stat-content">
-                      <h1></h1>
+                      <h1>${nbProf}</h1>
                       <h5>Professeurs</h5>                     
                   </div>
                   <div class="clearfix"></div>
@@ -78,9 +78,30 @@
 		</div>
 		<div class="col-md-6 col-sm-12 block-nopadding-r">
 			<div class="panel panel-default">
-				<div class="panel-heading">Classes</div>
+				<div class="panel-heading">Professeurs<span class="separator"></span></div>
 				<div class="panel-body">
-					
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nom</th>
+									<th>Prenom</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${profs}" var="p">
+									<tr>
+										<td>${p.id}</td>
+										<td>${p.nom}</td>
+										<td>${p.prenom}</td>
+										<td><a href="/personne/edit/${p.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -96,7 +117,7 @@
 		</div>
 		<div class="col-md-6 col-sm-12 block-nopadding-r">
 			<div class="panel panel-default">
-				<div class="panel-heading">Professeurs</div>
+				<div class="panel-heading">Classes</div>
 				<div class="panel-body">
 					
 				</div>

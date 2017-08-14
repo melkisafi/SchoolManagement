@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import gestionScolaire.metier.dao.ClasseDao;
+import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.PersonneClasseDao;
 import gestionScolaire.metier.model.Classe;
+import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Personne;
 
 @Controller
@@ -28,12 +30,8 @@ public class ClasseController {
 
 	@Autowired
 	private ClasseDao classeDao;
-	
-//	@Autowired
-//	private PersonneClasseDao persClaDao;
-//	
-//	@Autowired
-//	private Personne pers;
+	@Autowired
+	private EtablissementDao etabDao;
 	
 	
 	@RequestMapping("/list")
@@ -42,8 +40,7 @@ public class ClasseController {
 		
 		if(isAdmin(session)){
 			List<Classe> classe = classeDao.findAll();
-//			List<Personne> persPrin = pers
-			
+		
 			model.addAttribute("classe", classe);
 				
 			return "classe/list";	
@@ -69,15 +66,16 @@ public class ClasseController {
 	@RequestMapping("/add")
 	public String add(HttpServletRequest req, Model model){
 		HttpSession session = req.getSession(false);
-		
-		//if(isAdmin(session)){
-			model.addAttribute("mode", "add");
-			model.addAttribute("classe", new Classe());
-
+		int isAdmin = isAdmin(session) ? 1 : 0;
+		List <Etablissement> e = etabDao.findAll();
 			
-			return "classe/edit";
 		
-	//	return "redirect:/";
+		model.addAttribute("mode", "add");
+		model.addAttribute("isAdmin", isAdmin);
+		model.addAttribute("etabs", e);
+		model.addAttribute("classe", new Classe());
+			
+		return "classe/edit";		
 	}
 	
 	@RequestMapping("edit/{id}")

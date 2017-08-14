@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import gestionScolaire.metier.dao.StatusDao;
+import gestionScolaire.metier.model.Login;
 import gestionScolaire.metier.model.Status;
 
 @Transactional
@@ -21,6 +22,15 @@ public class StatusDaoJpa implements StatusDao {
 	@Override
 	public Status find(Long id) {
 		return em.find(Status.class, id);
+	}
+	
+	@Override
+	public Status findByName(String name) {
+		Query query = em.createQuery("from Status s where s.nom = :nom");
+		query.setParameter("nom", name);
+		List<Status> stat = query.getResultList();
+		
+		return stat.size() > 0 ? stat.get(0) : null;
 	}
 
 	@Override

@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
@@ -19,7 +21,7 @@ public class Classe {
 	private List<Evenement> evenements;
 	private List<PersonneClasse> personneClasses;
 	private List<SalleClasse> salleClasses;
-	private List<EtablissementClasse> etablissementClasses;
+	private Etablissement etablissement;
 	private int version;
 
 	@Id
@@ -67,13 +69,14 @@ public class Classe {
 		this.salleClasses = salleClasses;
 	}
 
-	@OneToMany(mappedBy = "classe",fetch=FetchType.EAGER)
-	public List<EtablissementClasse> getEtablissementClasses() {
-		return etablissementClasses;
+	@ManyToOne
+	@JoinColumn(name="etab_id")
+	public Etablissement getEtablissement() {
+		return etablissement;
 	}
 
-	public void setEtablissementClasses(List<EtablissementClasse> etablissementClasses) {
-		this.etablissementClasses = etablissementClasses;
+	public void setEtablissement(Etablissement etablissement) {
+		this.etablissement = etablissement;
 	}
 
 	@Version

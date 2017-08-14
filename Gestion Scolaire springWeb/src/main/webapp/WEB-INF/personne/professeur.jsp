@@ -26,14 +26,14 @@
 				<th>Etablissement</th>
 				<th colspan="3"></th>
 			</tr>
-			<c:forEach items="${users}" var="u">
+			<c:forEach items="${profs}" var="u">
 				<tr>
 					<td>${u.id}</td>
 					<td>${u.civilite}</td>
 					<td>${u.nom}</td>
 					<td>${u.prenom}</td>
 					<td>${u.datenaiss}</td>
-					<td>${u.statusEnum}</td>
+					<td>${u.status.nom}</td>
 					<td></td>
 					<td>
 					<a href="voir/${u.id}" class="btn btn-info btn-sm"><i class="fa fa-search"></i></a>

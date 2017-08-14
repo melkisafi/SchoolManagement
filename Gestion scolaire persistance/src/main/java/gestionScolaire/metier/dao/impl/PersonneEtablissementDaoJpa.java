@@ -22,7 +22,7 @@ public class PersonneEtablissementDaoJpa implements PersonneEtablissementDao {
 	public PersonneEtablissement find(Long id) {
 		return em.find(PersonneEtablissement.class, id);
 	}
-
+	
 	@Override
 	public List<PersonneEtablissement> findAll() {
 		Query query = em.createQuery("from PersonneEtablissement pe");

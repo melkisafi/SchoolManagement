@@ -28,6 +28,7 @@ import gestionScolaire.metier.model.Civilite;
 import gestionScolaire.metier.model.Personne;
 import gestionScolaire.metier.model.PersonneEtablissement;
 import gestionScolaire.metier.model.Status;
+import gestionScolaire.metier.model.StatusEnum;
 import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Login;
 
@@ -60,6 +61,21 @@ public class PersonneController {
 		
 		return "redirect:/";
 	}
+
+	@RequestMapping("/professeur")
+	public String professeur(Model model, HttpServletRequest req){
+		HttpSession session = req.getSession(false);
+		
+		if(isAdmin(session)){
+			List<Personne> profs = personneDao.findByStatus(StatusEnum.PROFESSEUR);
+			
+			model.addAttribute("profs", profs);
+			
+			return "personne/professeur";
+		}
+		
+		return "redirect:/";
+	}
 	
 	@RequestMapping("/add")
 	public String add(HttpServletRequest req, Model model){
@@ -71,7 +87,6 @@ public class PersonneController {
 			
 			model.addAttribute("personne", new Personne());
 			model.addAttribute("adresse", new Adresse());
-			model.addAttribute("status", statusDao.findAll());
 			model.addAttribute("etabs", etabs);
 			model.addAttribute("mode", "add");
 			
@@ -91,11 +106,9 @@ public class PersonneController {
 					
 			model.addAttribute("personne", user);
 			model.addAttribute("adresse", user.getAdresse());
-			model.addAttribute("stat", user.getStatus());
 			model.addAttribute("etabs", etabs);
+			model.addAttribute("login", user.getLogin());
 			model.addAttribute("etablissement", etab);
-			model.addAttribute("status", statusDao.findAll());
-			model.addAttribute("civilites", Civilite.values());
 			model.addAttribute("mode", "edit");
 			
 			return "personne/edit";
@@ -105,7 +118,6 @@ public class PersonneController {
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(@RequestParam("mode") String mode, 
-			@RequestParam("status_id") Long statusId,
 			@RequestParam("etablissement_id") Long etabId,
 			@RequestParam("username") String username,
 			@RequestParam("password") String password,
@@ -113,34 +125,37 @@ public class PersonneController {
 			BindingResult result,
 			RedirectAttributes attr) throws ParseException {
 		
-		/*0if(mode.equals("add")){
-		
-		} else {
-			personneDao.update(personne);
-		}*/
 		if(mode.equals("add")){
+			Login l = new Login();
+			l.setPassword(password);
+			l.setUsername(username);
+			loginDao.create(l);
+			personne.setLogin(l);
+			
+			Etablissement e = etablissementDao.find(etabId);
+			PersonneEtablissement pe = new PersonneEtablissement();
+			pe.setEtablissement(e);
+			pe.setPersonne(personne);
 		
-		Status s = statusDao.find(statusId);
-		List<Personne> personnes = new ArrayList<Personne>();
-		personnes.add(personne);
-		s.setPersonne(personnes);
-		statusDao.update(s);
-		personne.setStatus(s);
-		
-		Login l = new Login();
-		l.setPassword(password);
-		l.setUsername(username);
-		loginDao.create(l);
-		personne.setLogin(l);
-		
-		Etablissement e = etablissementDao.find(etabId);
-		PersonneEtablissement pe = new PersonneEtablissement();
-		pe.setEtablissement(e);
-		pe.setPersonne(personne);
-	
-		personneDao.create(personne);	
-		persEtabDao.create(pe);
+			personneDao.create(personne);	
+			persEtabDao.create(pe);
+		} else {
+			Personne p = personneDao.find(personne.getId());
+			Login l = loginDao.find(p.getLogin().getId());
+			l.setPassword(password);
+			l.setUsername(username);
+			loginDao.update(l);
+			personne.setLogin(l);
+			
+			Etablissement e = etablissementDao.find(etabId);
+			PersonneEtablissement pe = persEtabDao.find(p.getPersonneEtablissement().get(0).getId());
+			pe.setEtablissement(e);
+			pe.setPersonne(personne);
+			
+			personneDao.update(personne);
+			persEtabDao.update(pe);
 		}
+		
 		attr.addFlashAttribute("typeMess", "success");
 		attr.addFlashAttribute("message", "L'utilisateur à bien été édité");
 		

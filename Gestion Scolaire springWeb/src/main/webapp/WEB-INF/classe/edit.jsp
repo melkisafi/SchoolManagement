@@ -10,6 +10,7 @@
 		<div class="page-header">
 			<h1>Edition d'une classe </h1>
 		</div>
+		<p id="test">toto</p>
 		<div class="col-md-5 col-sm-12">
 			<form:form modelAttribute="classe" action="/GestionScolaireSpringWeb/classe/save" method="post" cssClass="form-horizontal">
 				<form:hidden path="id" readonly="${mode = 'edit'}"/>
@@ -28,7 +29,7 @@
 				  <form:label path="nom">Etablissement</form:label>
 				  <form:input path="nom" type="text" cssClass="form-control" />
 				</div>	 	
-				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
+				<button type="submit" id="formClasse" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
 				
 			</form:form>
 		</div>

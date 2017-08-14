@@ -46,30 +46,26 @@
 					</div>
 					
 					<div class="form-group">
-					  <label for="login">login</label>
-					  <input id="login" name="prenom" type="text" cssClass="form-control" />
-					</div>
+					  <label for="username">login</label>
+					<c:choose>
+					  	<c:when test="${mode == 'edit'}">  <input id="username" name="username" type="text" class="form-control" value="${login.username}" /></c:when>
+						  <c:otherwise>
+						  	<input id="username" type="text" name="username" class="form-control" />
+						  </c:otherwise>
+					  </c:choose>
+					 </div>
 					
 					<div class="form-group">
 					  <label for="password">Password</label>
-					  <input id="password" type="password" cssClass="form-control" />
+					  <c:choose>
+					  	<c:when test="${mode == 'edit'}">  <input id="password" name="password" type="password" class="form-control" value="${login.password}" /></c:when>
+						  <c:otherwise>
+						  	<input id="password" type="password" name="password" class="form-control" />
+						  </c:otherwise>
+					  </c:choose>
 					</div>
 						
-					<div class="form-group">
-						<label for="status">Status</label>
-						<select class="form-control" id="status" name="status_id">
-							<c:choose>
-								<c:when test="${mode == 'edit'}"><option value="${stat.id}">${stat.nom}</option></c:when>
-								<c:otherwise>
-									<option value="">Choisir</option>
-								</c:otherwise>
-							</c:choose>
-								
-							<c:forEach var="s" items="${status}">
-								<c:if test="${stat.id != s.id}"><option value="${s.id}">${s.nom}</option></c:if>
-							</c:forEach>
-						</select>
-					</div>
+				
 					
 					<div class="form-group">
 						<label for="etablissement">Etablissement</label>
@@ -92,6 +88,13 @@
 						<form:select path="role" cssClass="form-control">
 							<form:option value="${null}">Choisir</form:option>
 					  		<form:options items="${roles}"></form:options>
+						</form:select>
+					</div>
+					<div class="form-group">
+						<form:label path="statusEnum">Status</form:label>
+						<form:select path="statusEnum" cssClass="form-control">
+							<form:option value="${null}">Choisir</form:option>
+					  		<form:options items="${statusenums}"></form:options>
 						</form:select>
 					</div>
 				</div>
