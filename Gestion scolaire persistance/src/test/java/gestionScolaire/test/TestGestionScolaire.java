@@ -590,6 +590,11 @@ public class TestGestionScolaire {
 		if (persEtabDelFromEtab!=null){persEtabPrEtab.add(persEtabDelFromEtab);}
 		etablissementFind.setPersonneEtablissement(persEtabPrEtab);
 		
+		List<Classe> clPrEtab = new ArrayList<Classe>();
+		Classe clDelFromEtab = classeDao.find(classeUpdate.getId());
+		if (persEtabDelFromEtab!=null){clPrEtab.add(clDelFromEtab);}
+		etablissementFind.setClasses(clPrEtab);
+		
 		List<Etablissement> etabs = etabDao.findAll();
 		etabDao.delete(etablissementFind);
 		etablissementFind=etabDao.find(etablissementFind.getId());
