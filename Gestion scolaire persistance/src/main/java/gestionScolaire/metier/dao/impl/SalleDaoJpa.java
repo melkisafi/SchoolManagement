@@ -88,4 +88,12 @@ public class SalleDaoJpa implements SalleDao {
 		em.remove(s);
 	}
 
+	@Override
+	public List<Salle> findAllByEtab(Long idEtab) {
+		Query query = em.createQuery("from Salle s where s.etablissement.id = :idEtab");
+		return query.getResultList();
+	}
+
+
+
 }
