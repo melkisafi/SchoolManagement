@@ -26,11 +26,13 @@ public class Salle {
 	public Salle(){	
 	}
 
-	public Salle(String nom, int capacite) {
+	public Salle(String nom, int capacite, Etablissement etablissement) {
 		super();
 		this.nom = nom;
 		this.capacite = capacite;
+		this.etablissement = etablissement;
 	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_salle")
 	public Long getId() {

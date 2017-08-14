@@ -20,6 +20,12 @@ public class PersonneEtablissement {
 	public  PersonneEtablissement(){
 	}
 	
+	public PersonneEtablissement(Personne personne, Etablissement etablissement) {
+		super();
+		this.personne = personne;
+		this.etablissement = etablissement;
+	}
+
 	@Id
 	@GeneratedValue
 	public Long getId() {

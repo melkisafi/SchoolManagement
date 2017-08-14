@@ -6,11 +6,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import gestionScolaire.metier.dao.EtablissementDao;
+import gestionScolaire.metier.dao.EvenementDao;
+import gestionScolaire.metier.dao.MatiereSalleDao;
+import gestionScolaire.metier.dao.SalleClasseDao;
 import gestionScolaire.metier.dao.SalleDao;
+import gestionScolaire.metier.model.Etablissement;
+import gestionScolaire.metier.model.Evenement;
+import gestionScolaire.metier.model.MatiereSalle;
 import gestionScolaire.metier.model.Salle;
+import gestionScolaire.metier.model.SalleClasse;
 
 @Transactional
 @Repository
@@ -18,7 +27,16 @@ public class SalleDaoJpa implements SalleDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
+	@Autowired
+	private MatiereSalleDao matieresalleDao;
+
+	@Autowired
+	private EvenementDao evenementDao;
+
+	@Autowired
+	private SalleClasseDao salleClasseDao;
+
 	@Override
 	public Salle find(Long id) {
 		return em.find(Salle.class, id);
@@ -41,13 +59,32 @@ public class SalleDaoJpa implements SalleDao {
 	}
 
 	@Override
-	public void delete(Salle obj) {
-		em.remove(obj);
+	public void delete(Salle s) {
+
+		for (MatiereSalle matSalle : s.getMatiereSalles()) {
+			matieresalleDao.delete(em.merge(matSalle));
+		}
+		for (SalleClasse sClasses : s.getSalleClasses()) {
+			salleClasseDao.delete(em.merge(sClasses));
+		}
+		for (Evenement sEvents : s.getEvenements()) {
+			evenementDao.delete(em.merge(sEvents));
+		}
+		em.remove(em.merge(s));
 	}
 
 	@Override
 	public void delete(Long id) {
 		Salle s = find(id);
+		for (MatiereSalle matSalle : s.getMatiereSalles()) {
+			matieresalleDao.delete(em.merge(matSalle));
+		}
+		for (SalleClasse sClasses : s.getSalleClasses()) {
+			salleClasseDao.delete(em.merge(sClasses));
+		}
+		for (Evenement sEvents : s.getEvenements()) {
+			evenementDao.delete(em.merge(sEvents));
+		}
 		em.remove(s);
 	}
 

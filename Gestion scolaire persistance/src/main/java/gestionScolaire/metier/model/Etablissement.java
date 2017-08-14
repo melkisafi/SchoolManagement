@@ -29,6 +29,14 @@ public class Etablissement {
 
 	public Etablissement() {
 	}
+	
+	public Etablissement(String nom, TypeEtab type, String tel, Adresse adr) {
+		super();
+		this.nom = nom;
+		this.type = type;
+		this.tel = tel;
+		this.adr = adr;
+	}
 
 	@Id
 	@GeneratedValue

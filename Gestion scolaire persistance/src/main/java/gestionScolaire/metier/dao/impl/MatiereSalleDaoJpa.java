@@ -43,7 +43,7 @@ public class MatiereSalleDaoJpa implements MatiereSalleDao {
 
 	@Override
 	public void delete(MatiereSalle obj) {
-		em.remove(obj);
+		em.remove(em.merge(obj));
 	}
 
 	@Override

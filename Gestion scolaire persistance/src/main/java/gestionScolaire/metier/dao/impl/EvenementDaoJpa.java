@@ -42,7 +42,7 @@ public class EvenementDaoJpa implements EvenementDao {
 
 	@Override
 	public void delete(Evenement obj) {
-		em.remove(obj);
+		em.remove(em.merge(obj));
 	}
 
 	@Override

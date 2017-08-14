@@ -41,7 +41,7 @@ public class PersonneEtablissementDaoJpa implements PersonneEtablissementDao {
 
 	@Override
 	public void delete(PersonneEtablissement obj) {
-		em.remove(obj);
+		em.remove(em.merge(obj));
 	}
 
 	@Override
