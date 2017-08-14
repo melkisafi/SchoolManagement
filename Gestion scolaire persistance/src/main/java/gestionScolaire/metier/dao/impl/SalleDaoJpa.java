@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.dao.MatiereSalleDao;
 import gestionScolaire.metier.dao.SalleClasseDao;
 import gestionScolaire.metier.dao.SalleDao;
-import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.MatiereSalle;
 import gestionScolaire.metier.model.Salle;
@@ -89,9 +87,11 @@ public class SalleDaoJpa implements SalleDao {
 	}
 
 	@Override
-	public List<Salle> findAllByEtab(Long idEtab) {
-		Query query = em.createQuery("from Salle s where s.etablissement.id = :idEtab");
-		return query.getResultList();
+	public List<Salle> findAllByEtab(Long idEtablissement) {
+		Query query1 = em.createQuery("from Salle s where s.etablissement.id = :id ");
+		query1.setParameter("id", idEtablissement);
+		
+		return query1.getResultList();
 	}
 
 
