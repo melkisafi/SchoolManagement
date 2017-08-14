@@ -68,11 +68,12 @@ public class PersonneController {
 		if(isAdmin(session)){
 			List<Etablissement> etabs = etablissementDao.findAll();
 			
-			model.addAttribute("mode", "add");
+			
 			model.addAttribute("personne", new Personne());
 			model.addAttribute("adresse", new Adresse());
 			model.addAttribute("status", statusDao.findAll());
 			model.addAttribute("etabs", etabs);
+			model.addAttribute("mode", "add");
 			
 			return "personne/edit";
 		}
@@ -106,36 +107,40 @@ public class PersonneController {
 	public String save(@RequestParam("mode") String mode, 
 			@RequestParam("status_id") Long statusId,
 			@RequestParam("etablissement_id") Long etabId,
+			@RequestParam("username") String username,
+			@RequestParam("password") String password,
 			@ModelAttribute("personne") Personne personne, 
 			BindingResult result,
 			RedirectAttributes attr) throws ParseException {
-		Status ss = statusDao.find(statusId);
-		if(mode.equals("add")){
-			
-			Status s = statusDao.find(statusId);
-			List<Personne> personnes = new ArrayList<Personne>();
-			personnes.add(personne);
-			s.setPersonne(personnes);
-			statusDao.update(s);
-			personne.setStatus(s);
-			
-			Login l = new Login();
-			l.setPassword("1234");
-			l.setUsername("test");
-			loginDao.create(l);
-			personne.setLogin(l);
-			
-			Etablissement e = etablissementDao.find(etabId);
-			PersonneEtablissement pe = new PersonneEtablissement();
-			pe.setEtablissement(e);
-			pe.setPersonne(personne);
-			persEtabDao.create(pe);
-			personneDao.create(personne);	
-			
+		
+		/*0if(mode.equals("add")){
+		
 		} else {
 			personneDao.update(personne);
+		}*/
+		if(mode.equals("add")){
+		
+		Status s = statusDao.find(statusId);
+		List<Personne> personnes = new ArrayList<Personne>();
+		personnes.add(personne);
+		s.setPersonne(personnes);
+		statusDao.update(s);
+		personne.setStatus(s);
+		
+		Login l = new Login();
+		l.setPassword(password);
+		l.setUsername(username);
+		loginDao.create(l);
+		personne.setLogin(l);
+		
+		Etablissement e = etablissementDao.find(etabId);
+		PersonneEtablissement pe = new PersonneEtablissement();
+		pe.setEtablissement(e);
+		pe.setPersonne(personne);
+	
+		personneDao.create(personne);	
+		persEtabDao.create(pe);
 		}
-
 		attr.addFlashAttribute("typeMess", "success");
 		attr.addFlashAttribute("message", "L'utilisateur à bien été édité");
 		

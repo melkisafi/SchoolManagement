@@ -13,7 +13,7 @@
 		
 		<div class="col-md-12 col-sm-12 block-nopadding-l block-nopadding-r" >
 			<form:form modelAttribute="personne" action="/GestionScolaireSpringWeb/utilisateur/save" method="post" cssClass="form-horizontal">
-				<form:hidden path="id" readonly="${mode = 'edit'}"/>
+				<form:hidden path="id" readonly="${mode == 'edit'}"/>
 				<form:hidden path="version" />
 				<input name="mode" type="hidden" value="${mode}" >	
 				
@@ -45,6 +45,16 @@
 					  <form:input path="datenaiss" type="date" cssClass="form-control" />
 					</div>
 					
+					<div class="form-group">
+					  <label for="login">login</label>
+					  <input id="login" name="prenom" type="text" cssClass="form-control" />
+					</div>
+					
+					<div class="form-group">
+					  <label for="password">Password</label>
+					  <input id="password" type="password" cssClass="form-control" />
+					</div>
+						
 					<div class="form-group">
 						<label for="status">Status</label>
 						<select class="form-control" id="status" name="status_id">
