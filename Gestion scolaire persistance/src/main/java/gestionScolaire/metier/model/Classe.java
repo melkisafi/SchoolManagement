@@ -3,6 +3,7 @@ package gestionScolaire.metier.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Classe {
 		this.nom = nom;
 	}
 
-	@OneToMany(mappedBy = "classe")
+	@OneToMany(mappedBy = "classe", fetch=FetchType.EAGER)
 	public List<Evenement> getEvenements() {
 		return evenements;
 	}
@@ -48,7 +49,7 @@ public class Classe {
 		this.evenements = evenements;
 	}
 
-	@OneToMany(mappedBy = "classe")
+	@OneToMany(mappedBy = "classe", fetch=FetchType.EAGER)
 	public List<PersonneClasse> getPersonneClasses() {
 		return personneClasses;
 	}
@@ -57,7 +58,7 @@ public class Classe {
 		this.personneClasses = personneClasses;
 	}
 
-	@OneToMany(mappedBy = "classe")
+	@OneToMany(mappedBy = "classe",fetch=FetchType.EAGER)
 	public List<SalleClasse> getSalleClasses() {
 		return salleClasses;
 	}
@@ -66,7 +67,7 @@ public class Classe {
 		this.salleClasses = salleClasses;
 	}
 
-	@OneToMany(mappedBy = "classe")
+	@OneToMany(mappedBy = "classe",fetch=FetchType.EAGER)
 	public List<EtablissementClasse> getEtablissementClasses() {
 		return etablissementClasses;
 	}

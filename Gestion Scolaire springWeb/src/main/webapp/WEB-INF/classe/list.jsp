@@ -20,15 +20,23 @@
 			<tr>
 				<th>#</th>
 				<th>Nom</th>
+				<th>Professeur Principal</th>
+				<th>Etablissement</th>
+				
 				<th colspan="3"></th>
 			</tr>
-			<c:forEach items="${classes}" var="c">
+			<c:forEach items="${classe}" var="c">
 				<tr>
 					<td>${c.id}</td>
 					<td>${c.nom}</td>
-					
- 					<a href="edit/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a> 
- 					<a href="delete/${c.id}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 
+					<%-- <td>${c.etablissementclasse.etablissement.Nom}</td> --%>
+<%-- 					<td>${c.personneclasse.id.personne}</td> --%>
+					<td></td>
+					<td></td>
+ 					<td>
+					<a href="voir/${c.id}" class="btn btn-info btn-sm"><i class="fa fa-search"></i></a>
+					<a href="edit/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+					<a href="delete/${c.id}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 					</td>
 				</tr>
 			</c:forEach>

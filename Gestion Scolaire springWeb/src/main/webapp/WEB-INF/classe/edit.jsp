@@ -10,7 +10,6 @@
 		<div class="page-header">
 			<h1>Edition d'une classe </h1>
 		</div>
-		
 		<div class="col-md-5 col-sm-12">
 			<form:form modelAttribute="classe" action="/GestionScolaireSpringWeb/classe/save" method="post" cssClass="form-horizontal">
 				<form:hidden path="id" readonly="${mode = 'edit'}"/>
@@ -19,6 +18,14 @@
 				
 				<div class="form-group">
 				  <form:label path="nom">Nom</form:label>
+				  <form:input path="nom" type="text" cssClass="form-control" />
+				</div>
+				<div class="form-group">
+				  <form:label path="nom">Professeur Principal</form:label>
+				  <form:input path="nom" type="text" cssClass="form-control" />
+				</div>
+				<div class="form-group">
+				  <form:label path="nom">Etablissement</form:label>
 				  <form:input path="nom" type="text" cssClass="form-control" />
 				</div>	 	
 				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
