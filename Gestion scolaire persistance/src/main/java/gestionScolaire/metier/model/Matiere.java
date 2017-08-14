@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Matiere {
 		this.couleurMatiere = couleurMatiere;
 	}
 
-	@OneToMany(mappedBy="matiere")
+	@OneToMany(mappedBy="matiere",fetch=FetchType.EAGER)
 	public List<Evenement> getEvenements() {
 		return evenements;
 	}
@@ -59,7 +60,7 @@ public class Matiere {
 		this.evenements = evenements;
 	}
 
-	@OneToMany(mappedBy="matiere")
+	@OneToMany(mappedBy="matiere",fetch=FetchType.EAGER)
 	public List<MatiereSalle> getMatiereSalles() {
 		return matiereSalles;
 	}
@@ -68,7 +69,7 @@ public class Matiere {
 		this.matiereSalles = matiereSalles;
 	}
 
-	@OneToMany(mappedBy="matiere")
+	@OneToMany(mappedBy="matiere",fetch=FetchType.EAGER)
 	public List<PersonneMatiere> getPersonneMatieres() {
 		return personneMatieres;
 	}
