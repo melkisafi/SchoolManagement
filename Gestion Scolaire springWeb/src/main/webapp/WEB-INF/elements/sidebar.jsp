@@ -10,47 +10,6 @@
           <a class="navbar-brand" href="#"><i class="fa fa-bars"></i></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-        <!--
-         <form action="/PCentreAppel/Recherche" method="post" class="navbar-form navbar-right">
-        	 <div class="form-group">
-				<div class="input-group">	
-					<span class="input-group-addon" id="calendar"><i class="fa fa-calendar"></i></span>
-					<input type="date" name="date" class="form-control" aria-describedby="calendar" >
-				</div>
-			</div>
-        	 <div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon" id="name-select"><i class="fa fa-user"></i></span>
-		            <select name="nom" class="form-control" aria-describedby="name-select">
-						<option value="">Choisir un nom d'utilisateur</option>
-					
-					</select>
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon" id="lastname-select"><i class="fa fa-user"></i></span>
-		           	<select name="prenom" class="form-control" aria-describedby="lastname-select">
-						<option value="">Choisir un prenom d'utilisateur</option>
-						
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon" id="centre-select"><i class="fa  fa-building-o"></i></span>
-					<select name="centre" class="form-control" aria-describedby="centre-select">
-						<option value="">Choisir un centre</option>
-					
-					</select>
-				</div>
-			</div>
-			<button type="submit" class="btn btn-primary">
-			 	 <i class="fa fa-search"></i>
-			</button>
-          </form>
-            -->
             
         </div>
       </div>
@@ -68,7 +27,7 @@
           <div class="nav-side-user">
             <img src="${pageContext.request.contextPath}/ressources/img/avatar.png" alt="avatar">
             <div class="nav-side-user-info">
-              <p>Maquaire Jérémy</p>
+              <p><%=session.getAttribute("nom") %> <%=session.getAttribute("prenom")%></p>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -128,10 +87,6 @@
                   <li><a href="${pageContext.request.contextPath}/personne/addprof">Ajouter un professeur</a></li>
                   <li><a href="${pageContext.request.contextPath}/personne/list/id">Liste des professeur</a></li>
               </ul>
-             <!-- 
-             <li  class="collapsed dashboard-border">
-                  <a href="recherche.jsp"><i class="fa fa-search"></i> Recherche </a>
-              </li> -->
           </ul>
         </div>
        </div>
