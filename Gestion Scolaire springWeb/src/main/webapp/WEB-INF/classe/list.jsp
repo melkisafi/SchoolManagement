@@ -20,17 +20,12 @@
 			<tr>
 				<th>#</th>
 				<th>Nom</th>
-				<th>Professeur Principal</th>
-				<th>Etablissement</th>
-				
 				<th colspan="3"></th>
 			</tr>
 			<c:forEach items="${classe}" var="c">
 				<tr>
 					<td>${c.id}</td>
 					<td>${c.nom}</td>
-					<%-- <td>${c.etablissementclasse.etablissement.Nom}</td> --%>
-<%-- 					<td>${c.personneclasse.id.personne}</td> --%>
 					<td></td>
 					<td></td>
  					<td>

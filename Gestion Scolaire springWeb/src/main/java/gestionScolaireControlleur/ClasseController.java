@@ -20,12 +20,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
+import gestionScolaire.metier.dao.MatiereDao;
 import gestionScolaire.metier.dao.PersonneClasseDao;
 import gestionScolaire.metier.dao.PersonneDao;
+import gestionScolaire.metier.dao.SalleDao;
 import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
+import gestionScolaire.metier.model.Matiere;
 import gestionScolaire.metier.model.Personne;
 import gestionScolaire.metier.model.PersonneClasse;
+import gestionScolaire.metier.model.Salle;
 import gestionScolaire.metier.model.StatusEnum;
 
 @Controller
@@ -40,7 +44,11 @@ public class ClasseController {
 	private PersonneDao personneDao;
 	@Autowired
 	private PersonneClasseDao personneClasseDao;
-	
+	@Autowired
+	private MatiereDao matiereDao;
+	@Autowired
+	private SalleDao salleDao;
+		
 	
 	@RequestMapping("/list")
 	public String list(Model model, HttpServletRequest req){
@@ -58,16 +66,19 @@ public class ClasseController {
 	public String voir(@PathVariable("id") Long id, Model model, HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		
-		//if(isAdmin(session) || isAutorized(session, id)){
-			Classe c = classeDao.find(id);
+		Classe c = classeDao.find(id);
+		List<Matiere> m = matiereDao.findAll();
+		Etablissement e = etabDao.find(c.getEtablissement().getId());
+		List<Personne> profs = isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId()) : getProfsByEtab((Long) session.getAttribute("idEtab"));
+		List<Salle> s = salleDao.findAll();
+		
+		model.addAttribute("classe", c);
+		model.addAttribute("profs", profs);
+		model.addAttribute("etab", e);
+		model.addAttribute("matieres", m);
+		model.addAttribute("salles", s);
 			
-			
-			model.addAttribute("classe", c);
-			
-			
-			return "classe/voir";
-	//	} else return "redirect:/";
-			
+		return "classe/voir";		
 	}
 	
 	@RequestMapping("/add")
