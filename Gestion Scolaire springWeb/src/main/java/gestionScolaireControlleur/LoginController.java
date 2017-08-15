@@ -54,6 +54,8 @@ public class LoginController {
 			session.setAttribute("role", role);
 			session.setAttribute("username", login.getUsername());
 			session.setAttribute("loginid", login.getId());
+			session.setAttribute("nom", login.getPersonne().getNom());
+			session.setAttribute("prenom", login.getPersonne().getPrenom());
 			
 			session.setMaxInactiveInterval(3000); //300 seconde de session
 			
@@ -80,6 +82,10 @@ public class LoginController {
 			session.removeAttribute("userid");
 			session.removeAttribute("idEtab");
 			session.removeAttribute("role");
+			session.removeAttribute("prenom");
+			session.removeAttribute("nom");
+			session.removeAttribute("username");
+			session.removeAttribute("loginid");
 		}
 		
 		return "redirect:login";
