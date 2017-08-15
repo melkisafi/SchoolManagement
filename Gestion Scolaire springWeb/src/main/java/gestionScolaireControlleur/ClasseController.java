@@ -94,7 +94,7 @@ public class ClasseController {
 		
 		for(Personne p : profs){
 			if(!personneDao.isPrincipal(p.getId()))
-				datas += "<option  value="+p.getId()+">"+p.getNom()+"</option>";
+				datas += "<option class='opts-pp'  value="+p.getId()+">"+p.getNom()+"</option>";
 		}
 		
 		return datas;

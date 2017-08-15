@@ -25,8 +25,8 @@
 					<label for="professeurs">Professeur principal</label>
 					<select name="personne_id" id="professeurs" class="form-control">
 						<c:choose>
-							<c:when test="${mode == 'edit'}"><option value="${pp.id}" id="pp" data-type="pp" data-etab="${etab.id}">${pp.nom}</option></c:when>
-							<c:otherwise><option value="${null}"></option></c:otherwise>
+							<c:when test="${mode == 'edit'}"><option value="${pp.id}">${pp.nom}</option></c:when>
+							<c:otherwise><option value="${null}" class="opts-pp"></option></c:otherwise>
 						</c:choose>
 						<c:if test="${isAdmin == 0 || mode == 'edit'}">
 							<c:forEach items="${profs}" var="pr">
