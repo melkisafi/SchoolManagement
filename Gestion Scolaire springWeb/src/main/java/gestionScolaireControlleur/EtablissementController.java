@@ -62,9 +62,11 @@ public class EtablissementController {
 			Adresse adr = e.getAdr();
 			List <Personne> p = personneDao.findProfByEtab(StatusEnum.PROFESSEUR, id);
 			List<Classe> c = classeDao.findClasseByEtab(id);
-					
-			model.addAttribute("nbProf", p.size());
-			model.addAttribute("nbClasse", c.size());
+			int nbprof = p.size() > 0 ? p.size() : 0;
+			int nbclasse = c == null ? 0: c.size();
+			
+			model.addAttribute("nbProf",nbprof);
+			model.addAttribute("nbClasse", nbclasse);
 			model.addAttribute("profs", p);
 			model.addAttribute("etab", e);
 			model.addAttribute("adr", adr);
