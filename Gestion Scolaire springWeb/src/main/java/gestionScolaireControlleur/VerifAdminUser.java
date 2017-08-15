@@ -28,4 +28,12 @@ public class VerifAdminUser {
 		}
 
 	}
+	
+	public static boolean isConnected(HttpSession s) {
+		if (s.getAttribute("role") != null) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

@@ -7,6 +7,12 @@
 <jsp:include page="../elements/header.jsp" />
 <jsp:include page="../elements/sidebar.jsp" />
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<c:if test="${typeMess != null }">
+			<div class="alert alert-${typeMess}" role="alert">${message}</div>
+		</c:if>
+	</div>
+	
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="page-header">
 			<h1>Edition d'une matiere </h1>
 		</div>
@@ -19,11 +25,11 @@
 				
 				<div class="form-group">
 				  <form:label path="nomMatiere">Nom</form:label>
-				  <form:input path="nomMatiere" type="text" cssClass="form-control" />
+				  <form:input path="nomMatiere" type="text" cssClass="form-control" value="${nomMat}" />
 				</div>	 
 				<div class="form-group">
 				  <form:label path="couleurMatiere">couleur</form:label>
-				  <form:input path="couleurMatiere" type="text" cssClass="form-control" />
+				  <form:input path="couleurMatiere" type="text" cssClass="form-control" value="${colMat}" />
 				</div>	
 				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
 				

@@ -41,7 +41,7 @@ public class MatiereDaoJpa implements MatiereDao {
 
 	@Override
 	public List<Matiere> findAll() {
-		Query query = em.createQuery("from Matiere");
+		Query query = em.createQuery("from Matiere m order by m.idMatiere asc");
 		return query.getResultList();
 	}
 
