@@ -14,6 +14,7 @@ import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.dao.MatiereSalleDao;
 import gestionScolaire.metier.dao.SalleClasseDao;
 import gestionScolaire.metier.dao.SalleDao;
+import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.MatiereSalle;
 import gestionScolaire.metier.model.Salle;
@@ -90,8 +91,8 @@ public class SalleDaoJpa implements SalleDao {
 	public List<Salle> findAllByEtab(Long idEtablissement) {
 		Query query1 = em.createQuery("from Salle s where s.etablissement.id = :id ");
 		query1.setParameter("id", idEtablissement);
-		
-		return query1.getResultList();
+		List<Salle> s = query1.getResultList();
+		return s.size() > 0 ? s : null;
 	}
 
 

@@ -2,8 +2,11 @@ package gestionScolaireControlleur;
 
 import java.text.ParseException;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import gestionScolaire.metier.dao.MatiereDao;
 import gestionScolaire.metier.model.Matiere;
 
@@ -75,10 +79,12 @@ public class MatiereController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@RequestParam("mode") String mode, @ModelAttribute("matiere") Matiere matiere,
+	public String save(@RequestParam("mode") String mode, @ModelAttribute("matiere") @Valid Matiere matiere,
 			BindingResult result, RedirectAttributes attr, HttpServletRequest req) throws ParseException {
 		HttpSession session = req.getSession(false);
 
+		if (result.hasErrors()){return "matiere/edit";}
+		
 		if (VerifAdminUser.isConnected(session)) {
 			if (mode.equals("add")) {
 				try {
@@ -86,10 +92,10 @@ public class MatiereController {
 				} catch (Exception e) {
 					attr.addFlashAttribute("nomMat", matiere.getNomMatiere());
 					attr.addFlashAttribute("colMat", matiere.getCouleurMatiere());
-					attr.addFlashAttribute("typeMess", "warning");
+					attr.addFlashAttribute("typeMess", "danger");
 					attr.addFlashAttribute("message",
-							"La matière ou la couleur existe déjà\n Merci de saisir autre chose");
-					return "redirect:/matiere/add";
+							"La matière ou la couleur existe déjà. Merci de saisir autre chose");
+					return "redirect:/matiere/add/";
 				}
 			} else {
 				try {
@@ -97,7 +103,7 @@ public class MatiereController {
 				} catch (Exception e) {
 					attr.addFlashAttribute("nomMat", matiere.getNomMatiere());
 					attr.addFlashAttribute("colMat", matiere.getCouleurMatiere());
-					attr.addFlashAttribute("typeMess", "warning");
+					attr.addFlashAttribute("typeMess", "danger");
 					attr.addFlashAttribute("message",
 							"La matière ou la couleur existe déjà\n Merci de saisir autre chose");
 					return "redirect:/matiere/edit/" + matiere.getIdMatiere();

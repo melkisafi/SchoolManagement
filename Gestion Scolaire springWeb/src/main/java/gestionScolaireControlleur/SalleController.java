@@ -44,20 +44,18 @@ public class SalleController {
 
 	}
 
-	// @RequestMapping("/add")
-	// public String add(HttpServletRequest req, Model model){
-	// HttpSession session = req.getSession(false);
-	//
-	// if(isAdmin(session)){
-	// model.addAttribute("mode", "add");
-	// model.addAttribute("etablissement", new Salle());
-	// model.addAttribute("adresse", new Adresse());
-	// model.addAttribute("type", TypeEtab.values());
-	//
-	// return "etablissement/edit";
-	// }
-	// return "redirect:/";
-	// }
+	 @RequestMapping("/add")
+	 public String add(HttpServletRequest req, Model model){
+	 HttpSession session = req.getSession(false);
+	
+	 if(VerifAdminUser.isConnected(session)){
+	 model.addAttribute("mode", "add");
+	 model.addAttribute("salle", new Salle());
+	 model.addAttribute("etab", etabDao.findAll());
+	 return "salle/edit";
+	 }
+	 return "redirect:/";
+	 }
 
 
 }
