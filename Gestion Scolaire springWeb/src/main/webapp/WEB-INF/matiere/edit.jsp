@@ -19,17 +19,19 @@
 		
 		<div class="col-md-5 col-sm-12">
 			<form:form modelAttribute="matiere" action="/GestionScolaireSpringWeb/matiere/save" method="post" cssClass="form-horizontal">
-				<form:hidden path="idMatiere" readonly="${mode = 'edit'}"/>
+				<form:hidden path="idMatiere" readonly="${mode == 'edit'}"/>
 				<form:hidden path="version" />
 				<input name="mode" type="hidden" value="${mode}" >	
 				
 				<div class="form-group">
 				  <form:label path="nomMatiere">Nom</form:label>
 				  <form:input path="nomMatiere" type="text" cssClass="form-control" value="${nomMat}" />
+				  <form:errors path="nomMatiere" cssStyle="color:red"></form:errors>
 				</div>	 
 				<div class="form-group">
 				  <form:label path="couleurMatiere">couleur</form:label>
 				  <form:input path="couleurMatiere" type="text" cssClass="form-control" value="${colMat}" />
+				  <form:errors path="couleurMatiere" cssStyle="color:red"></form:errors>
 				</div>	
 				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
 				

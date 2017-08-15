@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
 @Entity
 @SequenceGenerator(name = "seq_sub",sequenceName="seq_sub", initialValue = 1, allocationSize = 1)
@@ -34,6 +35,7 @@ public class Matiere {
 	}
 
 	@Column(unique = true)
+	@Size(min=3, message="Le nom de la matière doit avoir au moins 3 caractères")
 	public String getNomMatiere() {
 		return nomMatiere;
 	}
@@ -43,6 +45,7 @@ public class Matiere {
 	}
 
 	@Column(unique = true)
+	@Size(min=3, message="La couleur de la matière doit avoir selectionné")
 	public String getCouleurMatiere() {
 		return couleurMatiere;
 	}
