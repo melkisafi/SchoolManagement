@@ -16,8 +16,10 @@ import gestionScolaire.metier.dao.PersonneClasseDao;
 import gestionScolaire.metier.dao.SalleClasseDao;
 import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Evenement;
+import gestionScolaire.metier.model.Personne;
 import gestionScolaire.metier.model.PersonneClasse;
 import gestionScolaire.metier.model.SalleClasse;
+import gestionScolaire.metier.model.StatusEnum;
 
 @Transactional
 @Repository
@@ -45,7 +47,16 @@ public class ClasseDaoJpa implements ClasseDao {
 		Query query = em.createQuery("from Classe");
 		return query.getResultList();
 	}
-
+	
+	@Override
+	public List<Classe> findClasseByEtab(Long idEtab) {
+		Query query = em.createQuery("from Classe as c left join fetch c.etablissement e where c.etablissement.id = :id");
+		query.setParameter("id", idEtab);
+		List<Classe> c = query.getResultList();
+		
+		return c.size() > 0 ? c : null;
+	}
+	
 	@Override
 	public void create(Classe obj) {
 		em.persist(obj);

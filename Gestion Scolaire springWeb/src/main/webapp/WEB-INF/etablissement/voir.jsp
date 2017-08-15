@@ -42,7 +42,7 @@
                       <i class="fa fa-graduation-cap"></i>
                     </div>
                     <div class="stat-content">
-                      <h1></h1>
+                      <h1>${nbClasse}</h1>
                       <h5>Classes</h5>                     
                     </div>
                     <div class="clearfix"></div>
@@ -96,7 +96,7 @@
 										<td>${p.id}</td>
 										<td>${p.nom}</td>
 										<td>${p.prenom}</td>
-										<td><a href="/personne/edit/${p.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
+										<td><a href="/GestionScolaireSpringWeb/personne/edit/${p.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -119,7 +119,26 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Classes</div>
 				<div class="panel-body">
-					
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nom</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${classes}" var="c">
+									<tr>
+										<td>${c.id}</td>
+										<td>${c.nom}</td>
+										<td><a href="/GestionScolaireSpringWeb/classe/edit/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

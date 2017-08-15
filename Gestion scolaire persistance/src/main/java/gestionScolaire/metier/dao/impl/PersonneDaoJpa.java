@@ -66,12 +66,25 @@ public class PersonneDaoJpa implements PersonneDao {
 	
 	@Override
 	public List<Personne> findProfByEtab(StatusEnum status, Long idEtab) {
-		Query query = em.createQuery("from Personne as p left join fetch p.personneEtablissement  pe where p.statusEnum = :status ");
+		Query query = em.createQuery("from Personne as p left join fetch p.personneEtablissement  pe where p.statusEnum = :status and pe.etablissement.id = :id");
 		query.setParameter("status", status);
+		query.setParameter("id", idEtab);
 		List<Personne> stat = query.getResultList();
 		
 		return stat.size() > 0 ? stat : null;
 	}
+	
+	@Override
+	public boolean isPrincipal(Long idPers) {
+		Query query = em.createQuery("from Personne as p left join fetch p.personneClasses  pc where p.id = :id and pc.personne.id = :id and pc.principal =  :principal");
+		query.setParameter("id", idPers);
+		query.setParameter("principal", true);
+		
+		List<Personne> p = query.getResultList();
+		
+		return p.size() > 0 ? true : false;
+	}
+
 	
 	@Override
 	public List<Personne> findAll() {

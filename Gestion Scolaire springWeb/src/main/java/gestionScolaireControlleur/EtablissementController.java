@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.PersonneDao;
 import gestionScolaire.metier.model.Adresse;
+import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Personne;
 import gestionScolaire.metier.model.StatusEnum;
@@ -33,6 +35,8 @@ public class EtablissementController {
 	private EtablissementDao etabDao;
 	@Autowired
 	private PersonneDao personneDao;
+	@Autowired
+	private ClasseDao classeDao;
 	
 	
 	@RequestMapping("/list")
@@ -57,11 +61,14 @@ public class EtablissementController {
 			Etablissement e = etabDao.find(id);
 			Adresse adr = e.getAdr();
 			List <Personne> p = personneDao.findProfByEtab(StatusEnum.PROFESSEUR, id);
-			
+			List<Classe> c = classeDao.findClasseByEtab(id);
+					
 			model.addAttribute("nbProf", p.size());
+			model.addAttribute("nbClasse", c.size());
 			model.addAttribute("profs", p);
 			model.addAttribute("etab", e);
 			model.addAttribute("adr", adr);
+			model.addAttribute("classes", c);
 			
 			return "etablissement/voir";
 		} else return "redirect:/";

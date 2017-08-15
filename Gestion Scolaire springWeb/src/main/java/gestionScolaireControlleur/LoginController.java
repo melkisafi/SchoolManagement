@@ -113,6 +113,6 @@ public class LoginController {
 		attr.addFlashAttribute("typeMess", "success");
 		attr.addFlashAttribute("message", "Vos identifiants ont bien été édité");
 		
-		return "redirect:login";
+		return "redirect:/";
 	}
 }

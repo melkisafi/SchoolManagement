@@ -10,25 +10,53 @@
 		<div class="page-header">
 			<h1>Edition d'une classe </h1>
 		</div>
-		<p id="test">toto</p>
 		<div class="col-md-5 col-sm-12">
 			<form:form modelAttribute="classe" action="/GestionScolaireSpringWeb/classe/save" method="post" cssClass="form-horizontal">
-				<form:hidden path="id" readonly="${mode = 'edit'}"/>
+				<form:hidden path="id" readonly="${mode == 'edit'}"/>
 				<form:hidden path="version" />
-				<input name="mode" type="hidden" value="${mode}" >	
+				<input name="mode" type="hidden" id="mode" value="${mode}" >	
 				
 				<div class="form-group">
 				  <form:label path="nom">Nom</form:label>
 				  <form:input path="nom" type="text" cssClass="form-control" />
 				</div>
-				<div class="form-group">
-				  <form:label path="nom">Professeur Principal</form:label>
-				  <form:input path="nom" type="text" cssClass="form-control" />
+
+				<div class="form-group" id="profs">
+					<label for="professeurs">Professeur principal</label>
+					<select name="personne_id" id="professeurs" class="form-control">
+						<c:choose>
+							<c:when test="${mode == 'edit'}"><option value="${pp.id}" id="pp" data-type="pp" data-etab="${etab.id}">${pp.nom}</option></c:when>
+							<c:otherwise><option value="${null}"></option></c:otherwise>
+						</c:choose>
+						<c:if test="${isAdmin == 0 || mode == 'edit'}">
+							<c:forEach items="${profs}" var="pr">
+								<c:if test="${pp.id != pr.id}"><option class="opts-pp" value="${pr.id}">${pr.nom}</option></c:if>
+							</c:forEach>
+						</c:if>
+					</select>
 				</div>
-				<div class="form-group">
-				  <form:label path="nom">Etablissement</form:label>
-				  <form:input path="nom" type="text" cssClass="form-control" />
-				</div>	 	
+				
+				<c:choose>
+					<c:when test="${isAdmin == 1}">
+						<div class="form-group">
+							<label for="etab">Etablissement</label>
+							<select name="etab_id" id="etab" class="form-control">
+								<c:choose>
+									<c:when test="${mode == 'edit'}"><option value="${etab.id}">${etab.nom }</option></c:when>
+									<c:otherwise><option value="${null}"></option></c:otherwise>
+								</c:choose>
+								<c:forEach items="${etabs}" var="e">
+									<c:if test="${etab.id != e.id}"><option value="${e.id}">${e.nom}</option></c:if>
+								</c:forEach>
+							</select>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" name="etab_id" value="${etab.id}" >
+					</c:otherwise>
+				</c:choose>
+			
+				
 				<button type="submit" id="formClasse" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
 				
 			</form:form>
