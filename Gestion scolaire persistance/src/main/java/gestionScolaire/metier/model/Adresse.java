@@ -1,6 +1,9 @@
 package gestionScolaire.metier.model;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Embeddable
 public class Adresse {
@@ -21,6 +24,7 @@ public class Adresse {
 		this.pays = pays;
 	}
 
+	@Size(min=1,message="fjkdhfksdj")
 	public String getAdresse() {
 		return adresse;
 	}

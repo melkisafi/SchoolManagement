@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -111,9 +112,10 @@ public class EtablissementController {
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(@RequestParam("mode") String mode, 
-			@ModelAttribute("etablissement") Etablissement etab, 
+			@ModelAttribute("etablissement") @Valid Etablissement etab, 
 			BindingResult result,
 			RedirectAttributes attr) throws ParseException {
+		if (result.hasErrors()){return "etablissement/edit";}
 		if(mode.equals("add")){
 			etabDao.create(etab);
 		} else {

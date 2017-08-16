@@ -20,6 +20,7 @@
 				<div class="form-group">
 				  <form:label path="nom">Nom</form:label>
 				  <form:input path="nom" type="text" cssClass="form-control" />
+				  <form:errors path="nom" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
@@ -28,16 +29,19 @@
 				  	<form:option value="${null}">Choisir</form:option>
 				  	<form:options items="${type}"></form:options>
 				  </form:select>
+				  <form:errors path="type" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="tel">Tel</form:label>
 				  <form:input path="tel" type="text" cssClass="form-control" />
+				  <form:errors path="tel" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.adresse">Adresse</form:label>
 				  <form:input path="adr.adresse" type="text" cssClass="form-control" />
+				  <form:errors path="adr" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">

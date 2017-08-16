@@ -59,6 +59,7 @@ public class MatiereController {
 		if (VerifAdminUser.isConnected(session)) {
 			model.addAttribute("mode", "add");
 			model.addAttribute("matiere", new Matiere());
+			
 			return "matiere/edit";
 		}
 		return "redirect:../";
