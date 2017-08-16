@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.validation.annotation.Validated;
 
 @Entity
 public class Etablissement {
@@ -56,7 +57,7 @@ public class Etablissement {
 	}
 
 	@Column
-	@Size(min=3, message="Le nom de l'établissement est obligatoire")
+	@Size(min=3, message="Merci de saisir le nom de l'établissement")
 	public String getNom() {
 		return nom;
 	}
@@ -66,7 +67,7 @@ public class Etablissement {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@NotNull(message="Vous devez choisir le type de l'établissement")
+	@NotNull(message="Merci de choisir le type de l'établissement")
 	public TypeEtab getType() {
 		return type;
 	}
@@ -76,7 +77,7 @@ public class Etablissement {
 	}
 
 	@Column
-	@Size(min=10, max=10, message="Nbre de tel est composé de 10 chiffres")
+	@Size(min=10, max=10, message="Merci de saisir le n° tel de l'établissement. Celui-ci doit être composé de 10 chiffres")
 	public String getTel() {
 		return tel;
 	}
