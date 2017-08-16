@@ -26,7 +26,7 @@
 				<div class="form-group">
 				  <form:label path="type">Type</form:label>
 				  <form:select path="type" cssClass="form-control">
-				  	<form:option value="${null}">Choisir</form:option>
+				  	<form:option value="${null}">Veuillez choisir le type de l'établissement</form:option>
 				  	<form:options items="${type}"></form:options>
 				  </form:select>
 				  <form:errors path="type" cssStyle="color:red"></form:errors>

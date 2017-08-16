@@ -11,6 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @SequenceGenerator(name = "seq_salle",sequenceName="seq_salle", initialValue = 1, allocationSize = 1)
@@ -43,6 +50,7 @@ public class Salle {
 		this.id = id;
 	}
 
+	@Size(min=3, message="Merci de saisir le nom de la salle")
 	public String getNom() {
 		return nom;
 	}
@@ -51,6 +59,7 @@ public class Salle {
 		this.nom = nom;
 	}
 
+	@Min(value = 1)
 	public int getCapacite() {
 		return capacite;
 	}
@@ -88,6 +97,8 @@ public class Salle {
 	
 	@ManyToOne
 	@JoinColumn(name="etablissement_id")
+	@NotNull
+	@Valid
 	public Etablissement getEtablissement() {
 		return etablissement;
 	}

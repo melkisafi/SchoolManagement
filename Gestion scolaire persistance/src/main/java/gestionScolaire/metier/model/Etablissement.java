@@ -48,6 +48,7 @@ public class Etablissement {
 
 	@Id
 	@GeneratedValue
+	@NotNull(message="Veuillez sélectionner l''établissement")
 	public Long getId() {
 		return id;
 	}
