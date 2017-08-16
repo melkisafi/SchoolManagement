@@ -20,7 +20,18 @@ $(document).ready(function(){
 			$("#profs").show();
 		}
 	});
-
+	
+	var events; 
+	$.ajax({
+		url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/getEvents',
+		type:"POST",
+		dataType:"json",
+		data:{classe_id:$("input[name='classe_id']").val()},
+	}).done(function(data){
+		events = data;
+		console.log(data);
+	});
+		
 	$('#calendar').fullCalendar({
 		header: {
 			left: 'prev,next today',
@@ -35,19 +46,19 @@ $(document).ready(function(){
 		select: function(start, end) {
 			$('#modal').modal('show');
 			var eventData;
-			
-			$("#button-form-event").click(function(){
-				start = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
-				end = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");
+			$("#button-form-event").bind('click',function(){
+				start = moment(start).format('YYYY-MM-DD HH:mm');
+				end = moment(end).format('YYYY-MM-DD HH:mm');
 				
 				var classeId = $("input[name='classe_id']").val(),
 					etabId = $("input[name='etab_id']").val(),
 					profId = $("select[name='personne_id'] option:selected").val(),
 					matId = $("select[name='matiere_id'] option:selected").val(),
 					salleId = $("select[name='salle_id'] option:selected").val();
-				/*
+			
+				
 				$.ajax({
-					url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/test',
+					url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/add',
 					method:'GET',
 					data:{
 						personne_id:profId,
@@ -59,78 +70,33 @@ $(document).ready(function(){
 						dateF: end
 					},
 					success:function(datas){
-						alert(datas);
+						
+						$("#calendar").fullCalendar('refetchEvents');	
 					}
 				});
-				*/
+				$("#button-form-event").off("click");
+				
 			});
 					
-			eventData = {
-				start: start,
-				end: end
-			};
-			$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 			$('#calendar').fullCalendar('unselect');
 		},
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
-		events: [
-			{
-				title: 'All Day Event',
-				start: '2017-05-01'
-			},
-			{
-				title: 'Long Event',
-				start: '2017-05-07',
-				end: '2017-05-10'
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: '2017-05-09T16:00:00'
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: '2017-05-16T16:00:00'
-			},
-			{
-				title: 'Conference',
-				start: '2017-05-11',
-				end: '2017-05-13'
-			},
-			{
-				title: 'Meeting',
-				start: '2017-05-12T10:30:00',
-				end: '2017-05-12T12:30:00'
-			},
-			{
-				title: 'Lunch',
-				start: '2017-05-12T12:00:00'
-			},
-			{
-				title: 'Meeting',
-				start: '2017-05-12T14:30:00'
-			},
-			{
-				title: 'Happy Hour',
-				start: '2017-05-12T17:30:00'
-			},
-			{
-				title: 'Dinner',
-				start: '2017-05-12T20:00:00'
-			},
-			{
-				title: 'Birthday Party',
-				start: '2017-05-13T07:00:00'
-			},
-			{
-				title: 'Click for Google',
-				url: 'http://google.com/',
-				start: '2017-05-28'
-			}
-		]
+		events: {
+			url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/getEvents',
+			type:"POST",
+			dataType:"json",
+			data:{classe_id:$("input[name='classe_id']").val()},
+	        error: function() {
+	            alert('Erreur pendant le chargement des evenements');
+	        },
+	    },
+		//events: events,
+		eventRender: function(event, element) {
+	        element.append(event.evenementid);
+	        element.append(event.prof);
+	        element.append(event.matiere); 
+	    }
 
 	});
-
 });

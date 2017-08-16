@@ -331,7 +331,17 @@ span.separator{
 	display:none;
 }
 
-
+/***********************
+******** profs input****
+************************/
 #profs  {
 	display:none;
+}
+
+/***********************
+******** Calendar*******
+************************/
+#calendar {
+	background:#fff;
+	padding:20px;
 }

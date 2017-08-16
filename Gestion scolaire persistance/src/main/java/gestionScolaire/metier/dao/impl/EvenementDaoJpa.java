@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import gestionScolaire.metier.dao.EvenementDao;
 import gestionScolaire.metier.model.Evenement;
+import gestionScolaire.metier.model.Personne;
 
 @Transactional
 @Repository
@@ -29,7 +30,17 @@ public class EvenementDaoJpa implements EvenementDao {
 		Query query = em.createQuery("from Evenement");
 		return query.getResultList();
 	}
-
+	
+	@Override
+	public List<Evenement> findAllEvenementByClasse(Long classeId){
+		Query query = em.createQuery("from Evenement as e where e.classe.id = :cId");
+		query.setParameter("cId", classeId);
+		
+		List<Evenement> e = query.getResultList();
+		
+		return e;
+	}
+	
 	@Override
 	public void create(Evenement obj) {
 		em.persist(obj);
