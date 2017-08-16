@@ -13,6 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.validation.annotation.Validated;
 
 @Entity
 public class Etablissement {
@@ -51,6 +57,7 @@ public class Etablissement {
 	}
 
 	@Column
+	@Size(min=3, message="Merci de saisir le nom de l'établissement")
 	public String getNom() {
 		return nom;
 	}
@@ -60,6 +67,7 @@ public class Etablissement {
 	}
 
 	@Enumerated(EnumType.STRING)
+	@NotNull(message="Merci de choisir le type de l'établissement")
 	public TypeEtab getType() {
 		return type;
 	}
@@ -69,6 +77,7 @@ public class Etablissement {
 	}
 
 	@Column
+	@Size(min=10, max=10, message="Merci de saisir le n° tel de l'établissement. Celui-ci doit être composé de 10 chiffres")
 	public String getTel() {
 		return tel;
 	}
@@ -78,10 +87,12 @@ public class Etablissement {
 	}
 
 	@Embedded
+	@Valid
 	public Adresse getAdr() {
 		return adr;
 	}
 
+	
 	public void setAdr(Adresse adr) {
 		this.adr = adr;
 	}

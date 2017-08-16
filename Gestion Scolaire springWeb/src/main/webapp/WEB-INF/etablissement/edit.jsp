@@ -20,6 +20,7 @@
 				<div class="form-group">
 				  <form:label path="nom">Nom</form:label>
 				  <form:input path="nom" type="text" cssClass="form-control" />
+				  <form:errors path="nom" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
@@ -28,31 +29,37 @@
 				  	<form:option value="${null}">Choisir</form:option>
 				  	<form:options items="${type}"></form:options>
 				  </form:select>
+				  <form:errors path="type" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="tel">Tel</form:label>
-				  <form:input path="tel" type="text" cssClass="form-control" />
+				  <form:input path="tel" type="number" cssClass="form-control" />
+				  <form:errors path="tel" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.adresse">Adresse</form:label>
 				  <form:input path="adr.adresse" type="text" cssClass="form-control" />
+				  <form:errors path="adr.adresse" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.codepostal">Code postal</form:label>
 				  <form:input path="adr.codepostal" type="text" cssClass="form-control" />
+				  <form:errors path="adr.codepostal" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.ville">Ville</form:label>
 				  <form:input path="adr.ville" type="text" cssClass="form-control" />
+				  <form:errors path="adr.ville" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.pays">Pays</form:label>
 				  <form:input path="adr.pays" type="text" cssClass="form-control" />
+				  <form:errors path="adr.pays" cssStyle="color:red"></form:errors>
 				</div>
 						 
 				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
