@@ -80,14 +80,15 @@ public class MatiereController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@RequestParam("mode") String mode, @ModelAttribute("matiere") @Valid Matiere matiere,
-			BindingResult result, RedirectAttributes attr, HttpServletRequest req) throws ParseException {
+			BindingResult result, RedirectAttributes attr, HttpServletRequest req, Model model) throws ParseException {
 		HttpSession session = req.getSession(false);
 
-		if (result.hasErrors()){return "matiere/edit";}
+//		if (result.hasErrors()){return "matiere/edit";}
 		
 		if (VerifAdminUser.isConnected(session)) {
 			if (mode.equals("add")) {
 				try {
+					if (result.hasErrors()){model.addAttribute("mode", "add");return "matiere/edit";}
 					matiereDao.create(matiere);
 				} catch (Exception e) {
 					attr.addFlashAttribute("nomMat", matiere.getNomMatiere());
@@ -99,6 +100,10 @@ public class MatiereController {
 				}
 			} else {
 				try {
+					if (result.hasErrors()){
+						model.addAttribute("mode", "edit");
+						model.addAttribute("idMatiere",matiere.getIdMatiere() );
+						return "matiere/edit";}
 					matiereDao.update(matiere);
 				} catch (Exception e) {
 					attr.addFlashAttribute("nomMat", matiere.getNomMatiere());
