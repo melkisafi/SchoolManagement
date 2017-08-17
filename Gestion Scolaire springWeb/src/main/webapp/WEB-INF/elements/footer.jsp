@@ -5,7 +5,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 		
 		<script src="${pageContext.request.contextPath}/ressources/js/locale-all.js"></script>
-		
+		<script src="${pageContext.request.contextPath}/ressources/js/colorpicker.js"></script>
 		<script src="${pageContext.request.contextPath}/ressources/js/script.js"></script>
 		
 	</body>

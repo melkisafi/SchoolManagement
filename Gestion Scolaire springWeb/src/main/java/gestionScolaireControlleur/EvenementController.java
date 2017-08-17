@@ -55,15 +55,19 @@ public class EvenementController {
 		List<Evenement> events = eventDao.findAllEvenementByClasse(classeId);
 		ArrayList arr = new ArrayList();
 		HashMap datas = new HashMap();
+		Calendar c = GregorianCalendar.getInstance();
+		SimpleDateFormat  df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		for(Evenement e : events){
-			datas.put("start", convertDateHourToString(e.getDate(), e.getHeureDebut()));
-			datas.put("end", convertDateHourToString(e.getDate(), e.getHeureFin()));
-			
+			c.setTime(e.getDateDebut());
+			datas.put("start", c.getTime());
+			c.setTime(e.getDateFin());
+			datas.put("end", c.getTime());
 			datas.put("evenementid", e.getId());
 			datas.put("prof", e.getPersonne().getNom());
 			datas.put("matiere", e.getMatiere().getNomMatiere());
-		
+			datas.put("backgroundColor", e.getMatiere().getCouleurMatiere());
+			
 			arr.add(datas);
 			datas = new HashMap();
 		}
@@ -75,7 +79,23 @@ public class EvenementController {
 		return json;
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.GET)
+	@RequestMapping(value="/edit", method=RequestMethod.POST)
+	@ResponseBody
+	public String edit(@RequestParam("eventid") Long id,
+			@RequestParam("dateD") String dateD,
+			@RequestParam("dateF") String dateF) throws ParseException{
+		Date dd = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateD);	
+		Date df = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateF);	
+		
+		Evenement e = eventDao.find(id);
+		e.setDateDebut(dd);
+		e.setDateFin(df);
+		eventDao.update(e);
+		
+		return "ok";
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	@ResponseBody
 	public String add(@RequestParam("personne_id") Long profId,
 			@RequestParam("salle_id") Long salleId,
@@ -99,26 +119,22 @@ public class EvenementController {
 		ev.setEtablissement(et);
 		ev.setSalle(s);
 		ev.setPersonne(p);
-		ev.setDate(dd);
-		ev.setHeureDebut(dd);
-		ev.setHeureFin(df);
+		ev.setDateDebut(dd);
+		ev.setDateFin(df);
 		
 		eventDao.create(ev);
 		
 		return "ok";
 	}
 	
-	public String convertDateHourToString(Date d, Date h){
-		Calendar c = GregorianCalendar.getInstance();
-		SimpleDateFormat  df = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat  hf = new SimpleDateFormat("HH:mm");
-		String dateToString;
-				
-		c.setTime(d);
-		dateToString = df.format(c.getTime());
-		c.setTime(h);
-		dateToString += " "+hf.format(c.getTime());
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	@ResponseBody
+	public String delete(@RequestParam("eventid") Long eventId){
 		
-		return dateToString;
+		Evenement e = eventDao.find(eventId);
+		eventDao.delete(e);
+		
+		return "ok";
 	}
+
 }

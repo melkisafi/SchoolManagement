@@ -20,17 +20,6 @@ $(document).ready(function(){
 			$("#profs").show();
 		}
 	});
-	
-	var events; 
-	$.ajax({
-		url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/getEvents',
-		type:"POST",
-		dataType:"json",
-		data:{classe_id:$("input[name='classe_id']").val()},
-	}).done(function(data){
-		events = data;
-		console.log(data);
-	});
 		
 	$('#calendar').fullCalendar({
 		header: {
@@ -59,7 +48,7 @@ $(document).ready(function(){
 				
 				$.ajax({
 					url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/add',
-					method:'GET',
+					method:'POST',
 					data:{
 						personne_id:profId,
 						salle_id:salleId,
@@ -91,12 +80,67 @@ $(document).ready(function(){
 	            alert('Erreur pendant le chargement des evenements');
 	        },
 	    },
-		//events: events,
+	    eventDrop: function(event, delta) {
+	    	start = moment(event.start).format('YYYY-MM-DD HH:mm');
+			end = moment(event.end).format('YYYY-MM-DD HH:mm');
+			id = event.evenementid.toString();
+
+	    	$.ajax({
+				url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/edit',
+				method:'POST',
+				data:{	
+					eventid:id,
+					dateD: start,
+					dateF: end
+				},
+				success:function(datas){
+					$("#calendar").fullCalendar('refetchEvents');	
+				}
+			});
+			console.log(event);
+	    },
+	    eventResize: function(event) {
+	    	start = moment(event.start).format('YYYY-MM-DD HH:mm');
+			end = moment(event.end).format('YYYY-MM-DD HH:mm');
+			id = event.evenementid.toString();
+			
+	    	$.ajax({
+				url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/edit',
+				method:'POST',
+				data:{	
+					eventid:id,
+					dateD: start,
+					dateF: end
+				},
+				success:function(datas){
+					
+					$("#calendar").fullCalendar('refetchEvents');	
+				}
+			});
+	    },
 		eventRender: function(event, element) {
-	        element.append(event.evenementid);
+	        element.append("<div data-id='"+event.evenementid+"'></div>");
 	        element.append(event.prof);
 	        element.append(event.matiere); 
-	    }
+	        element.append('<button type="button" class="close rm-event" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+	        element.find(".close").click(function() {
+	        	id = event.evenementid.toString();
+				
+		    	$.ajax({
+					url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/delete',
+					method:'POST',
+					data:{	
+						eventid:id,
+					},
+					success:function(datas){
+			           $('#calendar').fullCalendar('removeEvents',event._id);	
+					}
+				});
+            })
+		}
 
 	});
+
+	$('input#couleurMatiere').simpleColorPicker();
+
 });
