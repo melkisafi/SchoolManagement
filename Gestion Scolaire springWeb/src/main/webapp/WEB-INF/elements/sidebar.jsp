@@ -58,7 +58,7 @@
               </ul>
               <%} %>
               
-               <li  data-toggle="collapse" data-target="#subject-actions" class="collapsed center-border">
+               <li  data-toggle="collapse" data-target="#subject-actions" class="collapsed matiere-border">
                   <a href="#"><i class="fa fa-book"></i> Matières <span class="arrow"></span></a>
               </li>
               <ul class="sub-menu collapse" id="subject-actions">
@@ -66,14 +66,14 @@
                   <li><a href="${pageContext.request.contextPath}/matiere/list">Liste des matières</a></li>
               </ul>
               
-               <li data-toggle="collapse" data-target="#room-actions" class="collapsed center-border">
+               <li data-toggle="collapse" data-target="#room-actions" class="collapsed salle-border">
                   <a href="#"><i class="fa fa-group"></i> Salles <span class="arrow"></span></a>
               </li>
               <ul class="sub-menu collapse" id="room-actions">
                   <li><a href="${pageContext.request.contextPath}/salle/add">Ajouter une salle</a></li>
                   <li><a href="${pageContext.request.contextPath}/salle/list">Liste des salles</a></li>
               </ul>
-                <li  data-toggle="collapse" data-target="#classe-actions" class="collapsed center-border">
+                <li  data-toggle="collapse" data-target="#classe-actions" class="collapsed classe-border">
                   <a href="#"><i class="fa fa-graduation-cap"></i> Classes <span class="arrow"></span></a>
               </li>
               <ul class="sub-menu collapse" id="classe-actions">

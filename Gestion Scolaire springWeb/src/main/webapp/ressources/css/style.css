@@ -116,9 +116,9 @@ a, a:hover {
 .sidebar li.center-border:focus {
   border-left:3px solid #FA8564; 
 }
-.sidebar li.active.phone-border,
-.sidebar li.phone-border:hover,
-.sidebar li.phone-border:focus  {
+.sidebar li.active.matiere-border,
+.sidebar li.matiere-border:hover,
+.sidebar li.matiere-border:focus  {
   border-left:3px solid #A48AD4; 
 }
 .sidebar li.active.dashboard-border,
@@ -126,6 +126,17 @@ a, a:hover {
 .sidebar li.dashbord-border:focus {
   border-left:3px solid #fff; 
 }
+.sidebar li.active.salle-border,
+.sidebar li.salle-border:hover,
+.sidebar li.salle-border:focus {
+  border-left:3px solid #aad13e; 
+}
+.sidebar li.active.classe-border,
+.sidebar li.classe-border:hover,
+.sidebar li.classe-border:focus {
+  border-left:3px solid #3e56d1; 
+}
+
 .sidebar ul :not(collapsed) .arrow:before,
 .sidebar li :not(collapsed) .arrow:before {
   font-family: FontAwesome;
@@ -196,9 +207,6 @@ a, a:hover {
   }
 }
 
-.main .page-header {
-  margin-top: 0;
-}
 
 /***********************
 ******** STAT **********
@@ -293,8 +301,14 @@ a, a:hover {
 .action-center{
   background:#FA8564;
 }
-.action-phone{
+.action-matiere{
   background:#A48AD4;
+}
+.action-salle{
+  background:#aad13e;
+}
+.action-classe{
+  background:#3e56d1;
 }
 /***********************
 ******** PANEL  ********

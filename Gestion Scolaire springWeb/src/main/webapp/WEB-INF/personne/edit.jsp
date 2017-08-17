@@ -17,7 +17,7 @@
 				<form:hidden path="version" />
 				<input name="mode" type="hidden" value="${mode}" >	
 				
-				<div class="col-md-6 col-sm-12 form-group-column">
+				<div class="col-md-3 col-sm-12 form-group-column">
 					<div class="page-header">
 						<h3>Informations</h3>
 					</div>
@@ -44,28 +44,39 @@
 					  <form:label path="datenaiss">Date de naissance</form:label>
 					  <form:input path="datenaiss" type="date" cssClass="form-control" />
 					</div>
-					
-					<div class="form-group">
-					  <label for="username">login</label>
-					<c:choose>
-					  	<c:when test="${mode == 'edit'}">  <input id="username" name="username" type="text" class="form-control" value="${login.username}" /></c:when>
-						  <c:otherwise>
-						  	<input id="username" type="text" name="username" class="form-control" />
-						  </c:otherwise>
-					  </c:choose>
-					 </div>
-					
-					<div class="form-group">
-					  <label for="password">Password</label>
-					  <c:choose>
-					  	<c:when test="${mode == 'edit'}">  <input id="password" name="password" type="password" class="form-control" value="${login.password}" /></c:when>
-						  <c:otherwise>
-						  	<input id="password" type="password" name="password" class="form-control" />
-						  </c:otherwise>
-					  </c:choose>
-					</div>
-						
+				</div>
 				
+				<div class="col-md-3 col-sm-12 form-group-column">
+					<div class="page-header">
+						<h3>Adresses</h3>
+					</div>
+					
+					<div class="form-group">
+					  <form:label path="adresse.adresse">Adresse</form:label>
+					  <form:input path="adresse.adresse" type="text" cssClass="form-control" />
+					</div>
+					
+					<div class="form-group">
+					  <form:label path="adresse.codepostal">Code postal</form:label>
+					  <form:input path="adresse.codepostal" type="text" cssClass="form-control" />
+					</div>
+					
+					<div class="form-group">
+					  <form:label path="adresse.ville">Ville</form:label>
+					  <form:input path="adresse.ville" type="text" cssClass="form-control" />
+					</div>
+					
+					<div class="form-group">
+					  <form:label path="adresse.pays">Pays</form:label>
+					  <form:input path="adresse.pays" type="text" cssClass="form-control" />
+					</div>
+					
+				</div>		 
+				
+				<div class="col-md-3 col-sm-12">
+					<div class="page-header">
+						<h3>Restrictions</h3>
+					</div>
 					
 					<div class="form-group">
 						<label for="etablissement">Etablissement</label>
@@ -98,34 +109,34 @@
 						</form:select>
 					</div>
 				</div>
-				
-				<div class="col-md-6 col-sm-12 form-group-column">
+				<div class="col-md-3 col-sml-12 form-group-column">
 					<div class="page-header">
-						<h3>Adresses</h3>
+						<h3>Login</h3>
 					</div>
 					
 					<div class="form-group">
-					  <form:label path="adresse.adresse">Adresse</form:label>
-					  <form:input path="adresse.adresse" type="text" cssClass="form-control" />
-					</div>
+					  <label for="username">login</label>
+					<c:choose>
+					  	<c:when test="${mode == 'edit'}">  <input id="username" name="username" type="text" class="form-control" value="${login.username}" /></c:when>
+						  <c:otherwise>
+						  	<input id="username" type="text" name="username" class="form-control"  required/>
+						  </c:otherwise>
+					  </c:choose>
+					 </div>
 					
 					<div class="form-group">
-					  <form:label path="adresse.codepostal">Code postal</form:label>
-					  <form:input path="adresse.codepostal" type="text" cssClass="form-control" />
+					  <label for="password">Password</label>
+					  <c:choose>
+					  	<c:when test="${mode == 'edit'}">  <input id="password" name="password" type="password" class="form-control" value="${login.password}" /></c:when>
+						  <c:otherwise>
+						  	<input id="password" type="password" name="password" class="form-control" required/>
+						  </c:otherwise>
+					  </c:choose>
 					</div>
-					
-					<div class="form-group">
-					  <form:label path="adresse.ville">Ville</form:label>
-					  <form:input path="adresse.ville" type="text" cssClass="form-control" />
-					</div>
-					
-					<div class="form-group">
-					  <form:label path="adresse.pays">Pays</form:label>
-					  <form:input path="adresse.pays" type="text" cssClass="form-control" />
-					</div>
-				</div>		 
+				</div>
+				<div class="col-md-12">
 				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>
-				
+				</div>
 			</form:form>
 		</div>
 	</div>

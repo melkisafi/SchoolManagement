@@ -21,10 +21,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import gestionScolaire.metier.dao.ClasseDao;
 import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.PersonneDao;
+import gestionScolaire.metier.dao.SalleDao;
 import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Classe;
 import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Personne;
+import gestionScolaire.metier.model.Salle;
 import gestionScolaire.metier.model.StatusEnum;
 import gestionScolaire.metier.model.TypeEtab;
 
@@ -38,7 +40,8 @@ public class EtablissementController {
 	private PersonneDao personneDao;
 	@Autowired
 	private ClasseDao classeDao;
-	
+	@Autowired
+	private SalleDao salleDao;
 	
 	@RequestMapping("/list")
 	public String list(Model model, HttpServletRequest req){
@@ -63,13 +66,18 @@ public class EtablissementController {
 			Adresse adr = e.getAdr();
 			List <Personne> p = personneDao.findProfByEtab(StatusEnum.PROFESSEUR, id);
 			List<Classe> c = classeDao.findClasseByEtab(id);
-			int nbprof = p.size() > 0 ? p.size() : 0;
-			int nbclasse = c == null ? 0: c.size();
+			List<Salle> s = salleDao.findAllByEtab(id);
+			
+			int nbprof = p == null ? 0 : p.size();
+			int nbclasse = c == null ? 0 : c.size();
+			int nbsalle = s == null ? 0 : s.size();
 			
 			model.addAttribute("nbProf",nbprof);
 			model.addAttribute("nbClasse", nbclasse);
+			model.addAttribute("nbSalle", nbsalle);
 			model.addAttribute("profs", p);
 			model.addAttribute("etab", e);
+			model.addAttribute("salles", s);
 			model.addAttribute("adr", adr);
 			model.addAttribute("classes", c);
 			

@@ -92,6 +92,7 @@ public class SalleDaoJpa implements SalleDao {
 		Query query1 = em.createQuery("from Salle s where s.etablissement.id = :id ");
 		query1.setParameter("id", idEtablissement);
 		List<Salle> s = query1.getResultList();
+		
 		return s.size() > 0 ? s : null;
 	}
 

@@ -29,7 +29,7 @@
                       <i class="fa fa-group"></i>
                     </div>
                     <div class="stat-content">
-                      <h1></h1>
+                      <h1>${nbSalle}</h1>
                       <h5>Salles</h5>                     
                     </div>
                     <div class="clearfix"></div>
@@ -109,9 +109,29 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="col-md-6 col-sm-12 block-nopadding-l">
 			<div class="panel panel-default">
-				<div class="panel-heading">Salles</div>
+				<div class="panel-heading">Salles<span class="separator"></span></div>
 				<div class="panel-body">
-					
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nom</th>
+									<th>Capacite</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${salles}" var="s">
+									<tr>
+										<td>${s.id}</td>
+										<td>${s.nom}</td>
+										<td>${s.capacite}</td>
+										<td><a href="/GestionScolaireSpringWeb/salle/edit/${s.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -133,7 +153,10 @@
 									<tr>
 										<td>${c.id}</td>
 										<td>${c.nom}</td>
-										<td><a href="/GestionScolaireSpringWeb/classe/edit/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
+										<td>
+											<a href="/GestionScolaireSpringWeb/classe/edit/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+											<a href="/GestionScolaireSpringWeb/classe/voir/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-search"></i></a>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
