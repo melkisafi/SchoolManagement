@@ -17,6 +17,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.validation.annotation.Validated;
 
@@ -32,7 +34,6 @@ public class Etablissement {
 	private List<Evenement> evenements;
 	private List<Salle> salles;
 	private List<Classe> classes;
-	//private List<EtablissementClasse> etablissementClasses;
 	private int version;
 
 	public Etablissement() {
@@ -108,7 +109,8 @@ public class Etablissement {
 		this.logo = logo;
 	}
 
-	@OneToMany(mappedBy = "etablissement")
+	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<PersonneEtablissement> getPersonneEtablissement() {
 		return personneEtablissement;
 	}
@@ -117,7 +119,8 @@ public class Etablissement {
 		this.personneEtablissement = personneEtablissement;
 	}
 
-	@OneToMany(mappedBy = "etablissement")
+	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<Evenement> getEvenements() {
 		return evenements;
 	}
@@ -126,7 +129,8 @@ public class Etablissement {
 		this.evenements = evenements;
 	}
 
-	@OneToMany(mappedBy = "etablissement")
+	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<Salle> getSalles() {
 		return salles;
 	}
@@ -140,7 +144,8 @@ public class Etablissement {
 		return version;
 	}
 	
-	@OneToMany(mappedBy = "etablissement")
+	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<Classe> getClasses() {
 		return classes;
 	}
