@@ -109,7 +109,7 @@ public class Etablissement {
 		this.logo = logo;
 	}
 
-	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "etablissement")
 	public List<PersonneEtablissement> getPersonneEtablissement() {
 		return personneEtablissement;
 	}
@@ -118,7 +118,7 @@ public class Etablissement {
 		this.personneEtablissement = personneEtablissement;
 	}
 
-	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "etablissement")
 	public List<Evenement> getEvenements() {
 		return evenements;
 	}
@@ -127,7 +127,7 @@ public class Etablissement {
 		this.evenements = evenements;
 	}
 
-	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "etablissement")
 	public List<Salle> getSalles() {
 		return salles;
 	}
@@ -141,7 +141,7 @@ public class Etablissement {
 		return version;
 	}
 	
-	@OneToMany(mappedBy = "etablissement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "etablissement")
 	public List<Classe> getClasses() {
 		return classes;
 	}
