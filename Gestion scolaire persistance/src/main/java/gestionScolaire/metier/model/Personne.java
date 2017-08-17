@@ -28,7 +28,6 @@ public class Personne {
 	private Role role;
 	private StatusEnum statusEnum;
 	private Login login;
-	private Status status;
 	private String nom;
 	private String prenom;
 	private Date datenaiss;
@@ -43,13 +42,13 @@ public class Personne {
 	public Personne(){
 	}
 	
-	public Personne(Civilite civilite, Role role, Login login, Status status, String nom, String prenom, Date datenaiss,
-			Adresse adresse) {
+	public Personne(Civilite civilite, Role role, StatusEnum statusEnum, Login login, String nom, String prenom,
+			Date datenaiss, Adresse adresse) {
 		super();
 		this.civilite = civilite;
 		this.role = role;
+		this.statusEnum = statusEnum;
 		this.login = login;
-		this.status = status;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.datenaiss = datenaiss;
@@ -139,16 +138,6 @@ public class Personne {
 
 	public void setLogin(Login login) {
 		this.login = login;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="status_id")
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 	
 	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)

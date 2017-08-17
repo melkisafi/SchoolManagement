@@ -21,9 +21,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Evenement {
 
 	private Long id;
-	private Date date;
-	private Date heureDebut;
-	private Date heureFin;
+	private Date dateDebut;
+	private Date dateFin;
 	private Classe classe;
 	private Matiere matiere;
 	private Salle salle;
@@ -41,37 +40,26 @@ public class Evenement {
 		this.id = id;
 	}
 
-	@Column(name="date")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	public Date getDate() {
-		return date;
+	@Column(name = "dateDebut")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	public Date getDateDebut() {
+		return dateDebut;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
 	}
 
-	@Column(name = "heuredebut")
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "HH:mm")
-	public Date getHeureDebut() {
-		return heureDebut;
+	@Column(name = "dateFin")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	public Date getDateFin() {
+		return dateFin;
 	}
 
-	public void setHeureDebut(Date heureDebut) {
-		this.heureDebut = heureDebut;
-	}
-
-	@Column(name = "heurefin")
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "HH:mm")
-	public Date getHeureFin() {
-		return heureFin;
-	}
-
-	public void setHeureFin(Date heureFin) {
-		this.heureFin = heureFin;
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
 	}
 
 	@ManyToOne
@@ -137,18 +125,15 @@ public class Evenement {
 		super();
 	}
 
-	public Evenement(Date date, Date heureDebut, Date heureFin, Classe classe, Matiere matiere, Salle salle,
-			Personne personne, Etablissement etablissement) {
+	public Evenement(Date dateDebut, Date dateFin, Classe classe, Matiere matiere, Salle salle, Personne personne,
+			Etablissement etablissement) {
 		super();
-		this.date = date;
-		this.heureDebut = heureDebut;
-		this.heureFin = heureFin;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
 		this.classe = classe;
 		this.matiere = matiere;
 		this.salle = salle;
 		this.personne = personne;
 		this.etablissement = etablissement;
 	}
-
-	
 }

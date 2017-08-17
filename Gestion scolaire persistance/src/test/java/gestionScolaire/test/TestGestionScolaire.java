@@ -25,7 +25,6 @@ import gestionScolaire.metier.dao.PersonneEtablissementDao;
 import gestionScolaire.metier.dao.PersonneMatiereDao;
 import gestionScolaire.metier.dao.SalleClasseDao;
 import gestionScolaire.metier.dao.SalleDao;
-import gestionScolaire.metier.dao.StatusDao;
 import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Civilite;
 import gestionScolaire.metier.model.Classe;
@@ -41,7 +40,7 @@ import gestionScolaire.metier.model.PersonneMatiere;
 import gestionScolaire.metier.model.Role;
 import gestionScolaire.metier.model.Salle;
 import gestionScolaire.metier.model.SalleClasse;
-import gestionScolaire.metier.model.Status;
+import gestionScolaire.metier.model.StatusEnum;
 import gestionScolaire.metier.model.TypeEtab;
 
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
@@ -52,8 +51,6 @@ public class TestGestionScolaire {
 	private LoginDao loginDao;
 	@Autowired
 	private PersonneDao personneDao;
-	@Autowired
-	private StatusDao statusDao;
 	@Autowired
 	private EtablissementDao etabDao;
 	@Autowired
@@ -102,17 +99,14 @@ public class TestGestionScolaire {
 		c.set(2014, Calendar.APRIL, 18, 15, 20, 00); 
 		c.set(Calendar.MILLISECOND, 0);
 		Date dateDebutEvenement = c.getTime();
-		Date heureDebutEvenement = c.getTime();
 		
 		c.set(2015, Calendar.MAY, 4, 15, 35, 00);
 		c.set(Calendar.MILLISECOND, 0);
 		Date dateMiEvenement = c.getTime();
-		Date heureMiEvenement = c.getTime();
 		
 		c.set(2017, Calendar.AUGUST, 12, 18, 35, 00);
 		c.set(Calendar.MILLISECOND, 0);
 		Date dateFinEvenement = c.getTime();
-		Date heureFinEvenement = c.getTime();
 		
 		
 		/*///////// LOGIN //////////*/
@@ -124,26 +118,18 @@ public class TestGestionScolaire {
 		Assert.assertEquals(loginFind.getUsername(),loginMaj.getUsername());
 		Assert.assertEquals(loginFind.getPassword(),loginMaj.getPassword());
 		
-		/*///////// STATUS //////////*/
-		Status status = new Status("Directeur");
-		statusDao.create(status);
-		Status statusMaJ = new Status("employé");
-		statusDao.create(statusMaJ);
-		Status statusFind = statusDao.find(statusMaJ.getId());
-		Assert.assertEquals(statusFind.getNom(),statusMaJ.getNom());
-		
 		/*///////// PERSONNE //////////*/
-		Personne admin = new Personne(civ.MR, role.ADMIN, login, status, "Maquaire", "Jérémy", datenaiss, adrPers);
+		Personne admin = new Personne(civ.MR, role.ADMIN, StatusEnum.PROFESSEUR, login, "Maquaire", "Jérémy", datenaiss, adrPers);
 		personneDao.create(admin);
 		
-		Personne qui = new Personne(civ.MME, role.USER, loginMaj, statusMaJ, "FERRY", "Joanne", bDay, adrPersMaj);
+		Personne qui = new Personne(civ.MME, role.USER,  StatusEnum.CHOMEUR,loginMaj, "FERRY", "Joanne", bDay, adrPersMaj);
 		personneDao.create(qui);
 		Personne personneFind=personneDao.find(qui.getId());
 		Assert.assertEquals(personneFind.getCivilite(),qui.getCivilite());
 		Assert.assertEquals(personneFind.getRole(),qui.getRole());
 		Assert.assertEquals(personneFind.getLogin().getUsername(),qui.getLogin().getUsername());
 		Assert.assertEquals(personneFind.getLogin().getPassword(),qui.getLogin().getPassword());
-		Assert.assertEquals(personneFind.getStatus().getNom(),qui.getStatus().getNom());
+		Assert.assertEquals(personneFind.getStatusEnum(),qui.getStatusEnum());
 		Assert.assertEquals(personneFind.getNom(),qui.getNom());
 		Assert.assertEquals(personneFind.getPrenom(),qui.getPrenom());
 		Assert.assertEquals(personneFind.getDatenaiss().getDate(),qui.getDatenaiss().getDate());
@@ -235,7 +221,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(personnematiere.getPersonne().getRole(), personnematiereFind.getPersonne().getRole());
 		Assert.assertEquals(personnematiere.getPersonne().getLogin().getUsername(),personnematiereFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(personnematiere.getPersonne().getLogin().getPassword(),personnematiereFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(personnematiere.getPersonne().getStatus().getNom(), personnematiereFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(personnematiere.getPersonne().getStatusEnum(), personnematiereFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(personnematiere.getPersonne().getNom(), personnematiereFind.getPersonne().getNom());
 		Assert.assertEquals(personnematiere.getPersonne().getPrenom(), personnematiereFind.getPersonne().getPrenom());
 		Assert.assertEquals(personnematiere.getPersonne().getDatenaiss().getDate(), personnematiereFind.getPersonne().getDatenaiss().getDate());
@@ -257,7 +243,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(personneclasse.getPersonne().getRole(), personneClasseFind.getPersonne().getRole());
 		Assert.assertEquals(personneclasse.getPersonne().getLogin().getUsername(),personneClasseFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(personneclasse.getPersonne().getLogin().getPassword(),personneClasseFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(personneclasse.getPersonne().getStatus().getNom(), personneClasseFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(personneclasse.getPersonne().getStatusEnum(), personneClasseFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(personneclasse.getPersonne().getNom(), personneClasseFind.getPersonne().getNom());
 		Assert.assertEquals(personneclasse.getPersonne().getPrenom(), personneClasseFind.getPersonne().getPrenom());
 		Assert.assertEquals(personneclasse.getPersonne().getDatenaiss().getDate(), personneClasseFind.getPersonne().getDatenaiss().getDate());
@@ -284,7 +270,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(pe.getPersonne().getRole(),peFind.getPersonne().getRole());
 		Assert.assertEquals(pe.getPersonne().getLogin().getUsername(),peFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(pe.getPersonne().getLogin().getPassword(),peFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(pe.getPersonne().getStatus().getNom(),peFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(pe.getPersonne().getStatusEnum(),peFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(pe.getPersonne().getNom(),peFind.getPersonne().getNom());
 		Assert.assertEquals(pe.getPersonne().getPrenom(),peFind.getPersonne().getPrenom());
 		Assert.assertEquals(pe.getPersonne().getDatenaiss().getDate(),peFind.getPersonne().getDatenaiss().getDate());
@@ -294,17 +280,14 @@ public class TestGestionScolaire {
 		Assert.assertEquals(pe.getPersonne().getAdresse().getPays(),peFind.getPersonne().getAdresse().getPays());
 
 		/*///////// EVENEMENT //////////*/
-		evenementDao.create(new Evenement(dateDebutEvenement, heureDebutEvenement, heureMiEvenement, classe, matiere, salle, admin, etab));
-		Evenement evenement = new Evenement(dateDebutEvenement, heureDebutEvenement, heureMiEvenement, classe, matiere, salle, admin, etab);
+		evenementDao.create(new Evenement(dateDebutEvenement, dateMiEvenement, classe, matiere, salle, admin, etab));
+		Evenement evenement = new Evenement(dateDebutEvenement, dateMiEvenement, classe, matiere, salle, admin, etab);
 		evenementDao.create(evenement);
-		Evenement evenement2 = new Evenement(dateMiEvenement, heureMiEvenement, heureDebutEvenement, classe2, matiere2, salle2, qui, etabMaJ);
+		Evenement evenement2 = new Evenement(dateMiEvenement, dateMiEvenement, classe2, matiere2, salle2, qui, etabMaJ);
 		evenementDao.create(evenement2);
 		Evenement evenementFind = evenementDao.find(evenement2.getId());
-		Assert.assertEquals(evenement2.getDate().getDate(), evenementFind.getDate().getDate());
-		Assert.assertEquals(evenement2.getHeureDebut().getHours(), evenementFind.getHeureDebut().getHours());
-		Assert.assertEquals(evenement2.getHeureDebut().getMinutes(), evenementFind.getHeureDebut().getMinutes());
-		Assert.assertEquals(evenement2.getHeureFin().getHours(), evenementFind.getHeureFin().getHours());
-		Assert.assertEquals(evenement2.getHeureFin().getMinutes(), evenementFind.getHeureFin().getMinutes());
+		Assert.assertEquals(evenement2.getDateDebut().getDate(), evenementFind.getDateDebut().getDate());
+		Assert.assertEquals(evenement2.getDateFin().getDate(), evenementFind.getDateFin().getDate());
 		Assert.assertEquals(evenement2.getClasse().getNom(), evenementFind.getClasse().getNom());
 		Assert.assertEquals(evenement2.getMatiere().getNomMatiere(), evenementFind.getMatiere().getNomMatiere());
 		Assert.assertEquals(evenement2.getMatiere().getCouleurMatiere(), evenementFind.getMatiere().getCouleurMatiere());
@@ -314,7 +297,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(evenement2.getPersonne().getRole(), evenementFind.getPersonne().getRole());
 		Assert.assertEquals(evenement2.getPersonne().getLogin().getUsername(),evenementFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(evenement2.getPersonne().getLogin().getPassword(),evenementFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(evenement2.getPersonne().getStatus().getNom(), evenementFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(evenement2.getPersonne().getStatusEnum(), evenementFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(evenement2.getPersonne().getNom(), evenementFind.getPersonne().getNom());
 		Assert.assertEquals(evenement2.getPersonne().getPrenom(), evenementFind.getPersonne().getPrenom());
 		Assert.assertEquals(evenement2.getPersonne().getDatenaiss().getDate(), evenementFind.getPersonne().getDatenaiss().getDate());
@@ -343,18 +326,13 @@ public class TestGestionScolaire {
 		Assert.assertEquals(loginUpdate.getUsername(), loginFind.getUsername());
 		Assert.assertEquals(loginUpdate.getPassword(), loginFind.getPassword());
 		
-		/*///////// STATUS //////////*/
-		statusFind.setNom("Fondateur et PDG");
-		Status statusUpdate=statusDao.update(statusFind);
-		statusFind = statusDao.find(statusUpdate.getId());
-		Assert.assertEquals(statusUpdate.getNom(), statusFind.getNom());
-		
 		/*///////// PERSONNE //////////*/
 		adrPersMaj = new Adresse("12 Rue Seré Depoin", "95300", "Pontoise", "France"); 
 		c.set(1983, 19, 6);
 		bDay = c.getTime();
 		personneFind.setCivilite(civ.MR);
 		personneFind.setRole(role.ADMIN);
+		personneFind.setStatusEnum(StatusEnum.DIRECTEUR);
 		personneFind.setLogin(loginFind);
 		personneFind.setNom("MELKI");
 		personneFind.setPrenom("Safi");
@@ -366,7 +344,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(personneFind.getRole(),personneUpdate.getRole());
 		Assert.assertEquals(personneFind.getLogin().getUsername(),personneUpdate.getLogin().getUsername());
 		Assert.assertEquals(personneFind.getLogin().getPassword(),personneUpdate.getLogin().getPassword());
-		Assert.assertEquals(personneFind.getStatus().getNom(),personneUpdate.getStatus().getNom());
+		Assert.assertEquals(personneFind.getStatusEnum(),personneUpdate.getStatusEnum());
 		Assert.assertEquals(personneFind.getNom(),personneUpdate.getNom());
 		Assert.assertEquals(personneFind.getPrenom(),personneUpdate.getPrenom());
 		Assert.assertEquals(personneFind.getDatenaiss().getDate(),personneUpdate.getDatenaiss().getDate());
@@ -451,7 +429,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(personnematiereUpdate.getPersonne().getRole(), personnematiereFind.getPersonne().getRole());
 		Assert.assertEquals(personnematiereUpdate.getPersonne().getLogin().getUsername(),personnematiereFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(personnematiereUpdate.getPersonne().getLogin().getPassword(),personnematiereFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(personnematiereUpdate.getPersonne().getStatus().getNom(), personnematiereFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(personnematiereUpdate.getPersonne().getStatusEnum(), personnematiereFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(personnematiereUpdate.getPersonne().getNom(), personnematiereFind.getPersonne().getNom());
 		Assert.assertEquals(personnematiereUpdate.getPersonne().getPrenom(), personnematiereFind.getPersonne().getPrenom());
 		Assert.assertEquals(personnematiereUpdate.getPersonne().getDatenaiss().getDate(), personnematiereFind.getPersonne().getDatenaiss().getDate());
@@ -472,7 +450,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(personneClasseUpdate.getPersonne().getRole(), personneClasseFind.getPersonne().getRole());
 		Assert.assertEquals(personneClasseUpdate.getPersonne().getLogin().getUsername(),personneClasseFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(personneClasseUpdate.getPersonne().getLogin().getPassword(),personneClasseFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(personneClasseUpdate.getPersonne().getStatus().getNom(), personneClasseFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(personneClasseUpdate.getPersonne().getStatusEnum(), personneClasseFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(personneClasseUpdate.getPersonne().getNom(), personneClasseFind.getPersonne().getNom());
 		Assert.assertEquals(personneClasseUpdate.getPersonne().getPrenom(), personneClasseFind.getPersonne().getPrenom());
 		Assert.assertEquals(personneClasseUpdate.getPersonne().getDatenaiss().getDate(), personneClasseFind.getPersonne().getDatenaiss().getDate());
@@ -497,7 +475,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(peUpdate.getPersonne().getRole(),peFind.getPersonne().getRole());
 		Assert.assertEquals(peUpdate.getPersonne().getLogin().getUsername(),peFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(peUpdate.getPersonne().getLogin().getPassword(),peFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(peUpdate.getPersonne().getStatus().getNom(),peFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(peUpdate.getPersonne().getStatusEnum(),peFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(peUpdate.getPersonne().getNom(),peFind.getPersonne().getNom());
 		Assert.assertEquals(peUpdate.getPersonne().getPrenom(),peFind.getPersonne().getPrenom());
 		Assert.assertEquals(peUpdate.getPersonne().getDatenaiss().getDate(),peFind.getPersonne().getDatenaiss().getDate());
@@ -507,20 +485,17 @@ public class TestGestionScolaire {
 		Assert.assertEquals(peUpdate.getPersonne().getAdresse().getPays(),peFind.getPersonne().getAdresse().getPays());
 		
 		/*///////// EVENEMENT //////////*/
-		evenementFind.setDate(dateFinEvenement);
-		evenementFind.setHeureDebut(heureMiEvenement);
-		evenementFind.setHeureFin(heureFinEvenement);
+		evenementFind.setDateDebut(dateMiEvenement);;
+		evenementFind.setDateFin(dateFinEvenement);
 		evenementFind.setMatiere(matiere2);
 		evenementFind.setSalle(salle2);
 		evenementFind.setPersonne(qui);
 		evenementFind.setEtablissement(etabMaJ);
 		Evenement evenementUpdate = evenementDao.update(evenementFind);
 		evenementFind=evenementDao.find(evenementUpdate.getId());
-		Assert.assertEquals(evenementUpdate.getDate().getDate(), evenementFind.getDate().getDate());
-		Assert.assertEquals(evenementUpdate.getHeureDebut().getHours(), evenementFind.getHeureDebut().getHours());
-		Assert.assertEquals(evenementUpdate.getHeureDebut().getMinutes(), evenementFind.getHeureDebut().getMinutes());
-		Assert.assertEquals(evenementUpdate.getHeureFin().getHours(), evenementFind.getHeureFin().getHours());
-		Assert.assertEquals(evenementUpdate.getHeureFin().getMinutes(), evenementFind.getHeureFin().getMinutes());
+		
+		Assert.assertEquals(evenementUpdate.getDateDebut().getDate(), evenementFind.getDateDebut().getDate());
+		Assert.assertEquals(evenementUpdate.getDateFin().getDate(), evenementFind.getDateFin().getDate());
 		Assert.assertEquals(evenementUpdate.getClasse().getNom(), evenementFind.getClasse().getNom());
 		Assert.assertEquals(evenementUpdate.getMatiere().getNomMatiere(), evenementFind.getMatiere().getNomMatiere());
 		Assert.assertEquals(evenementUpdate.getMatiere().getCouleurMatiere(), evenementFind.getMatiere().getCouleurMatiere());
@@ -530,7 +505,7 @@ public class TestGestionScolaire {
 		Assert.assertEquals(evenementUpdate.getPersonne().getRole(), evenementFind.getPersonne().getRole());
 		Assert.assertEquals(evenementUpdate.getPersonne().getLogin().getUsername(),evenementFind.getPersonne().getLogin().getUsername());
 		Assert.assertEquals(evenementUpdate.getPersonne().getLogin().getPassword(),evenementFind.getPersonne().getLogin().getPassword());
-		Assert.assertEquals(evenementUpdate.getPersonne().getStatus().getNom(), evenementFind.getPersonne().getStatus().getNom());
+		Assert.assertEquals(evenementUpdate.getPersonne().getStatusEnum(), evenementFind.getPersonne().getStatusEnum());
 		Assert.assertEquals(evenementUpdate.getPersonne().getNom(), evenementFind.getPersonne().getNom());
 		Assert.assertEquals(evenementUpdate.getPersonne().getPrenom(), evenementFind.getPersonne().getPrenom());
 		Assert.assertEquals(evenementUpdate.getPersonne().getDatenaiss().getDate(), evenementFind.getPersonne().getDatenaiss().getDate());

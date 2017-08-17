@@ -16,14 +16,12 @@ import gestionScolaire.metier.dao.PersonneClasseDao;
 import gestionScolaire.metier.dao.PersonneDao;
 import gestionScolaire.metier.dao.PersonneEtablissementDao;
 import gestionScolaire.metier.dao.PersonneMatiereDao;
-import gestionScolaire.metier.dao.StatusDao;
 import gestionScolaire.metier.model.Evenement;
 import gestionScolaire.metier.model.Login;
 import gestionScolaire.metier.model.Personne;
 import gestionScolaire.metier.model.PersonneClasse;
 import gestionScolaire.metier.model.PersonneEtablissement;
 import gestionScolaire.metier.model.PersonneMatiere;
-import gestionScolaire.metier.model.Status;
 import gestionScolaire.metier.model.StatusEnum;
 
 @Transactional
@@ -43,9 +41,6 @@ public class PersonneDaoJpa implements PersonneDao {
 	
 	@Autowired
 	private PersonneEtablissementDao persEtabDao;
-	
-	@Autowired
-	private StatusDao statusDao;
 	
 	@Autowired
 	private LoginDao loginDao;
@@ -118,8 +113,6 @@ public class PersonneDaoJpa implements PersonneDao {
 		}
 		Login log = p.getLogin();
 		loginDao.delete(em.merge(log));
-		Status status = p.getStatus();
-		statusDao.delete(em.merge(status));
 		em.remove(em.merge(p));
 	}
 
@@ -140,8 +133,6 @@ public class PersonneDaoJpa implements PersonneDao {
 		}
 		Login log = p.getLogin();
 		loginDao.delete(em.merge(log));
-		Status status = p.getStatus();
-		statusDao.delete(em.merge(status));
 		em.remove(em.merge(p));
 	}
 
