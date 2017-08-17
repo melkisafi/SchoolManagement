@@ -39,6 +39,7 @@ public class EtablissementDaoJpa implements EtablissementDao {
 	@Autowired
 	private ClasseDao classeDao;
 	
+	
 	@Override
 	public Etablissement find(Long id) {
 		return em.find(Etablissement.class, id);
@@ -74,6 +75,11 @@ public class EtablissementDaoJpa implements EtablissementDao {
 			e.setEtablissement(null);
 			
 			classeDao.update(em.merge(e));
+		}
+		
+		for (Evenement e : etab.getEvenements()){
+			eventDao.delete(em.merge(e));
+			
 		}
 		em.remove(em.merge(etab));
 	}

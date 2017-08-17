@@ -526,178 +526,178 @@ public class TestGestionScolaire {
 		/*///////////////////////// DELETE ///////////////////////////////*/
 		/*////////////////////////////////////////////////////////////////*/
 		
-		/*///////// PERSONNE //////////*/
-		List<Evenement> eventsPrPers = new ArrayList<Evenement>();
-		Evenement eventDelFromPers = evenementDao.find(evenementUpdate.getId());
-		if (eventDelFromPers!=null){eventsPrPers.add(eventDelFromPers);}
-		personneFind.setEvenements(eventsPrPers);
-		
-		List<PersonneClasse> pCPrPers = new ArrayList<PersonneClasse>();
-		PersonneClasse pCDelFromPers = personneclasseDao.find(personneClasseUpdate.getId());
-		if (pCDelFromPers!=null){pCPrPers.add(pCDelFromPers);}
-		personneFind.setPersonneClasses(pCPrPers);
-		
-		List<PersonneMatiere> pMPrPers = new ArrayList<PersonneMatiere>();
-		PersonneMatiere pMDelFromPers = personnematiereDao.find(personnematiereUpdate.getId());
-		if (pMDelFromPers!=null){pMPrPers.add(pMDelFromPers);}
-		personneFind.setPersonneMatiere(pMPrPers);
-		
-		List<PersonneEtablissement> pEPrPers = new ArrayList<PersonneEtablissement>();
-		PersonneEtablissement pEDelFromPers = persEtabDao.find(peUpdate.getId());
-		if (pEDelFromPers!=null){pEPrPers.add(pEDelFromPers);}
-		personneFind.setPersonneEtablissement(pEPrPers);
-		
-		List<Personne> pers = personneDao.findAll();
-		personneDao.delete(personneFind);
-		personneFind= personneDao.find(personneFind.getId());
-		Assert.assertNull(personneFind);
-		List<Personne> persPostDelete = personneDao.findAll();
-		Assert.assertEquals(1, pers.size()-persPostDelete.size());
-		
-		/*///////// ETABLISSEMENT //////////*/
-		List<Salle> sallesPrEtab = new ArrayList<Salle>();
-		Salle salleDelFromEtab = salleDao.find(salleUpdate.getId());
-		if (salleDelFromEtab!=null){sallesPrEtab.add(salleDelFromEtab);}
-		etablissementFind.setSalles(sallesPrEtab);
-
-		List<PersonneEtablissement> persEtabPrEtab = new ArrayList<PersonneEtablissement>();
-		PersonneEtablissement persEtabDelFromEtab = persEtabDao.find(peUpdate.getId());
-		if (persEtabDelFromEtab!=null){persEtabPrEtab.add(persEtabDelFromEtab);}
-		etablissementFind.setPersonneEtablissement(persEtabPrEtab);
-		
-		List<Classe> clPrEtab = new ArrayList<Classe>();
-		Classe clDelFromEtab = classeDao.find(classeUpdate.getId());
-		if (persEtabDelFromEtab!=null){clPrEtab.add(clDelFromEtab);}
-		etablissementFind.setClasses(clPrEtab);
-		
-		List<Etablissement> etabs = etabDao.findAll();
-		etabDao.delete(etablissementFind);
-		etablissementFind=etabDao.find(etablissementFind.getId());
-		Assert.assertNull(etablissementFind);
-		List<Etablissement> etabsPostDelete= etabDao.findAll();
-		Assert.assertEquals(1, etabs.size()-etabsPostDelete.size());
-		
-		/*/////////////// CLASSE //////////////////*/
-		List<Evenement> eventPrClasse = new ArrayList<Evenement>();
-		Evenement evenDelFromClasse = evenementDao.find(evenementUpdate.getId());
-		if (evenDelFromClasse!=null){eventPrClasse.add(evenDelFromClasse);}
-		classeFind.setEvenements(eventPrClasse);
-		
-		List<PersonneClasse> personneClassePrClasse = new ArrayList<PersonneClasse>();
-		PersonneClasse personneClasseDelFromClasse = personneclasseDao.find(personneClasseUpdate.getId());
-		if (personneClasseDelFromClasse!=null){personneClassePrClasse.add(personneClasseDelFromClasse);}
-		classeFind.setPersonneClasses(personneClassePrClasse);
-		
-		List<SalleClasse> salleClassePrClasse = new ArrayList<SalleClasse>();
-		SalleClasse salleClasseDelFromClasse = salleclasseDao.find(personneClasseUpdate.getId());
-		if (salleClasseDelFromClasse!=null){salleClassePrClasse.add(salleClasseDelFromClasse);}
-		classeFind.setSalleClasses(salleClassePrClasse);
-		
-		
-		List<Classe> classes = classeDao.findAll();
-		classeDao.delete(classeFind);
-		classeFind=classeDao.find(classeFind.getId());
-		Assert.assertNull(classeFind);
-		List<Classe> classesPsotDelete = classeDao.findAll();
-		Assert.assertEquals(1, classes.size()-classesPsotDelete.size());
-		
-		/*///////// SALLE //////////*/
-		salleFind=salleDao.find(salleFind.getId());
-		if (salleFind!=null){
-			List<MatiereSalle> mSPrSalle = new ArrayList<MatiereSalle>();
-			MatiereSalle matiereSalleDelFromSalle = matieresalleDao.find(matieresalleUpdate.getId());
-			if (matiereSalleDelFromSalle!=null){mSPrSalle.add(matiereSalleDelFromSalle);}
-			salleFind.setMatiereSalles(mSPrSalle);
-			
-			List<SalleClasse>classePrSalle = new ArrayList<SalleClasse>();
-			SalleClasse salleClasseDelFromSalle = salleclasseDao.find(salleclasseUpdate.getId());
-			if (salleClasseDelFromSalle!=null){classePrSalle.add(salleClasseDelFromSalle);}
-			salleFind.setSalleClasses(classePrSalle);
-			
-			List<Evenement> eventsPrSalle = new ArrayList<Evenement>();
-			Evenement eventDelFromSalle=evenementDao.find(evenementUpdate.getId());
-			if (eventDelFromSalle!=null){eventsPrSalle.add(eventDelFromSalle);}
-			salleFind.setEvenements(eventsPrSalle);
-			
-			List<Salle> salles = salleDao.findAll();
-			salleDao.delete(salleFind);
-			salleFind=salleDao.find(salleFind.getId());
-			Assert.assertNull(salleFind);
-			List<Salle> sallesPostDelete = salleDao.findAll();
-			Assert.assertEquals(1, salles.size()-sallesPostDelete.size());
-		}
-		
-		/*/////////////// MATIERE //////////////////*/
-		List<Evenement> events = new ArrayList<Evenement>();
-		Evenement eventDelFromMatiere=evenementDao.find(evenementUpdate.getId());
-		if (eventDelFromMatiere!=null){events.add(eventDelFromMatiere);}
-		matiereFind.setEvenements(events);
-		
-		List<PersonneMatiere> persMat = new ArrayList<PersonneMatiere>();
-		PersonneMatiere perMatDelFromMatiere = personnematiereDao.find(personnematiereUpdate.getId());
-		if(perMatDelFromMatiere!=null){persMat.add(perMatDelFromMatiere);}
-		matiereFind.setPersonneMatieres(persMat);
-		
-		List<MatiereSalle> matSalles = new ArrayList<MatiereSalle>();
-		MatiereSalle matSalleDelFromMatiere = matieresalleDao.find(matieresalleUpdate.getId());
-		if (matSalleDelFromMatiere!=null){matSalles.add(matSalleDelFromMatiere);}
-		matiereFind.setMatiereSalles(matSalles);
-		
-		List<Matiere> matieres = matiereDao.findAll();
-		matiereDao.delete(matiereFind);
-		matiereFind=matiereDao.find(matiereFind.getIdMatiere());
-		Assert.assertNull(matiereFind);
-		List<Matiere> matieresPostDelete= matiereDao.findAll();
-		Assert.assertEquals(1, matieres.size()-matieresPostDelete.size());
-		
-		/*/////////////// SALLE CLASSE //////////////////*/
-		List<SalleClasse> salleclasses = salleclasseDao.findAll();
-		salleclasseDao.delete(salleclasse2);
-		salleclasseFind=salleclasseDao.find(salleclasse2.getId());
-		Assert.assertNull(salleclasseFind);
-		List<SalleClasse> salleclassesPostDelete = salleclasseDao.findAll();
-		Assert.assertEquals(1, salleclasses.size() - salleclassesPostDelete.size());
-		
-		/*///////// MATIERE SALLE //////////*/
-		List<MatiereSalle> matieresalles = matieresalleDao.findAll();
-		matieresalleDao.delete(matieresalle2);
-		matieresalleFind=matieresalleDao.find(matieresalle2.getId());
-		Assert.assertNull(matieresalleFind);
-		List<MatiereSalle> matieresallesPostDelete = matieresalleDao.findAll();
-		Assert.assertEquals(1, matieresalles.size() - matieresallesPostDelete.size());
-		
-		/*///////// PERSONNE MATIERE //////////*/
-		List<PersonneMatiere> personnematieres = personnematiereDao.findAll();
-		personnematiereDao.delete(personnematiere2);
-		personnematiereFind = personnematiereDao.find(personnematiere2.getId());
-		Assert.assertNull(personnematiereFind);
-		List<PersonneMatiere> personnematieresPostDelete = personnematiereDao.findAll();
-		Assert.assertEquals(1, personnematieres.size() - personnematieresPostDelete.size());
-
-		
-		/*///////// PERSONNE CLASSE //////////*/
-		List<PersonneClasse> personneclasses = personneclasseDao.findAll();
-		personneclasseDao.delete(personneclasse2);
-		personneClasseFind=personneclasseDao.find(personneclasse2.getId());
-		Assert.assertNull(personneClasseFind);
-		List<PersonneClasse> personneclassesPostDelete = personneclasseDao.findAll();
-		Assert.assertEquals(1, personneclasses.size() - personneclassesPostDelete.size());
-		
-		/*///////// ETABLISSEMENT PERSONNE //////////*/
-		List<PersonneEtablissement> etabpers = persEtabDao.findAll();
-		persEtabDao.delete(pe2);
-		peFind=persEtabDao.find(pe2.getId());
-		Assert.assertNull(peFind);
-		List<PersonneEtablissement> etabpersPostDelete = persEtabDao.findAll();
-		Assert.assertEquals(1, etabpers.size() - etabpersPostDelete.size());
-		
-		/*///////// EVENEMENT //////////*/
-		List<Evenement> eventss = evenementDao.findAll();
-		evenementDao.delete(evenement);
-		evenementFind=evenementDao.find(evenement.getId());
-		Assert.assertNull(evenementFind);
-		List<Evenement> eventsPostDelete= evenementDao.findAll();
-		Assert.assertEquals(1, eventss.size()-eventsPostDelete.size());
-		
-	}
-}
+//		/*///////// PERSONNE //////////*/
+//		List<Evenement> eventsPrPers = new ArrayList<Evenement>();
+//		Evenement eventDelFromPers = evenementDao.find(evenementUpdate.getId());
+//		if (eventDelFromPers!=null){eventsPrPers.add(eventDelFromPers);}
+//		personneFind.setEvenements(eventsPrPers);
+//		
+//		List<PersonneClasse> pCPrPers = new ArrayList<PersonneClasse>();
+//		PersonneClasse pCDelFromPers = personneclasseDao.find(personneClasseUpdate.getId());
+//		if (pCDelFromPers!=null){pCPrPers.add(pCDelFromPers);}
+//		personneFind.setPersonneClasses(pCPrPers);
+//		
+//		List<PersonneMatiere> pMPrPers = new ArrayList<PersonneMatiere>();
+//		PersonneMatiere pMDelFromPers = personnematiereDao.find(personnematiereUpdate.getId());
+//		if (pMDelFromPers!=null){pMPrPers.add(pMDelFromPers);}
+//		personneFind.setPersonneMatiere(pMPrPers);
+//		
+//		List<PersonneEtablissement> pEPrPers = new ArrayList<PersonneEtablissement>();
+//		PersonneEtablissement pEDelFromPers = persEtabDao.find(peUpdate.getId());
+//		if (pEDelFromPers!=null){pEPrPers.add(pEDelFromPers);}
+//		personneFind.setPersonneEtablissement(pEPrPers);
+//		
+//		List<Personne> pers = personneDao.findAll();
+//		personneDao.delete(personneFind);
+//		personneFind= personneDao.find(personneFind.getId());
+//		Assert.assertNull(personneFind);
+//		List<Personne> persPostDelete = personneDao.findAll();
+//		Assert.assertEquals(1, pers.size()-persPostDelete.size());
+//		
+//		/*///////// ETABLISSEMENT //////////*/
+//		List<Salle> sallesPrEtab = new ArrayList<Salle>();
+//		Salle salleDelFromEtab = salleDao.find(salleUpdate.getId());
+//		if (salleDelFromEtab!=null){sallesPrEtab.add(salleDelFromEtab);}
+//		etablissementFind.setSalles(sallesPrEtab);
+//
+//		List<PersonneEtablissement> persEtabPrEtab = new ArrayList<PersonneEtablissement>();
+//		PersonneEtablissement persEtabDelFromEtab = persEtabDao.find(peUpdate.getId());
+//		if (persEtabDelFromEtab!=null){persEtabPrEtab.add(persEtabDelFromEtab);}
+//		etablissementFind.setPersonneEtablissement(persEtabPrEtab);
+//		
+//		List<Classe> clPrEtab = new ArrayList<Classe>();
+//		Classe clDelFromEtab = classeDao.find(classeUpdate.getId());
+//		if (persEtabDelFromEtab!=null){clPrEtab.add(clDelFromEtab);}
+//		etablissementFind.setClasses(clPrEtab);
+//		
+//		List<Etablissement> etabs = etabDao.findAll();
+//		etabDao.delete(etablissementFind);
+//		etablissementFind=etabDao.find(etablissementFind.getId());
+//		Assert.assertNull(etablissementFind);
+//		List<Etablissement> etabsPostDelete= etabDao.findAll();
+//		Assert.assertEquals(1, etabs.size()-etabsPostDelete.size());
+//		
+//		/*/////////////// CLASSE //////////////////*/
+//		List<Evenement> eventPrClasse = new ArrayList<Evenement>();
+//		Evenement evenDelFromClasse = evenementDao.find(evenementUpdate.getId());
+//		if (evenDelFromClasse!=null){eventPrClasse.add(evenDelFromClasse);}
+//		classeFind.setEvenements(eventPrClasse);
+//		
+//		List<PersonneClasse> personneClassePrClasse = new ArrayList<PersonneClasse>();
+//		PersonneClasse personneClasseDelFromClasse = personneclasseDao.find(personneClasseUpdate.getId());
+//		if (personneClasseDelFromClasse!=null){personneClassePrClasse.add(personneClasseDelFromClasse);}
+//		classeFind.setPersonneClasses(personneClassePrClasse);
+//		
+//		List<SalleClasse> salleClassePrClasse = new ArrayList<SalleClasse>();
+//		SalleClasse salleClasseDelFromClasse = salleclasseDao.find(personneClasseUpdate.getId());
+//		if (salleClasseDelFromClasse!=null){salleClassePrClasse.add(salleClasseDelFromClasse);}
+//		classeFind.setSalleClasses(salleClassePrClasse);
+//		
+//		
+//		List<Classe> classes = classeDao.findAll();
+//		classeDao.delete(classeFind);
+//		classeFind=classeDao.find(classeFind.getId());
+//		Assert.assertNull(classeFind);
+//		List<Classe> classesPsotDelete = classeDao.findAll();
+//		Assert.assertEquals(1, classes.size()-classesPsotDelete.size());
+//		
+//		/*///////// SALLE //////////*/
+//		salleFind=salleDao.find(salleFind.getId());
+//		if (salleFind!=null){
+//			List<MatiereSalle> mSPrSalle = new ArrayList<MatiereSalle>();
+//			MatiereSalle matiereSalleDelFromSalle = matieresalleDao.find(matieresalleUpdate.getId());
+//			if (matiereSalleDelFromSalle!=null){mSPrSalle.add(matiereSalleDelFromSalle);}
+//			salleFind.setMatiereSalles(mSPrSalle);
+//			
+//			List<SalleClasse>classePrSalle = new ArrayList<SalleClasse>();
+//			SalleClasse salleClasseDelFromSalle = salleclasseDao.find(salleclasseUpdate.getId());
+//			if (salleClasseDelFromSalle!=null){classePrSalle.add(salleClasseDelFromSalle);}
+//			salleFind.setSalleClasses(classePrSalle);
+//			
+//			List<Evenement> eventsPrSalle = new ArrayList<Evenement>();
+//			Evenement eventDelFromSalle=evenementDao.find(evenementUpdate.getId());
+//			if (eventDelFromSalle!=null){eventsPrSalle.add(eventDelFromSalle);}
+//			salleFind.setEvenements(eventsPrSalle);
+//			
+//			List<Salle> salles = salleDao.findAll();
+//			salleDao.delete(salleFind);
+//			salleFind=salleDao.find(salleFind.getId());
+//			Assert.assertNull(salleFind);
+//			List<Salle> sallesPostDelete = salleDao.findAll();
+//			Assert.assertEquals(1, salles.size()-sallesPostDelete.size());
+//		}
+//		
+//		/*/////////////// MATIERE //////////////////*/
+//		List<Evenement> events = new ArrayList<Evenement>();
+//		Evenement eventDelFromMatiere=evenementDao.find(evenementUpdate.getId());
+//		if (eventDelFromMatiere!=null){events.add(eventDelFromMatiere);}
+//		matiereFind.setEvenements(events);
+//		
+//		List<PersonneMatiere> persMat = new ArrayList<PersonneMatiere>();
+//		PersonneMatiere perMatDelFromMatiere = personnematiereDao.find(personnematiereUpdate.getId());
+//		if(perMatDelFromMatiere!=null){persMat.add(perMatDelFromMatiere);}
+//		matiereFind.setPersonneMatieres(persMat);
+//		
+//		List<MatiereSalle> matSalles = new ArrayList<MatiereSalle>();
+//		MatiereSalle matSalleDelFromMatiere = matieresalleDao.find(matieresalleUpdate.getId());
+//		if (matSalleDelFromMatiere!=null){matSalles.add(matSalleDelFromMatiere);}
+//		matiereFind.setMatiereSalles(matSalles);
+//		
+//		List<Matiere> matieres = matiereDao.findAll();
+//		matiereDao.delete(matiereFind);
+//		matiereFind=matiereDao.find(matiereFind.getIdMatiere());
+//		Assert.assertNull(matiereFind);
+//		List<Matiere> matieresPostDelete= matiereDao.findAll();
+//		Assert.assertEquals(1, matieres.size()-matieresPostDelete.size());
+//		
+//		/*/////////////// SALLE CLASSE //////////////////*/
+//		List<SalleClasse> salleclasses = salleclasseDao.findAll();
+//		salleclasseDao.delete(salleclasse2);
+//		salleclasseFind=salleclasseDao.find(salleclasse2.getId());
+//		Assert.assertNull(salleclasseFind);
+//		List<SalleClasse> salleclassesPostDelete = salleclasseDao.findAll();
+//		Assert.assertEquals(1, salleclasses.size() - salleclassesPostDelete.size());
+//		
+//		/*///////// MATIERE SALLE //////////*/
+//		List<MatiereSalle> matieresalles = matieresalleDao.findAll();
+//		matieresalleDao.delete(matieresalle2);
+//		matieresalleFind=matieresalleDao.find(matieresalle2.getId());
+//		Assert.assertNull(matieresalleFind);
+//		List<MatiereSalle> matieresallesPostDelete = matieresalleDao.findAll();
+//		Assert.assertEquals(1, matieresalles.size() - matieresallesPostDelete.size());
+//		
+//		/*///////// PERSONNE MATIERE //////////*/
+//		List<PersonneMatiere> personnematieres = personnematiereDao.findAll();
+//		personnematiereDao.delete(personnematiere2);
+//		personnematiereFind = personnematiereDao.find(personnematiere2.getId());
+//		Assert.assertNull(personnematiereFind);
+//		List<PersonneMatiere> personnematieresPostDelete = personnematiereDao.findAll();
+//		Assert.assertEquals(1, personnematieres.size() - personnematieresPostDelete.size());
+//
+//		
+//		/*///////// PERSONNE CLASSE //////////*/
+//		List<PersonneClasse> personneclasses = personneclasseDao.findAll();
+//		personneclasseDao.delete(personneclasse2);
+//		personneClasseFind=personneclasseDao.find(personneclasse2.getId());
+//		Assert.assertNull(personneClasseFind);
+//		List<PersonneClasse> personneclassesPostDelete = personneclasseDao.findAll();
+//		Assert.assertEquals(1, personneclasses.size() - personneclassesPostDelete.size());
+//		
+//		/*///////// ETABLISSEMENT PERSONNE //////////*/
+//		List<PersonneEtablissement> etabpers = persEtabDao.findAll();
+//		persEtabDao.delete(pe2);
+//		peFind=persEtabDao.find(pe2.getId());
+//		Assert.assertNull(peFind);
+//		List<PersonneEtablissement> etabpersPostDelete = persEtabDao.findAll();
+//		Assert.assertEquals(1, etabpers.size() - etabpersPostDelete.size());
+//		
+//		/*///////// EVENEMENT //////////*/
+//		List<Evenement> eventss = evenementDao.findAll();
+//		evenementDao.delete(evenement);
+//		evenementFind=evenementDao.find(evenement.getId());
+//		Assert.assertNull(evenementFind);
+//		List<Evenement> eventsPostDelete= evenementDao.findAll();
+//		Assert.assertEquals(1, eventss.size()-eventsPostDelete.size());
+//		
+//	}
+}}
