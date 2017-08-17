@@ -33,7 +33,7 @@
 					<td>${u.nom}</td>
 					<td>${u.prenom}</td>
 					<td>${u.datenaiss}</td>
-					<td>${u.status.nom}</td>
+					<td>${u.statusEnum}</td>
 					<td></td>
 					<td>
 					<a href="voir/${u.id}" class="btn btn-info btn-sm"><i class="fa fa-search"></i></a>

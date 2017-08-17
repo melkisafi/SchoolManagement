@@ -28,7 +28,7 @@ $(document).ready(function(){
 			right: 'month,agendaWeek,agendaDay'
 		},
 		locale:'fr',
-		defaultDate: '2017-05-12',
+		defaultDate: today(),
 		navLinks: true, // can click day/week names to navigate views
 		selectable: true,
 		selectHelper: true,
@@ -97,7 +97,6 @@ $(document).ready(function(){
 					$("#calendar").fullCalendar('refetchEvents');	
 				}
 			});
-			console.log(event);
 	    },
 	    eventResize: function(event) {
 	    	start = moment(event.start).format('YYYY-MM-DD HH:mm');
@@ -120,10 +119,11 @@ $(document).ready(function(){
 	    },
 		eventRender: function(event, element) {
 	        element.append("<div data-id='"+event.evenementid+"'></div>");
-	        element.append(event.prof);
-	        element.append(event.matiere); 
-	        element.append('<button type="button" class="close rm-event" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-	        element.find(".close").click(function() {
+	        element.append("<p class='title-event'><b>Professeur : </b></b></p><p class='descr-event'>"+event.prof+"</p>");
+	        element.append("<p class='title-event'><b>Matière : </b></p><p class='descr-event'>"+event.matiere+"</p>"); 
+	        element.append("<p class='title-event'> <b>Salle: </b></p><p class='descr-event'>"+event.salle+"</p>"); 
+	        element.append('<a href="#" class="close-event" data-toggle="modal" data-target="#confirm-delete">&times;</a>')
+	       	$("#confirm-delete .btn-del").bind('click', function() {
 	        	id = event.evenementid.toString();
 				
 		    	$.ajax({
@@ -136,11 +136,28 @@ $(document).ready(function(){
 			           $('#calendar').fullCalendar('removeEvents',event._id);	
 					}
 				});
+		    	$("#confirm-delete .btn-del").off("click");
             })
 		}
 
 	});
-
 	$('input#couleurMatiere').simpleColorPicker();
-
 });
+
+function today(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd = '0'+dd
+	} 
+
+	if(mm<10) {
+	    mm = '0'+mm
+	} 
+
+	today = yyyy + '-' + mm + '-' + dd;
+	return today;
+}

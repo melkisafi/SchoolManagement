@@ -64,9 +64,11 @@ public class EvenementController {
 			c.setTime(e.getDateFin());
 			datas.put("end", c.getTime());
 			datas.put("evenementid", e.getId());
-			datas.put("prof", e.getPersonne().getNom());
+			datas.put("prof", e.getPersonne().getNom()+" "+e.getPersonne().getPrenom());
 			datas.put("matiere", e.getMatiere().getNomMatiere());
 			datas.put("backgroundColor", e.getMatiere().getCouleurMatiere());
+			datas.put("borderdColor", e.getMatiere().getCouleurMatiere());
+			datas.put("salle", e.getSalle().getNom());
 			
 			arr.add(datas);
 			datas = new HashMap();

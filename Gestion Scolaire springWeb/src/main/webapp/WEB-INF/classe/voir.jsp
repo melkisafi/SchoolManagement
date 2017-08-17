@@ -58,4 +58,21 @@
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
+	
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Suppression d'un événement</h4>
+            </div>
+            <div class="modal-body">
+                Etes vous sure de vouloir supprimer cet événement ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <a class="btn btn-danger btn-del"  data-dismiss="modal"><i class="fa fa-trash"></i> Suprrimer</a>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../elements/footer.jsp" />

@@ -345,3 +345,20 @@ span.separator{
 	background:#fff;
 	padding:20px;
 }
+
+.close-event{
+	position:absolute;
+	z-index:100;
+	font-size:20px;
+	top:-5px;
+	right:4px;
+	cursor:pointer;
+	color:#fff;
+	
+}
+.title-event {
+	margin:0;
+}
+.descr-event {
+	margin-bottom:3px;
+}
