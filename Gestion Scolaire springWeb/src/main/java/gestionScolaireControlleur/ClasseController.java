@@ -48,116 +48,129 @@ public class ClasseController {
 	private MatiereDao matiereDao;
 	@Autowired
 	private SalleDao salleDao;
-		
-	
-	@RequestMapping("/list")
-	public String list(Model model, HttpServletRequest req){
-		HttpSession session = req.getSession(false);
-		Long idEtab = Long.parseLong(session.getAttribute("idEtab").toString());
-		
-		List<Classe> classe = isAdmin(session) ? classeDao.findAll(): classeDao.findClasseByEtab(idEtab);
-		
-		model.addAttribute("classe", classe);
 
-		return "classe/list";	
+	@RequestMapping("/list")
+	public String list(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+
+		if (VerifAdminUser.isConnected(session)) {
+			Long idEtab = Long.parseLong(session.getAttribute("idEtab").toString());
+			List<Classe> classe = VerifAdminUser.isAdmin(session) ? classeDao.findAll() : classeDao.findClasseByEtab(idEtab);
+			model.addAttribute("classe", classe);
+			return "classe/list";
+		}
+		return "redirect:../";
 	}
-	
+
 	@RequestMapping("/voir/{id}")
-	public String voir(@PathVariable("id") Long id, Model model, HttpServletRequest req){
+	public String voir(@PathVariable("id") Long id, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-		
-		Classe c = classeDao.find(id);
-		List<Matiere> m = matiereDao.findAll();
-		Etablissement e = etabDao.find(c.getEtablissement().getId());
-		List<Personne> profs = isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId()) : getProfsByEtab((Long) session.getAttribute("idEtab"));
-		List<Salle> s = salleDao.findAll();
-		
-		model.addAttribute("classe", c);
-		model.addAttribute("profs", profs);
-		model.addAttribute("etab", e);
-		model.addAttribute("matieres", m);
-		model.addAttribute("salles", s);
-			
-		return "classe/voir";		
+
+		if (VerifAdminUser.isConnected(session)) {
+			Classe c = classeDao.find(id);
+			List<Matiere> m = matiereDao.findAll();
+			Etablissement e = etabDao.find(c.getEtablissement().getId());
+			List<Personne> profs = VerifAdminUser.isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId())
+					: getProfsByEtab((Long) session.getAttribute("idEtab"));
+			List<Salle> s = salleDao.findAll();
+
+			model.addAttribute("classe", c);
+			model.addAttribute("profs", profs);
+			model.addAttribute("etab", e);
+			model.addAttribute("matieres", m);
+			model.addAttribute("salles", s);
+
+			return "classe/voir";
+		}
+		return "redirect:../";
 	}
-	
+
 	@RequestMapping("/add")
-	public String add(HttpServletRequest req, Model model){
+	public String add(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession(false);
-		int isAdmin = isAdmin(session) ? 1 : 0;
-		List <Etablissement> e = etabDao.findAll();
-		List<Personne> profs = isAdmin(session) ? null : getProfsByEtab((Long) session.getAttribute("idEtab"));
-		
-		model.addAttribute("mode", "add");
-		model.addAttribute("isAdmin", isAdmin);
-		model.addAttribute("etabs", e);
-		model.addAttribute("profs", profs);
-		model.addAttribute("classe", new Classe());
-			
-		return "classe/edit";		
+
+		if (VerifAdminUser.isConnected(session)) {
+			int isAdmin = VerifAdminUser.isAdmin(session) ? 1 : 0;
+			List<Etablissement> e = etabDao.findAll();
+			List<Personne> profs = VerifAdminUser.isAdmin(session) ? null : getProfsByEtab((Long) session.getAttribute("idEtab"));
+
+			model.addAttribute("mode", "add");
+			model.addAttribute("isAdmin", isAdmin);
+			model.addAttribute("etabs", e);
+			model.addAttribute("profs", profs);
+			model.addAttribute("classe", new Classe());
+
+			return "classe/edit";
+		}
+		return "redirect:../";
 	}
-	
-	@RequestMapping(value="/getEtabProf", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/getEtabProf", method = RequestMethod.GET)
 	@ResponseBody
 	public String getEtabProf(@RequestParam("idetab") Long idEtab) {
-		String datas="";
-		List<Personne> profs =  getProfsByEtab(idEtab);
-		
-		for(Personne p : profs){
-			if(!personneDao.isPrincipal(p.getId()))
-				datas += "<option class='opts-pp'  value="+p.getId()+">"+p.getNom()+"</option>";
+		String datas = "";
+		List<Personne> profs = getProfsByEtab(idEtab);
+
+		for (Personne p : profs) {
+			if (!personneDao.isPrincipal(p.getId()))
+				datas += "<option class='opts-pp'  value=" + p.getId() + ">" + p.getNom() + "</option>";
 		}
-		
+
 		return datas;
 	}
-	
-	public List<Personne> getProfsByEtab(Long idEtab){
+
+	public List<Personne> getProfsByEtab(Long idEtab) {
 		List<Personne> profs = personneDao.findProfByEtab(StatusEnum.PROFESSEUR, idEtab);
-		
+
 		return profs;
 	}
-	
+
 	@RequestMapping("edit/{id}")
-	public String edit(@PathVariable("id") Long id, Model model, HttpServletRequest req){
+	public String edit(@PathVariable("id") Long id, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-		int isAdmin = isAdmin(session) ? 1 : 0;
-		List <Etablissement> etabs = etabDao.findAll();
-		Classe c = classeDao.find(id);
-		Etablissement e = etabDao.find(c.getEtablissement().getId());
-		PersonneClasse pp = personneClasseDao.findProfPrincipal(id);
-		List<Personne> profs = isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId()) : getProfsByEtab((Long) session.getAttribute("idEtab"));
-		
-		model.addAttribute("classe", c);
-		model.addAttribute("mode", "edit");
-		model.addAttribute("isAdmin", isAdmin);
-		model.addAttribute("etabs", etabs);
-		model.addAttribute("etab", e);
-		model.addAttribute("profs", profs);
-		model.addAttribute("pp", pp.getPersonne());
-		
-		return "classe/edit";		
+
+		if (VerifAdminUser.isConnected(session)) {
+			int isAdmin = VerifAdminUser.isAdmin(session) ? 1 : 0;
+			List<Etablissement> etabs = etabDao.findAll();
+			Classe c = classeDao.find(id);
+			Etablissement e = etabDao.find(c.getEtablissement().getId());
+			PersonneClasse pp = personneClasseDao.findProfPrincipal(id);
+			List<Personne> profs = VerifAdminUser.isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId())
+					: getProfsByEtab((Long) session.getAttribute("idEtab"));
+
+			model.addAttribute("classe", c);
+			model.addAttribute("mode", "edit");
+			model.addAttribute("isAdmin", isAdmin);
+			model.addAttribute("etabs", etabs);
+			model.addAttribute("etab", e);
+			model.addAttribute("profs", profs);
+			model.addAttribute("pp", pp.getPersonne());
+
+			return "classe/edit";
+		}
+		return "redirect:../";
 	}
 
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(@RequestParam("mode") String mode,
-			@RequestParam("etab_id") Long etabId,
-			@RequestParam("personne_id") Long profId,
-			@ModelAttribute("classe") Classe classe, 
-			BindingResult result,
-			RedirectAttributes attr) throws ParseException {
-		
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@RequestParam("mode") String mode, @RequestParam("etab_id") Long etabId,
+			@RequestParam("personne_id") Long profId, @ModelAttribute("classe") Classe classe, BindingResult result,
+			RedirectAttributes attr,HttpServletRequest req) throws ParseException {
+
 		Personne p = personneDao.find(profId);
 		Etablissement e = etabDao.find(etabId);
 
-		if(mode.equals("add")){
+		HttpSession session = req.getSession(false);
+
+		if (VerifAdminUser.isConnected(session)) {
+		if (mode.equals("add")) {
 			PersonneClasse pc = new PersonneClasse();
-			
+
 			pc.setPrincipal(true);
 			pc.setClasse(classe);
 			pc.setPersonne(p);
 			classe.setEtablissement(e);
-			
-			classeDao.create(classe);	
+
+			classeDao.create(classe);
 			personneClasseDao.create(pc);
 		} else {
 			Classe c = classeDao.find(classe.getId());
@@ -168,36 +181,28 @@ public class ClasseController {
 			classeDao.update(classe);
 			personneClasseDao.update(pc);
 		}
-		
+
 		attr.addFlashAttribute("typeMess", "success");
 		attr.addFlashAttribute("message", "La classe à bien été édité");
-		
-		return "redirect:/classe/list";		
+
+		return "redirect:/classe/list";
+		}
+		return "redirect:../";
 	}
-	
+
 	@RequestMapping("/delete/{id}")
-	public String delete(@PathVariable("id") Long id, RedirectAttributes attr){
+	public String delete(@PathVariable("id") Long id, RedirectAttributes attr, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		if (VerifAdminUser.isConnected(session)) {
+		
 		Classe c = classeDao.find(id);
 		classeDao.delete(c);
-		
+
 		attr.addFlashAttribute("typeMess", "success");
 		attr.addFlashAttribute("message", "La classe à bien été supprimé");
-		
+
 		return "redirect:/classe/list";
+		}
+		return "redirect:../list";
 	}
-	
-	public boolean isAdmin(HttpSession s){
-		if(s != null){
-			return s.getAttribute("role").equals("ADMIN") ? true : false;
-		} else return false;
-	}
-	
-	public boolean isAutorized(HttpSession s, Long id){
-		if(s != null){
-			if(s.getAttribute("role").equals("USER") && s.getAttribute("idEtab") == id){
-				return true;
-			} else return false;
-		} else return false;
-	}
-	
 }

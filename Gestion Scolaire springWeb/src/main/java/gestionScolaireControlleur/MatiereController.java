@@ -84,8 +84,6 @@ public class MatiereController {
 			BindingResult result, RedirectAttributes attr, HttpServletRequest req, Model model) throws ParseException {
 		HttpSession session = req.getSession(false);
 
-//		if (result.hasErrors()){return "matiere/edit";}
-		
 		if (VerifAdminUser.isConnected(session)) {
 			if (mode.equals("add")) {
 				try {

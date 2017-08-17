@@ -39,7 +39,7 @@
               <li class="dashboard-border">
                   <a href="${pageContext.request.contextPath}/"><i class="fa fa-dashboard fa-lg"></i> Dashboard</a>
               </li>
-             
+             <% if (session.getAttribute("role").equals("ADMIN")){ %>
               <li  data-toggle="collapse" data-target="#users-actions" class="collapsed user-border">
                   <a href="#"><i class="fa fa-user"></i> Utilisateurs <span class="arrow"></span></a>
               </li>
@@ -56,7 +56,7 @@
                   <li><a href="${pageContext.request.contextPath}/etablissement/add">Ajouter un etablissement</a></li>
                   <li><a href="${pageContext.request.contextPath}/etablissement/list">Liste des etablissements</a></li>
               </ul>
-              
+              <%} %>
               
                <li  data-toggle="collapse" data-target="#subject-actions" class="collapsed center-border">
                   <a href="#"><i class="fa fa-book"></i> Matières <span class="arrow"></span></a>
@@ -84,8 +84,8 @@
                   <a href="#"><i class="fa fa-user-circle-o"></i> Professeurs <span class="arrow"></span></a>
               </li>
               <ul class="sub-menu collapse" id="prof-actions">
-                  <li><a href="${pageContext.request.contextPath}/personne/addprof">Ajouter un professeur</a></li>
-                  <li><a href="${pageContext.request.contextPath}/personne/list/id">Liste des professeur</a></li>
+                  <li><a href="${pageContext.request.contextPath}/utilisateur/add">Ajouter un professeur</a></li>
+                  <li><a href="${pageContext.request.contextPath}/utilisateur/list">Liste des professeur</a></li>
               </ul>
           </ul>
         </div>
