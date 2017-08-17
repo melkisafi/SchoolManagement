@@ -22,12 +22,10 @@ import gestionScolaire.metier.dao.PersonneDao;
 import gestionScolaire.metier.dao.PersonneEtablissementDao;
 import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.LoginDao;
-import gestionScolaire.metier.dao.StatusDao;
 import gestionScolaire.metier.model.Adresse;
 import gestionScolaire.metier.model.Civilite;
 import gestionScolaire.metier.model.Personne;
 import gestionScolaire.metier.model.PersonneEtablissement;
-import gestionScolaire.metier.model.Status;
 import gestionScolaire.metier.model.StatusEnum;
 import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Login;
@@ -38,8 +36,6 @@ public class PersonneController {
 
 	@Autowired
 	private PersonneDao personneDao;
-	@Autowired
-	private StatusDao statusDao;
 	@Autowired
 	private EtablissementDao etablissementDao;
 	@Autowired
