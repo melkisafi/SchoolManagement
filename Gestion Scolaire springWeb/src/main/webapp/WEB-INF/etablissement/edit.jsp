@@ -14,6 +14,7 @@
 		<div class="col-md-5 col-sm-12">
 			<form:form modelAttribute="etablissement" action="/GestionScolaireSpringWeb/etablissement/save" method="post" cssClass="form-horizontal">
 				<form:hidden path="id" readonly="${mode = 'edit'}"/>
+				<form:errors path="id" cssStyle="color:red"></form:errors>
 				<form:hidden path="version" />
 				<input name="mode" type="hidden" value="${mode}" >	
 				

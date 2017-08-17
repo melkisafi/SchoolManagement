@@ -97,7 +97,7 @@ public class Salle {
 	
 	@ManyToOne
 	@JoinColumn(name="etablissement_id")
-	@NotNull
+//	@NotNull
 	@Valid
 	public Etablissement getEtablissement() {
 		return etablissement;

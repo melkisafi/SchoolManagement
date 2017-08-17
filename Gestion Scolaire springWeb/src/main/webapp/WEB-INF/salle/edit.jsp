@@ -26,7 +26,7 @@
 						<form:option value="${et.id}">${et.nom}</form:option>
 					</c:forEach>
 				</form:select>
-				<form:errors path="etablissement.id" cssStyle="color:red"></form:errors>
+				<form:errors path="etablissement.nom" cssStyle="color:red"></form:errors>
 			</div>
 
 			<div class="form-group">
@@ -40,20 +40,6 @@
 				<form:input path="capacite" type="number" cssClass="form-control" />
 				<form:errors path="capacite" cssStyle="color:red"></form:errors>
 			</div>
-
-<form:form modelAttribute="SM" action="${pageContext.request.contextPath}/salle/save" method="post" cssClass="form-horizontal">
-			<div class="form-group">
-				<form:label path="matiere">Type</form:label>
-				<form:select path="matiere.idMatiere" cssClass="form-control">
-					<form:option value="${null}">Choisir l'établissement</form:option>
-					<c:forEach items="${mats}" var="m">
-						<form:option value="${m.idMatiere}">${m.nomMatiere} </form:option>
-					</c:forEach>
-				</form:select>
-				<form:errors path="matiere.idMatiere" cssStyle="color:red"></form:errors>
-			</div>
-</form:form>
-
 			<button type="submit" class="btn btn-warning pull-right">
 				<i class="fa fa-pencil"></i> Editer
 			</button>

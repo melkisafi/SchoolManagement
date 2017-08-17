@@ -48,7 +48,7 @@ public class Etablissement {
 
 	@Id
 	@GeneratedValue
-	@NotNull(message="Veuillez sélectionner l''établissement")
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,6 +59,7 @@ public class Etablissement {
 
 	@Column
 	@Size(min=3, message="Merci de saisir le nom de l'établissement")
+	@NotNull(message="Veuillez sélectionner l''établissement")
 	public String getNom() {
 		return nom;
 	}
