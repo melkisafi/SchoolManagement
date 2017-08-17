@@ -25,7 +25,7 @@
 
             <div class="col-xs-12 col-sm-4">
                 <div class="stat">
-                   <div class="icon-stat icon-center">
+                   <div class="icon-stat icon-salle">
                       <i class="fa fa-group"></i>
                     </div>
                     <div class="stat-content">
@@ -38,7 +38,7 @@
 
             <div class="col-xs-12 col-sm-4">
                 <div class="stat">
-                   <div class="icon-stat icon-call">
+                   <div class="icon-stat icon-classe">
                       <i class="fa fa-graduation-cap"></i>
                     </div>
                     <div class="stat-content">

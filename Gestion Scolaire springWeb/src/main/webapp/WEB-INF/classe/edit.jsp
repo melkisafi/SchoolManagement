@@ -18,12 +18,12 @@
 				
 				<div class="form-group">
 				  <form:label path="nom">Nom</form:label>
-				  <form:input path="nom" type="text" cssClass="form-control" />
+				  <form:input path="nom" type="text" cssClass="form-control"  />
 				</div>
 
 				<div class="form-group" id="profs">
 					<label for="professeurs">Professeur principal</label>
-					<select name="personne_id" id="professeurs" class="form-control">
+					<select name="personne_id" id="professeurs" class="form-control" required>
 						<c:choose>
 							<c:when test="${mode == 'edit'}"><option value="${pp.id}">${pp.nom}</option></c:when>
 							<c:otherwise><option value="${null}" class="opts-pp"></option></c:otherwise>
@@ -40,7 +40,7 @@
 					<c:when test="${isAdmin == 1}">
 						<div class="form-group">
 							<label for="etab">Etablissement</label>
-							<select name="etab_id" id="etab" class="form-control">
+							<select name="etab_id" id="etab" class="form-control" required>
 								<c:choose>
 									<c:when test="${mode == 'edit'}"><option value="${etab.id}">${etab.nom }</option></c:when>
 									<c:otherwise><option value="${null}"></option></c:otherwise>

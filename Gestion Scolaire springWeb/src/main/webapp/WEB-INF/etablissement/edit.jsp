@@ -20,13 +20,13 @@
 				
 				<div class="form-group">
 				  <form:label path="nom">Nom</form:label>
-				  <form:input path="nom" type="text" cssClass="form-control" />
+				  <form:input path="nom" type="text" cssClass="form-control" required="required" />
 				  <form:errors path="nom" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="type">Type</form:label>
-				  <form:select path="type" cssClass="form-control">
+				  <form:select path="type" cssClass="form-control" required="required">
 				  	<form:option value="${null}">Veuillez choisir le type de l'établissement</form:option>
 				  	<form:options items="${type}"></form:options>
 				  </form:select>
@@ -35,31 +35,31 @@
 				
 				<div class="form-group">
 				  <form:label path="tel">Tel</form:label>
-				  <form:input path="tel" type="number" cssClass="form-control" />
+				  <form:input path="tel" type="number" cssClass="form-control"  required="required"/>
 				  <form:errors path="tel" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.adresse">Adresse</form:label>
-				  <form:input path="adr.adresse" type="text" cssClass="form-control" />
+				  <form:input path="adr.adresse" type="text" cssClass="form-control" required="required"/>
 				  <form:errors path="adr.adresse" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.codepostal">Code postal</form:label>
-				  <form:input path="adr.codepostal" type="text" cssClass="form-control" />
+				  <form:input path="adr.codepostal" type="text" cssClass="form-control" required="required" />
 				  <form:errors path="adr.codepostal" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.ville">Ville</form:label>
-				  <form:input path="adr.ville" type="text" cssClass="form-control" />
+				  <form:input path="adr.ville" type="text" cssClass="form-control" required="required"/>
 				  <form:errors path="adr.ville" cssStyle="color:red"></form:errors>
 				</div>
 				
 				<div class="form-group">
 				  <form:label path="adr.pays">Pays</form:label>
-				  <form:input path="adr.pays" type="text" cssClass="form-control" />
+				  <form:input path="adr.pays" type="text" cssClass="form-control" required="required"/>
 				  <form:errors path="adr.pays" cssStyle="color:red"></form:errors>
 				</div>
 						 

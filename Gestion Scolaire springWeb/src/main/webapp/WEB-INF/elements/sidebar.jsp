@@ -44,8 +44,8 @@
                   <a href="#"><i class="fa fa-user"></i> Utilisateurs <span class="arrow"></span></a>
               </li>
               <ul class="sub-menu collapse" id="users-actions">
-                  <li><a href="${pageContext.request.contextPath}/personne/add">Ajouter un utilisateur</a></li>
-                  <li><a href="${pageContext.request.contextPath}/personne/list">Liste des utilisateur</a></li>
+                  <li><a href="${pageContext.request.contextPath}/utilisateur/add">Ajouter un utilisateur</a></li>
+                  <li><a href="${pageContext.request.contextPath}/utilisateur/list">Liste des utilisateur</a></li>
               </ul>
 
 

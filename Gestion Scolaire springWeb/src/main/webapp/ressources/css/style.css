@@ -245,6 +245,15 @@ a, a:hover {
 .icon-call {
     background-color: #A48AD4;
 }
+.icon-matiere{
+  background:#A48AD4;
+}
+.icon-salle{
+  background:#aad13e;
+}
+.icon-classe{
+  background:#3e56d1;
+}
 .stat-content h1, .stat-content h5 {
   text-align:justify;
 }

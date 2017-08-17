@@ -24,7 +24,7 @@
 					
 					<div class="form-group">
 					  <form:label path="civilite">Civilite</form:label>
-					  <form:select path="civilite" cssClass="form-control">
+					  <form:select path="civilite" cssClass="form-control" required="required">
 					  	<form:option value="${null}">Choisir</form:option>
 					  	<form:options items="${civilites}"></form:options>
 					  </form:select>
@@ -32,17 +32,17 @@
 					
 					<div class="form-group">
 					  <form:label path="nom">Nom</form:label>
-					  <form:input path="nom" type="text" cssClass="form-control" />
+					  <form:input path="nom" type="text" cssClass="form-control" required="required"/>
 					</div>
 					
 					<div class="form-group">
 					  <form:label path="prenom">Prenom</form:label>
-					  <form:input path="prenom" type="text" cssClass="form-control" />
+					  <form:input path="prenom" type="text" cssClass="form-control" required="required" />
 					</div>
 					
 					<div class="form-group">
 					  <form:label path="datenaiss">Date de naissance</form:label>
-					  <form:input path="datenaiss" type="date" cssClass="form-control" />
+					  <form:input path="datenaiss" type="date" cssClass="form-control" required="required"/>
 					</div>
 				</div>
 				
@@ -53,22 +53,22 @@
 					
 					<div class="form-group">
 					  <form:label path="adresse.adresse">Adresse</form:label>
-					  <form:input path="adresse.adresse" type="text" cssClass="form-control" />
+					  <form:input path="adresse.adresse" type="text" cssClass="form-control" required="required" />
 					</div>
 					
 					<div class="form-group">
 					  <form:label path="adresse.codepostal">Code postal</form:label>
-					  <form:input path="adresse.codepostal" type="text" cssClass="form-control" />
+					  <form:input path="adresse.codepostal" type="text" cssClass="form-control" required="required"/>
 					</div>
 					
 					<div class="form-group">
 					  <form:label path="adresse.ville">Ville</form:label>
-					  <form:input path="adresse.ville" type="text" cssClass="form-control" />
+					  <form:input path="adresse.ville" type="text" cssClass="form-control" required="required"/>
 					</div>
 					
 					<div class="form-group">
 					  <form:label path="adresse.pays">Pays</form:label>
-					  <form:input path="adresse.pays" type="text" cssClass="form-control" />
+					  <form:input path="adresse.pays" type="text" cssClass="form-control" required="required"/>
 					</div>
 					
 				</div>		 
@@ -80,7 +80,7 @@
 					
 					<div class="form-group">
 						<label for="etablissement">Etablissement</label>
-						<select class="form-control" id="etablissement" name="etablissement_id">
+						<select class="form-control" id="etablissement" name="etablissement_id" required> 
 							<c:choose>
 								<c:when test="${mode == 'edit'}"><option value="${etablissement.id}">${etablissement.nom}</option></c:when>
 								<c:otherwise>
@@ -96,14 +96,14 @@
 					
 					<div class="form-group">
 						<form:label path="role">Role</form:label>
-						<form:select path="role" cssClass="form-control">
+						<form:select path="role" cssClass="form-control" required="required">
 							<form:option value="${null}">Choisir</form:option>
 					  		<form:options items="${roles}"></form:options>
 						</form:select>
 					</div>
 					<div class="form-group">
 						<form:label path="statusEnum">Status</form:label>
-						<form:select path="statusEnum" cssClass="form-control">
+						<form:select path="statusEnum" cssClass="form-control" required="required">
 							<form:option value="${null}">Choisir</form:option>
 					  		<form:options items="${statusenums}"></form:options>
 						</form:select>
@@ -117,7 +117,7 @@
 					<div class="form-group">
 					  <label for="username">login</label>
 					<c:choose>
-					  	<c:when test="${mode == 'edit'}">  <input id="username" name="username" type="text" class="form-control" value="${login.username}" /></c:when>
+					  	<c:when test="${mode == 'edit'}">  <input id="username" name="username" type="text" class="form-control" value="${login.username}" required/></c:when>
 						  <c:otherwise>
 						  	<input id="username" type="text" name="username" class="form-control"  required/>
 						  </c:otherwise>
@@ -127,7 +127,7 @@
 					<div class="form-group">
 					  <label for="password">Password</label>
 					  <c:choose>
-					  	<c:when test="${mode == 'edit'}">  <input id="password" name="password" type="password" class="form-control" value="${login.password}" /></c:when>
+					  	<c:when test="${mode == 'edit'}">  <input id="password" name="password" type="password" class="form-control" value="${login.password}" required /></c:when>
 						  <c:otherwise>
 						  	<input id="password" type="password" name="password" class="form-control" required/>
 						  </c:otherwise>

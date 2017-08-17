@@ -25,12 +25,12 @@
 				
 				<div class="form-group">
 				  <form:label path="nomMatiere">Nom</form:label>
-				  <form:input path="nomMatiere" type="text" cssClass="form-control" value="${nomMat}" />
+				  <form:input path="nomMatiere" type="text" cssClass="form-control" value="${nomMat}" required="required"/>
 				  <form:errors path="nomMatiere" cssStyle="color:red"></form:errors>
 				</div>	 
 				<div class="form-group">
 				  <form:label path="couleurMatiere">couleur</form:label>
-				  <form:input path="couleurMatiere" type="text" cssClass="form-control" value="${colMat}" />
+				  <form:input path="couleurMatiere" type="text" cssClass="form-control" value="${colMat}" required="required"/>
 				  <form:errors path="couleurMatiere" cssStyle="color:red"></form:errors>
 				</div>	
 				<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer</button>

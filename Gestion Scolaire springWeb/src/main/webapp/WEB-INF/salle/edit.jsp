@@ -24,10 +24,10 @@
 			<input name="mode" type="hidden" value="${mode}">
 
 			<c:choose>
-					<c:when test="${isAdmin == 1}">
+				<c:when test="${isAdmin == 1}">
 			<div class="form-group">
 				<form:label path="etablissement">Type</form:label>
-				<form:select path="etablissement.id" id="etablissement" cssClass="form-control">
+				<form:select path="etablissement.id" id="etablissement" cssClass="form-control" required="required">
 					<form:option value="${null}">Choisir l'établissement</form:option>
 					<c:forEach items="${etab}" var="et">
 						<form:option value="${et.id}">${et.nom}</form:option>
@@ -36,19 +36,19 @@
 			</div>
 					</c:when>
 					<c:otherwise>
-						<form:input type="hidden" path="etablissement.id" name="etab_id" value="${etabId}" ></form:input>
+						<form:input type="hidden" path="etablissement.id" name="etab_id" value="${etabId}" required="required" />
 					</c:otherwise>
 				</c:choose>
 				
 			<div class="form-group">
 				<form:label path="nom">Nom de la salle</form:label>
-				<form:input path="nom" type="text" cssClass="form-control" value="${nomSal}"/>
+				<form:input path="nom" type="text" cssClass="form-control" value="${nomSal}" required="required" />
 				<form:errors path="nom" cssStyle="color:red"></form:errors>
 			</div>
 
 			<div class="form-group">
 				<form:label path="capacite">Capacité</form:label>
-				<form:input path="capacite" type="number" cssClass="form-control" value="${capSal }" />
+				<form:input path="capacite" type="number" cssClass="form-control" value="${capSal }" required="required"/>
 				<form:errors path="capacite" cssStyle="color:red"></form:errors>
 			</div>
 			<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i> Editer </button>

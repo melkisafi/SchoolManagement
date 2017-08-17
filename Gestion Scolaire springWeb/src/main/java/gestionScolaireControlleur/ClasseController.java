@@ -70,6 +70,7 @@ public class ClasseController {
 			Classe c = classeDao.find(id);
 			List<Matiere> m = matiereDao.findAll();
 			Etablissement e = etabDao.find(c.getEtablissement().getId());
+			Personne p = c.getPersonneClasses().get(0).getPersonne();
 			List<Personne> profs = VerifAdminUser.isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId())
 					: getProfsByEtab((Long) session.getAttribute("idEtab"));
 			List<Salle> s = salleDao.findAll();
@@ -78,6 +79,7 @@ public class ClasseController {
 			model.addAttribute("profs", profs);
 			model.addAttribute("etab", e);
 			model.addAttribute("matieres", m);
+			model.addAttribute("prof", p);
 			model.addAttribute("salles", s);
 
 			return "classe/voir";

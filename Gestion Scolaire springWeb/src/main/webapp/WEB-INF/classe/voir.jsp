@@ -7,7 +7,39 @@
 <jsp:include page="../elements/sidebar.jsp" />
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="page-header"><h1>Classe <small>${classe.nom}</small></h1></div>
-		
+		<div class="row">
+		  <div class="col-xs-12 col-sm-4">
+                <div class="stat">
+                    <div class="icon-stat icon-user">
+                    <i class="fa fa-user-circle-o"></i>
+                  </div>
+                  <div class="stat-content">
+                      <h1>${prof.nom} ${prof.prenom}</h1>
+                      <h5>Professeurs principal</h5>                     
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="hidden-sm col-sm-4">
+               
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <div class="stat">
+                   <div class="icon-stat icon-center">
+                      <i class="fa fa-bank"></i>
+                    </div>
+                    <div class="stat-content">
+                      <h1>${etab.nom}</h1>
+                      <h5>Etablissement</h5>                     
+                    </div>
+                    <div class="clearfix"></div>
+                 </div>
+            </div>
+        </div>
+        
+		<div class="page-header"><h3>Agenda</h3></div>
 		<div class="row" >
 			<div id="calendar"></div>
 		</div>
