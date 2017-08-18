@@ -19,6 +19,8 @@ import javax.persistence.Version;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity	
@@ -149,7 +151,8 @@ public class Personne {
 		this.personneEtablissement = personneEtablissement;
 	}
 
-	@OneToMany(mappedBy="personne")
+	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<PersonneMatiere> getPersonneMatiere() {
 		return personneMatiere;
 	}
@@ -158,7 +161,8 @@ public class Personne {
 		this.personneMatiere = personneMatiere;
 	}
 	
-	@OneToMany(mappedBy="personne")
+	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<Evenement> getEvenements() {
 		return evenements;
 	}
@@ -167,7 +171,8 @@ public class Personne {
 		this.evenements = evenements;
 	}
 
-	@OneToMany(mappedBy="personne")	
+	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	public List<PersonneClasse> getPersonneClasses() {
 		return personneClasses;
 	}

@@ -72,7 +72,7 @@ public class EtablissementController {
 			int nbprof = p == null ? 0 : p.size();
 			int nbclasse = c == null ? 0 : c.size();
 			int nbsalle = s == null ? 0 : s.size();
-
+			
 			model.addAttribute("nbProf", nbprof);
 			model.addAttribute("nbClasse", nbclasse);
 			model.addAttribute("nbSalle", nbsalle);

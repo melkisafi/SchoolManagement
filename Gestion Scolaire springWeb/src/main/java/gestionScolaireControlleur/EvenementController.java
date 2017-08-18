@@ -69,6 +69,7 @@ public class EvenementController {
 			datas.put("backgroundColor", e.getMatiere().getCouleurMatiere());
 			datas.put("borderdColor", e.getMatiere().getCouleurMatiere());
 			datas.put("salle", e.getSalle().getNom());
+			datas.put("id", e.getId());
 			
 			arr.add(datas);
 			datas = new HashMap();

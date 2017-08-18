@@ -18,9 +18,8 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         	
           <div class="row">
-          
+          <% if (session.getAttribute("role").equals("ADMIN")){ %>
             <div class="col-xs-12 col-sm-4">
-			<% if (session.getAttribute("role").equals("ADMIN")){ %>
               
               <div class="action">
                 <a href="${pageContext.request.contextPath}/utilisateur/add">
@@ -30,8 +29,7 @@
               </div>
 
             </div>
-			<% } %>
-			<% if (session.getAttribute("role").equals("ADMIN")){ %>  
+
             <div class="col-xs-12 col-sm-4">
               <div class="action">
                 <a href="${pageContext.request.contextPath}/etablissement/add">

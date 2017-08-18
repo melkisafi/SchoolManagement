@@ -96,7 +96,7 @@
 										<td>${p.id}</td>
 										<td>${p.nom}</td>
 										<td>${p.prenom}</td>
-										<td><a href="/GestionScolaireSpringWeb/personne/edit/${p.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
+										<td><a href="/GestionScolaireSpringWeb/utilisateur/edit/${p.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -154,8 +154,9 @@
 										<td>${c.id}</td>
 										<td>${c.nom}</td>
 										<td>
+											<a href="/GestionScolaireSpringWeb/classe/voir/${c.id}" class="btn btn-info btn-sm"><i class="fa fa-search"></i></a>
+										
 											<a href="/GestionScolaireSpringWeb/classe/edit/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-											<a href="/GestionScolaireSpringWeb/classe/voir/${c.id}" class="btn btn-warning btn-sm"><i class="fa fa-search"></i></a>
 										</td>
 									</tr>
 								</c:forEach>

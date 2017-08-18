@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import gestionScolaire.metier.dao.EtablissementDao;
 import gestionScolaire.metier.dao.LoginDao;
+import gestionScolaire.metier.model.Etablissement;
 import gestionScolaire.metier.model.Login;
 
 
@@ -23,6 +25,8 @@ public class LoginController {
 	
 	@Autowired
 	private LoginDao loginDao;
+	@Autowired
+	private EtablissementDao etabDao;
 	
 	@RequestMapping("/login")
 	public String signin(Model model, HttpServletRequest r){
@@ -39,32 +43,37 @@ public class LoginController {
 		RedirectAttributes attr){
 
 		Login login = loginDao.checkLogin(username, password);
-		
 		if(login != null){
-			Long idEtab = login.getPersonne().getPersonneEtablissement().get(0).getEtablissement().getId();
-			Long uid = login.getPersonne().getId();
-			String role = login.getPersonne().getRole().name();
-			
-			// reutilite la session existante ou 
-			//en cree une si elle n'existe pas
-			HttpSession session = req.getSession(true);
-			
-			session.setAttribute("userid", uid);
-			session.setAttribute("idEtab", idEtab);
-			session.setAttribute("role", role);
-			session.setAttribute("username", login.getUsername());
-			session.setAttribute("loginid", login.getId());
-			session.setAttribute("nom", login.getPersonne().getNom());
-			session.setAttribute("prenom", login.getPersonne().getPrenom());
-			
-			session.setMaxInactiveInterval(3000); //300 seconde de session
-			
-			attr.addFlashAttribute("typeMess", "success");
-			attr.addFlashAttribute("message", "Bienvenue, vous êtes maintenant connecté");
-			
-			
-			return login.getVersion() == 0 ?  "redirect:changePassword" : "redirect:/";
-			
+			if( login.getPersonne().getPersonneEtablissement().size() > 0){
+				Long idEtab = login.getPersonne().getPersonneEtablissement().get(0).getEtablissement().getId();
+				Long uid = login.getPersonne().getId();
+				String role = login.getPersonne().getRole().name();
+				
+				// reutilite la session existante ou 
+				//en cree une si elle n'existe pas
+				HttpSession session = req.getSession(true);
+				
+				session.setAttribute("userid", uid);
+				session.setAttribute("idEtab", idEtab);
+				session.setAttribute("role", role);
+				session.setAttribute("username", login.getUsername());
+				session.setAttribute("loginid", login.getId());
+				session.setAttribute("nom", login.getPersonne().getNom());
+				session.setAttribute("prenom", login.getPersonne().getPrenom());
+				
+				session.setMaxInactiveInterval(3000); //300 seconde de session
+				
+				attr.addFlashAttribute("typeMess", "success");
+				attr.addFlashAttribute("message", "Bienvenue, vous êtes maintenant connecté");
+				
+				
+				return login.getVersion() == 0 ?  "redirect:changePassword" : "redirect:/";
+			} else {
+				attr.addFlashAttribute("typeMess", "danger");
+				attr.addFlashAttribute("message", "Vous êtes rattacher à aucun établissement");
+				
+				return "redirect:login";
+			}
 		} else {
 			attr.addFlashAttribute("typeMess", "danger");
 			attr.addFlashAttribute("message", "Login ou mot de passe incorrect");

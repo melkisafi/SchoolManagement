@@ -23,7 +23,6 @@
 				<th>Prenom</th>
 				<th>Date de naissance</th>
 				<th>Status</th>
-				<th>Etablissement</th>
 				<th colspan="3"></th>
 			</tr>
 			<c:forEach items="${users}" var="u">
@@ -34,9 +33,7 @@
 					<td>${u.prenom}</td>
 					<td>${u.datenaiss}</td>
 					<td>${u.statusEnum}</td>
-					<td></td>
 					<td>
-					<a href="voir/${u.id}" class="btn btn-info btn-sm"><i class="fa fa-search"></i></a>
 					<a href="edit/${u.id}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
 					<a href="delete/${u.id}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 					</td>

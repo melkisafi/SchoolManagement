@@ -49,7 +49,6 @@ public class Etablissement {
 
 	@Id
 	@GeneratedValue
-	
 	public Long getId() {
 		return id;
 	}

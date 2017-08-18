@@ -123,9 +123,11 @@ $(document).ready(function(){
 	        element.append("<p class='title-event'><b>Matière : </b></p><p class='descr-event'>"+event.matiere+"</p>"); 
 	        element.append("<p class='title-event'> <b>Salle: </b></p><p class='descr-event'>"+event.salle+"</p>"); 
 	        element.append('<a href="#" class="close-event" data-toggle="modal" data-target="#confirm-delete">&times;</a>')
-	       	$("#confirm-delete .btn-del").bind('click', function() {
+	       	element.find(".close-event").click(function() {
 	        	id = event.evenementid.toString();
-				
+	        	
+				console.log(event);
+				$(".btn-del").bind('click',function(){
 		    	$.ajax({
 					url:'http://localhost:8080/GestionScolaireSpringWeb/evenement/delete',
 					method:'POST',
@@ -136,9 +138,22 @@ $(document).ready(function(){
 			           $('#calendar').fullCalendar('removeEvents',event._id);	
 					}
 				});
-		    	$("#confirm-delete .btn-del").off("click");
+		    	$(".btn-del").off("click");
+				
+				});
             })
-		}
+		},
+		eventClick: function(event) {
+			start = moment(event.start).format('DD-MM-YYYY HH:mm');
+			end = moment(event.end).format('HH:mm');
+			$("#viewevent .modal-header .modal-title").remove();
+			$("#viewevent .modal-body .infevent").remove();
+			$("#viewevent .modal-header").append("<div class='modal-title'> Evenement du :"+start+" à "+end+"</div>");
+			
+			$("#viewevent .modal-body").append("<div class='infevent'><p>Professeur : "+event.prof+"</p><p>Matiere : "+event.matiere+"</p><p>Salle : "+event.salle+"</p></div>");
+			$("#viewevent").modal('show');
+	        
+	    }
 
 	});
 	$('input#couleurMatiere').simpleColorPicker();

@@ -65,15 +65,16 @@ public class ClasseController {
 	@RequestMapping("/voir/{id}")
 	public String voir(@PathVariable("id") Long id, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-
+	
 		if (VerifAdminUser.isConnected(session)) {
 			Classe c = classeDao.find(id);
 			List<Matiere> m = matiereDao.findAll();
 			Etablissement e = etabDao.find(c.getEtablissement().getId());
-			Personne p = c.getPersonneClasses().get(0).getPersonne();
+			Personne p = c.getPersonneClasses().size() > 0 ? c.getPersonneClasses().get(0).getPersonne() : null;
 			List<Personne> profs = VerifAdminUser.isAdmin(session) ? getProfsByEtab(c.getEtablissement().getId())
 					: getProfsByEtab((Long) session.getAttribute("idEtab"));
-			List<Salle> s = salleDao.findAll();
+			List<Salle> s = VerifAdminUser.isAdmin(session) ? salleDao.findAllByEtab(c.getEtablissement().getId())
+					: salleDao.findAllByEtab((Long) session.getAttribute("idEtab"));
 
 			model.addAttribute("classe", c);
 			model.addAttribute("profs", profs);

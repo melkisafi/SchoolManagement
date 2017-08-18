@@ -1,5 +1,5 @@
 package gestionScolaire.metier.model;
 
 public enum TypeEtab {
-	COLLEGE, LYCEE, PRIMAIRE
+	COLLEGE, LYCEE, PRIMAIRE, UNIVERSITE
 }

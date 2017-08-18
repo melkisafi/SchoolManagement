@@ -80,13 +80,15 @@
                   <li><a href="${pageContext.request.contextPath}/classe/add">Ajouter une classe</a></li>
                   <li><a href="${pageContext.request.contextPath}/classe/list">Liste des classes</a></li>
               </ul>
+               <% if (session.getAttribute("role").equals("ADMIN")){ %>
                <li  data-toggle="collapse" data-target="#prof-actions" class="collapsed center-border">
                   <a href="#"><i class="fa fa-user-circle-o"></i> Professeurs <span class="arrow"></span></a>
               </li>
               <ul class="sub-menu collapse" id="prof-actions">
                   <li><a href="${pageContext.request.contextPath}/utilisateur/add">Ajouter un professeur</a></li>
-                  <li><a href="${pageContext.request.contextPath}/utilisateur/list">Liste des professeur</a></li>
+                  <li><a href="${pageContext.request.contextPath}/utilisateur/professeur">Liste des professeur</a></li>
               </ul>
+                <% } %>
           </ul>
         </div>
        </div>

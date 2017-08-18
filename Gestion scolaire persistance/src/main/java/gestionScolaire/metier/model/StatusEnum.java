@@ -1,5 +1,5 @@
 package gestionScolaire.metier.model;
 
 public enum StatusEnum {
-	PROFESSEUR, DIRECTEUR, CHOMEUR
+	PROFESSEUR, DIRECTEUR, ELEVE, EXTERIEUR, CPE
 }
