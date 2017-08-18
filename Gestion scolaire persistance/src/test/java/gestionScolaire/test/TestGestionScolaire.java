@@ -122,7 +122,7 @@ public class TestGestionScolaire {
 		Personne admin = new Personne(civ.MR, role.ADMIN, StatusEnum.PROFESSEUR, login, "Maquaire", "Jérémy", datenaiss, adrPers);
 		personneDao.create(admin);
 		
-		Personne qui = new Personne(civ.MME, role.USER,  StatusEnum.CHOMEUR,loginMaj, "FERRY", "Joanne", bDay, adrPersMaj);
+		Personne qui = new Personne(civ.MME, role.USER,  StatusEnum.ELEVE,loginMaj, "FERRY", "Joanne", bDay, adrPersMaj);
 		personneDao.create(qui);
 		Personne personneFind=personneDao.find(qui.getId());
 		Assert.assertEquals(personneFind.getCivilite(),qui.getCivilite());
